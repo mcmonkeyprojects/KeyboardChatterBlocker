@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("KeyboardChatterBlocker")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A quick handy program to block keyboard chatter.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("KeyboardChatterBlocker")]
