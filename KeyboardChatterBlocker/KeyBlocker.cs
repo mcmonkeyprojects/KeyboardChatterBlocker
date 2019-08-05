@@ -166,6 +166,11 @@ namespace KeyboardChatterBlocker
         public AcceleratedKeyMap<int> StatsKeyChatter = new AcceleratedKeyMap<int>();
 
         /// <summary>
+        /// A mapping of keys to a bool indicating if they are thought to be down (to catch holding down a key and not bork it).
+        /// </summary>
+        public AcceleratedKeyMap<bool> KeyIsDown = new AcceleratedKeyMap<bool>();
+
+        /// <summary>
         /// Whether any key presses have occurred (and thus stats have changed).
         /// </summary>
         public bool AnyKeyChange = false;
@@ -182,6 +187,11 @@ namespace KeyboardChatterBlocker
                 return true;
             }
             AnyKeyChange = true;
+            if (KeyIsDown[key]) // Key seems already down = key is being held, not chattering, so allow it.
+            {
+                return true;
+            }
+            KeyIsDown[key] = true;
             StatsKeyCount[key]++;
             ulong timeNow = GetTickCount64();
             ulong timeLast = KeysToLastPressTime[key];
@@ -213,6 +223,7 @@ namespace KeyboardChatterBlocker
             {
                 return true;
             }
+            KeyIsDown[key] = false;
             if (!KeysWereDownBlocked[key]) // Down wan't blocked = allow it.
             {
                 return true;
