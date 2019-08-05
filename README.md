@@ -27,6 +27,11 @@ Replacing keyboard switches or entire keyboards, of course, can be difficult to 
 
 I've taken a similar approach to the software solutions mentioned above, but with the notable extra feature of: you can configure the chatter threshold on a per-key basis. So I can have a high threshold for my 'h' key, and a lower threshold for the rest of my keyboard. Fixes the chatter without getting in the way! Anyone who uses this project will be treated to a rather straightforward set of GUIs to control this (or you can edit a config file, if that's your preference). (Also: I've made a point of making very clean clear code for this project, and have it under the MIT license, as I want it to be something anyone can fork and feel they've made a good decision forking instead of remaking.)
 
+#### Screenshots:
+
+![Log](images/screenshot01.png)
+![Configure](images/screenshot02.png)
+
 ---
 
 ### Requirements
