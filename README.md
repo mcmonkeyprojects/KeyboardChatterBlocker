@@ -40,10 +40,14 @@ I've taken a similar approach to the software solutions mentioned above, but wit
 
 1. Download the [release file](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker/releases) (Or build from source)
 2. Save the .exe in ... any folder anywhere really, just not one that requires admin access (the program must be able to save a config file into it's own folder). A sub-folder on your desktop or your documents is fine.
+3. Run the .exe
+4. Configure settings as preferred, test with care (check the "Enable" box to have the blocker active, uncheck it if it's in the way)
+5. Check the "Enable", "Start In Tray", and "Start With Windows" boxes so it'll be active and just always be there.
+6. Click the "X" to close the window (the program will hide in the system tray for so long as "Start In Tray" is checked), and type happily with the program protecting you from chatter! If you need to adjust configuration, just go open the program in the tray and adjust freely. To stop the program from being in the way if you decide you don't need it anymore, just uncheck "Start In Tray" and "Start With Windows" ... once you close it after that, it will be gone until you specifically open it back up again.
 
 ### Config File Notes
 
-The config file is literally just a `config.txt` file in the same folder as the executable. Each line is one setting to apply. Prefix a line with `#` to make it a comment. All uncommented (and non-blank) lines are settings, of the form `name: value`. The following settings are available:
+**If you're the type of person to care about the config file and want to edit it manually,** The config file is literally just a `config.txt` file in the same folder as the executable. Each line is one setting to apply. Prefix a line with `#` to make it a comment. All uncommented (and non-blank) lines are settings, of the form `name: value`. The following settings are available:
 - `is_enabled`: Set to `true` to be activated as normal, or `false` to turn the chatter protection off.
 - `global_chatter`: Set to the time (in ms) for the default global keyboard chatter threshold.
 - `hide_in_system_tray`: Set to `true` to make the program hide in the system tray at start, or `false` to load as a visible GUI app.
