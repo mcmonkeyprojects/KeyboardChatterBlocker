@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.IO;
 
 namespace KeyboardChatterBlocker
 {
@@ -15,11 +16,100 @@ namespace KeyboardChatterBlocker
     public class KeyBlocker
     {
         /// <summary>
+        /// Location of the config file.
+        /// </summary>
+        public const string CONFIG_FILE = "./config.txt";
+
+        /// <summary>
         /// External Windows API call. Gets the current tick count as a 64-bit (ulong) value.
         /// Similar to <see cref="Environment.TickCount"/> but less broken.
         /// </summary>
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern ulong GetTickCount64();
+
+        /// <summary>
+        /// Load the <see cref="KeyBlocker"/> from config file settings.
+        /// </summary>
+        public KeyBlocker()
+        {
+            if (File.Exists(CONFIG_FILE))
+            {
+                string[] settings = File.ReadAllText(CONFIG_FILE).Replace("\r\n", "\n").Replace("\r", "").Split('\n');
+                foreach (string line in settings)
+                {
+                    if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("#"))
+                    {
+                        ApplyConfigSetting(line);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Applies a setting line from a config file.
+        /// </summary>
+        /// <param name="setting">The setting line.</param>
+        public void ApplyConfigSetting(string setting)
+        {
+            int colonIndex = setting.IndexOf(':');
+            if (colonIndex == -1)
+            {
+                return;
+            }
+            string settingName = setting.Substring(0, colonIndex).Trim();
+            string settingValue = setting.Substring(colonIndex + 1).Trim();
+            if (settingName.StartsWith("key."))
+            {
+                if (!Enum.TryParse(settingName.Substring("key.".Length), out Keys key))
+                {
+                    MessageBox.Show("Config file contains setting '" + setting + "', which names an invalid key.", "KeyboardChatterBlocker Configuration Error", MessageBoxButtons.OK);
+                    return;
+                }
+                KeysToChatterTime[key] = uint.Parse(settingValue);
+                return;
+            }
+            switch (settingName)
+            {
+                case "is_enabled":
+                    IsEnabled = settingValue.ToLowerInvariant() == "true";
+                    break;
+                case "global_chatter":
+                    GlobalChatterTimeLimit = uint.Parse(settingValue);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Saves the configuration data to file.
+        /// </summary>
+        public void SaveConfig()
+        {
+            string saveStr = GetConfigurationString();
+            File.WriteAllText(CONFIG_FILE, saveStr);
+        }
+
+        /// <summary>
+        /// Gets the full configuration string for the current setup.
+        /// </summary>
+        public string GetConfigurationString()
+        {
+            StringBuilder result = new StringBuilder(2048);
+            result.Append("# KeyboardChatterBlocker configuration file\n");
+            result.Append("# View README file at https://github.com/mcmonkeyprojects/KeyboardChatterBlocker\n");
+            result.Append("\n");
+            result.Append("is_enabled: ").Append(IsEnabled ? "true" : "false").Append("\n");
+            result.Append("global_chatter: ").Append(GlobalChatterTimeLimit).Append("\n");
+            result.Append("\n");
+            foreach (KeyValuePair<Keys, uint?> chatterTimes in KeysToChatterTime.MainDictionary)
+            {
+                if (!chatterTimes.Value.HasValue)
+                {
+                    continue;
+                }
+                result.Append("key.").Append(chatterTimes.Key.ToString()).Append(": ").Append(chatterTimes.Value.Value).Append("\n");
+            }
+            return result.ToString();
+        }
 
         /// <summary>
         /// Event for when a key is blocked.
@@ -29,7 +119,7 @@ namespace KeyboardChatterBlocker
         /// <summary>
         /// Whether the blocker is currently enabled.
         /// </summary>
-        public bool IsEnabled = true;
+        public bool IsEnabled = false;
 
         /// <summary>
         /// A mapping of keys to the last press time.
@@ -39,7 +129,7 @@ namespace KeyboardChatterBlocker
         /// <summary>
         /// The global chatter time limit, in milliseconds.
         /// </summary>
-        public uint GlobalChatterTimeLimit = 150;
+        public uint GlobalChatterTimeLimit = 100;
 
         /// <summary>
         /// A mapping of keys to their allowed chatter time, in milliseconds. If HasValue is false, use global chatter time limit.

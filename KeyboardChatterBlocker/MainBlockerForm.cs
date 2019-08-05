@@ -30,7 +30,16 @@ namespace KeyboardChatterBlocker
         /// <param name="e">The key blocked event details.</param>
         public void LogKeyBlocked(KeyBlockedEventArgs e)
         {
-            dataGridView1.Rows.Add(DateTime.Now.ToString("HH:mm:ss"), e.Key.ToString(), e.Time.ToString());
+            ChatterLogGrid.Rows.Add(DateTime.Now.ToString("HH:mm:ss"), e.Key.ToString(), e.Time.ToString());
+        }
+
+        /// <summary>
+        /// Event method auto-called when the "Enable" check box is touched.
+        /// </summary>
+        private void EnabledCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Blocker.IsEnabled = EnabledCheckbox.Checked;
+            Program.Blocker.SaveConfig();
         }
     }
 }
