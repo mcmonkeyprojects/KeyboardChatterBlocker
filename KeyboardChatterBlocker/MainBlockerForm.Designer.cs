@@ -33,7 +33,10 @@
             this.Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ChatterDelay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EnabledCheckbox = new System.Windows.Forms.CheckBox();
+            this.ChatterThresholdBox = new System.Windows.Forms.NumericUpDown();
+            this.ChatterThresholdLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ChatterLogGrid
@@ -78,7 +81,7 @@
             // 
             this.EnabledCheckbox.AutoSize = true;
             this.EnabledCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EnabledCheckbox.Location = new System.Drawing.Point(13, 13);
+            this.EnabledCheckbox.Location = new System.Drawing.Point(152, 12);
             this.EnabledCheckbox.Name = "EnabledCheckbox";
             this.EnabledCheckbox.Size = new System.Drawing.Size(123, 35);
             this.EnabledCheckbox.TabIndex = 1;
@@ -86,16 +89,51 @@
             this.EnabledCheckbox.UseVisualStyleBackColor = true;
             this.EnabledCheckbox.CheckedChanged += new System.EventHandler(this.EnabledCheckbox_CheckedChanged);
             // 
+            // ChatterThresholdBox
+            // 
+            this.ChatterThresholdBox.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.ChatterThresholdBox.Location = new System.Drawing.Point(152, 57);
+            this.ChatterThresholdBox.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.ChatterThresholdBox.Name = "ChatterThresholdBox";
+            this.ChatterThresholdBox.Size = new System.Drawing.Size(95, 20);
+            this.ChatterThresholdBox.TabIndex = 2;
+            this.ChatterThresholdBox.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.ChatterThresholdBox.ValueChanged += new System.EventHandler(this.ChatterThresholdBox_ValueChanged);
+            // 
+            // ChatterThresholdLabel
+            // 
+            this.ChatterThresholdLabel.AutoSize = true;
+            this.ChatterThresholdLabel.Location = new System.Drawing.Point(13, 59);
+            this.ChatterThresholdLabel.Name = "ChatterThresholdLabel";
+            this.ChatterThresholdLabel.Size = new System.Drawing.Size(127, 13);
+            this.ChatterThresholdLabel.TabIndex = 3;
+            this.ChatterThresholdLabel.Text = "Global Chatter Threshold:\r\n";
+            // 
             // MainBlockerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(449, 450);
+            this.Controls.Add(this.ChatterThresholdLabel);
+            this.Controls.Add(this.ChatterThresholdBox);
             this.Controls.Add(this.EnabledCheckbox);
             this.Controls.Add(this.ChatterLogGrid);
             this.Name = "MainBlockerForm";
             this.Text = "Keyboard Chatter Blocker";
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,6 +146,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Key;
         private System.Windows.Forms.DataGridViewTextBoxColumn ChatterDelay;
         private System.Windows.Forms.CheckBox EnabledCheckbox;
+        private System.Windows.Forms.NumericUpDown ChatterThresholdBox;
+        private System.Windows.Forms.Label ChatterThresholdLabel;
     }
 }
 

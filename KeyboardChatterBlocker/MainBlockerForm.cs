@@ -41,5 +41,14 @@ namespace KeyboardChatterBlocker
             Program.Blocker.IsEnabled = EnabledCheckbox.Checked;
             Program.Blocker.SaveConfig();
         }
+
+        /// <summary>
+        /// Event method auto-called when the "Chatter Threshold" box box is touched.
+        /// </summary>
+        private void ChatterThresholdBox_ValueChanged(object sender, EventArgs e)
+        {
+            Program.Blocker.GlobalChatterTimeLimit = (uint)ChatterThresholdBox.Value;
+            Program.Blocker.SaveConfig();
+        }
     }
 }
