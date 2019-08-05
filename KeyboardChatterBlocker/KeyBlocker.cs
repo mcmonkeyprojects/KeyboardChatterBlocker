@@ -112,7 +112,7 @@ namespace KeyboardChatterBlocker
             result.Append("\n");
             result.Append("is_enabled: ").Append(IsEnabled ? "true" : "false").Append("\n");
             result.Append("global_chatter: ").Append(GlobalChatterTimeLimit).Append("\n");
-            result.Append("hide_in_system_tray: ").Append(Program.HideInSystemTray).Append("\n");
+            result.Append("hide_in_system_tray: ").Append(Program.HideInSystemTray ? "true" : "false").Append("\n");
             result.Append("\n");
             foreach (KeyValuePair<Keys, uint?> chatterTimes in KeysToChatterTime.MainDictionary)
             {
