@@ -1,13 +1,11 @@
 Keyboard Chatter Blocker
 ------------------------
 
-## Status
+Keyboard chatter blocker is a quick handy tool to block mechanical keyboard chatter on Windows PCs.
 
-In-dev still, check back later.
+Click [here](#setup) for the steps to get it running.
 
 ---
-
-Keyboard chatter blocker is a quick handy tool to block mechanical keyboard chatter on Windows PCs.
 
 ### The Problem
 
@@ -36,7 +34,7 @@ I've taken a similar approach to the software solutions mentioned above, but wit
 - A standard Windows PC (not likely to be Mac/Linux compatible) (tested on Windows 10 x64)
 - .NET Framework 4.7.2 or newer
 
-### Installation / Setup
+### Setup
 
 1. Download the [release file](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker/releases) (Or build from source)
 2. Save the .exe in ... any folder anywhere really, just not one that requires admin access (the program must be able to save a config file into it's own folder). A sub-folder on your desktop or your documents is fine.

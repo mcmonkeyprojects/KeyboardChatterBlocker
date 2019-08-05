@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 
 namespace KeyboardChatterBlocker
 {
@@ -121,6 +122,13 @@ namespace KeyboardChatterBlocker
         }
 
         /// <summary>
+        /// Location of the Windows startup folder (within the APPDATA environment variable).
+        /// </summary>
+        public const string STARTUP_FOLDER = "/Microsoft/Windows/Start Menu/Programs/Startup/";
+
+        public static string StartupLinkPath => Environment.GetEnvironmentVariable("appdata") + STARTUP_FOLDER + "KeyboardChatterBlocker.lnk";
+
+        /// <summary>
         /// Event method auto-called when the "Start With Windows" box is touched.
         /// </summary>
         public void StartWithWindowsCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -129,7 +137,21 @@ namespace KeyboardChatterBlocker
             {
                 return;
             }
-            // TODO
+            if (StartWithWindowsCheckbox.Checked)
+            {
+                IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)new IWshRuntimeLibrary.WshShell().CreateShortcut(StartupLinkPath);
+                shortcut.Description = "Auto-Start Keyboard Chatter Blocker.";
+                shortcut.TargetPath = Application.ExecutablePath;
+                shortcut.WorkingDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+                shortcut.Save();
+            }
+            else
+            {
+                if (File.Exists(StartupLinkPath))
+                {
+                    File.Delete(StartupLinkPath);
+                }
+            }
         }
 
         /// <summary>
@@ -144,6 +166,7 @@ namespace KeyboardChatterBlocker
             }
             ChatterThresholdBox.Value = Program.Blocker.GlobalChatterTimeLimit;
             EnabledCheckbox.Checked = Program.Blocker.IsEnabled;
+            StartWithWindowsCheckbox.Checked = File.Exists(StartupLinkPath);
             StatsUpdateTimer = new Timer { Interval = 1000 };
             StatsUpdateTimer.Tick += StatsUpdateTimer_Tick;
             StatsUpdateTimer.Start();
