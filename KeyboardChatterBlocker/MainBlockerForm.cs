@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace KeyboardChatterBlocker
 {
@@ -284,6 +285,14 @@ namespace KeyboardChatterBlocker
             Program.Blocker.KeysToChatterTime[result.Value] = Program.Blocker.GlobalChatterTimeLimit;
             Program.Blocker.SaveConfig();
             ConfigureKeysGrid.Rows.Add(result.Value.ToString(), Program.Blocker.GlobalChatterTimeLimit.ToString(), "[X]");
+        }
+
+        /// <summary>
+        /// Event method auto-called when the website link in the "About" tab is pressed.
+        /// </summary>
+        private void AboutLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/mcmonkeyprojects/KeyboardChatterBlocker");
         }
     }
 }

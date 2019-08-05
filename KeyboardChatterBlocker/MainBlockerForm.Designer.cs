@@ -49,11 +49,18 @@
             this.StatsChatterColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatsRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KeysTabPage = new System.Windows.Forms.TabPage();
+            this.AddKeyButton = new System.Windows.Forms.Button();
             this.ConfigureKeysGrid = new System.Windows.Forms.DataGridView();
             this.ConfigureKeyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ConfigureThresholdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RemoveColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AddKeyButton = new System.Windows.Forms.Button();
+            this.AboutTab = new System.Windows.Forms.TabPage();
+            this.AboutLabel1 = new System.Windows.Forms.Label();
+            this.AboutLabel2 = new System.Windows.Forms.Label();
+            this.AboutLabel3 = new System.Windows.Forms.Label();
+            this.AboutLavel4 = new System.Windows.Forms.Label();
+            this.AboutLabel5 = new System.Windows.Forms.Label();
+            this.AboutLinkLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -62,6 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.StatsGrid)).BeginInit();
             this.KeysTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureKeysGrid)).BeginInit();
+            this.AboutTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // ChatterLogGrid
@@ -184,6 +192,7 @@
             this.tabControl1.Controls.Add(this.ChatterLogTabPage);
             this.tabControl1.Controls.Add(this.StatsTabPage);
             this.tabControl1.Controls.Add(this.KeysTabPage);
+            this.tabControl1.Controls.Add(this.AboutTab);
             this.tabControl1.Location = new System.Drawing.Point(13, 78);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -272,6 +281,16 @@
             this.KeysTabPage.Text = "Configure Keys";
             this.KeysTabPage.UseVisualStyleBackColor = true;
             // 
+            // AddKeyButton
+            // 
+            this.AddKeyButton.Location = new System.Drawing.Point(6, 6);
+            this.AddKeyButton.Name = "AddKeyButton";
+            this.AddKeyButton.Size = new System.Drawing.Size(419, 23);
+            this.AddKeyButton.TabIndex = 1;
+            this.AddKeyButton.Text = "Add Key";
+            this.AddKeyButton.UseVisualStyleBackColor = true;
+            this.AddKeyButton.Click += new System.EventHandler(this.AddKeyButton_Click);
+            // 
             // ConfigureKeysGrid
             // 
             this.ConfigureKeysGrid.AllowUserToAddRows = false;
@@ -309,15 +328,78 @@
             this.RemoveColumn.Name = "RemoveColumn";
             this.RemoveColumn.ReadOnly = true;
             // 
-            // AddKeyButton
+            // AboutTab
             // 
-            this.AddKeyButton.Location = new System.Drawing.Point(6, 6);
-            this.AddKeyButton.Name = "AddKeyButton";
-            this.AddKeyButton.Size = new System.Drawing.Size(419, 23);
-            this.AddKeyButton.TabIndex = 1;
-            this.AddKeyButton.Text = "Add Key";
-            this.AddKeyButton.UseVisualStyleBackColor = true;
-            this.AddKeyButton.Click += new System.EventHandler(this.AddKeyButton_Click);
+            this.AboutTab.Controls.Add(this.AboutLinkLabel);
+            this.AboutTab.Controls.Add(this.AboutLabel5);
+            this.AboutTab.Controls.Add(this.AboutLavel4);
+            this.AboutTab.Controls.Add(this.AboutLabel3);
+            this.AboutTab.Controls.Add(this.AboutLabel2);
+            this.AboutTab.Controls.Add(this.AboutLabel1);
+            this.AboutTab.Location = new System.Drawing.Point(4, 22);
+            this.AboutTab.Name = "AboutTab";
+            this.AboutTab.Padding = new System.Windows.Forms.Padding(3);
+            this.AboutTab.Size = new System.Drawing.Size(431, 274);
+            this.AboutTab.TabIndex = 3;
+            this.AboutTab.Text = "About";
+            this.AboutTab.UseVisualStyleBackColor = true;
+            // 
+            // AboutLabel1
+            // 
+            this.AboutLabel1.AutoSize = true;
+            this.AboutLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AboutLabel1.Location = new System.Drawing.Point(7, 7);
+            this.AboutLabel1.Name = "AboutLabel1";
+            this.AboutLabel1.Size = new System.Drawing.Size(214, 20);
+            this.AboutLabel1.TabIndex = 0;
+            this.AboutLabel1.Text = "Keyboard Chatter Blocker";
+            // 
+            // AboutLabel2
+            // 
+            this.AboutLabel2.AutoSize = true;
+            this.AboutLabel2.Location = new System.Drawing.Point(11, 42);
+            this.AboutLabel2.Name = "AboutLabel2";
+            this.AboutLabel2.Size = new System.Drawing.Size(190, 13);
+            this.AboutLabel2.TabIndex = 1;
+            this.AboutLabel2.Text = "Created by Alex \"mcmonkey\" Goodwin";
+            // 
+            // AboutLabel3
+            // 
+            this.AboutLabel3.AutoSize = true;
+            this.AboutLabel3.Location = new System.Drawing.Point(11, 71);
+            this.AboutLabel3.Name = "AboutLabel3";
+            this.AboutLabel3.Size = new System.Drawing.Size(196, 13);
+            this.AboutLabel3.TabIndex = 2;
+            this.AboutLabel3.Text = "Copyright (C) 2019, All Rights Reserved.";
+            // 
+            // AboutLavel4
+            // 
+            this.AboutLavel4.AutoSize = true;
+            this.AboutLavel4.Location = new System.Drawing.Point(11, 99);
+            this.AboutLavel4.Name = "AboutLavel4";
+            this.AboutLavel4.Size = new System.Drawing.Size(311, 13);
+            this.AboutLavel4.TabIndex = 3;
+            this.AboutLavel4.Text = "Made available to the public under the terms of the MIT License.";
+            // 
+            // AboutLabel5
+            // 
+            this.AboutLabel5.AutoSize = true;
+            this.AboutLabel5.Location = new System.Drawing.Point(11, 131);
+            this.AboutLabel5.Name = "AboutLabel5";
+            this.AboutLabel5.Size = new System.Drawing.Size(230, 13);
+            this.AboutLabel5.TabIndex = 4;
+            this.AboutLabel5.Text = "License, source code, and more info on GitHub";
+            // 
+            // AboutLinkLabel
+            // 
+            this.AboutLinkLabel.AutoSize = true;
+            this.AboutLinkLabel.Location = new System.Drawing.Point(47, 157);
+            this.AboutLinkLabel.Name = "AboutLinkLabel";
+            this.AboutLinkLabel.Size = new System.Drawing.Size(308, 13);
+            this.AboutLinkLabel.TabIndex = 5;
+            this.AboutLinkLabel.TabStop = true;
+            this.AboutLinkLabel.Text = "https://github.com/mcmonkeyprojects/KeyboardChatterBlocker";
+            this.AboutLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.AboutLinkLabel_LinkClicked);
             // 
             // MainBlockerForm
             // 
@@ -345,6 +427,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.StatsGrid)).EndInit();
             this.KeysTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureKeysGrid)).EndInit();
+            this.AboutTab.ResumeLayout(false);
+            this.AboutTab.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -376,6 +460,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ConfigureThresholdColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn RemoveColumn;
         private System.Windows.Forms.Button AddKeyButton;
+        private System.Windows.Forms.TabPage AboutTab;
+        private System.Windows.Forms.LinkLabel AboutLinkLabel;
+        private System.Windows.Forms.Label AboutLabel5;
+        private System.Windows.Forms.Label AboutLavel4;
+        private System.Windows.Forms.Label AboutLabel3;
+        private System.Windows.Forms.Label AboutLabel2;
+        private System.Windows.Forms.Label AboutLabel1;
     }
 }
 
