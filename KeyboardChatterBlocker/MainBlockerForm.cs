@@ -143,10 +143,10 @@ namespace KeyboardChatterBlocker
             }
             ChatterThresholdBox.Value = Program.Blocker.GlobalChatterTimeLimit;
             EnabledCheckbox.Checked = Program.Blocker.IsEnabled;
-            StatsUpdateTimer = new Timer();
-            StatsUpdateTimer.Interval = 1000;
+            StatsUpdateTimer = new Timer { Interval = 1000 };
             StatsUpdateTimer.Tick += StatsUpdateTimer_Tick;
             StatsUpdateTimer.Start();
+            PushKeysToGrid();
             Loading = false;
         }
 
@@ -193,11 +193,92 @@ namespace KeyboardChatterBlocker
         }
 
         /// <summary>
+        /// Pushes all keys to the GUI grid.
+        /// Key configurations are tracked locally, not directly on the grid, to avoid performance impact.
+        /// This needs to be called to update key configuration GUI properly.
+        /// </summary>
+        public void PushKeysToGrid()
+        {
+            ConfigureKeysGrid.SuspendLayout();
+            ConfigureKeysGrid.Rows.Clear();
+            foreach (KeyValuePair<Keys, uint?> keyData in Program.Blocker.KeysToChatterTime.MainDictionary)
+            {
+                if (!keyData.Value.HasValue)
+                {
+                    continue;
+                }
+                ConfigureKeysGrid.Rows.Add(keyData.Key.ToString(), keyData.Value.Value.ToString(), "[X]");
+            }
+            ConfigureKeysGrid.ResumeLayout(true);
+        }
+
+        /// <summary>
         /// Event method auto-called when the tab control box is touched.
         /// </summary>
         public void TabControl1_Selected(object sender, TabControlEventArgs e)
         {
+            if (Loading)
+            {
+                return;
+            }
             PushStatsToGrid();
+        }
+
+        /// <summary>
+        /// Event method auto-called when the "configure keys" box is double-clicked.
+        /// </summary>
+        public void ConfigureKeysGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!Enum.TryParse(ConfigureKeysGrid[0, e.RowIndex].Value.ToString(), true, out Keys key))
+            {
+                MessageBox.Show("Error: configure keys grid misconfigured, invalid key name!", "Keyboard Chatter Blocker", MessageBoxButtons.OK);
+                return;
+            }
+            if (e.ColumnIndex == 1) // Value column
+            {
+                uint resultValue = Program.Blocker.KeysToChatterTime[key] ?? Program.Blocker.GlobalChatterTimeLimit;
+                KeyConfigurationForm keyConfigForm = new KeyConfigurationForm()
+                {
+                    Key = key,
+                    SetResult = (i) =>
+                    {
+                        resultValue = i;
+                    }
+                };
+                keyConfigForm.ShowDialog(this);
+                Program.Blocker.KeysToChatterTime[key] = resultValue;
+                Program.Blocker.SaveConfig();
+                ConfigureKeysGrid[1, e.RowIndex].Value = resultValue.ToString();
+            }
+            else if (e.ColumnIndex == 2) // Remove column
+            {
+                Program.Blocker.KeysToChatterTime[key] = null;
+                Program.Blocker.SaveConfig();
+                ConfigureKeysGrid.Rows.RemoveAt(e.RowIndex);
+            }
+        }
+
+        /// <summary>
+        /// Event method auto-called when the "Add Key" button is pressed.
+        /// </summary>
+        public void AddKeyButton_Click(object sender, EventArgs e)
+        {
+            Keys? result = null;
+            NeedInputForm form = new NeedInputForm()
+            {
+                SetResultKey = (k) =>
+                {
+                    result = k;
+                }
+            };
+            form.ShowDialog(this);
+            if (!result.HasValue)
+            {
+                return;
+            }
+            Program.Blocker.KeysToChatterTime[result.Value] = Program.Blocker.GlobalChatterTimeLimit;
+            Program.Blocker.SaveConfig();
+            ConfigureKeysGrid.Rows.Add(result.Value.ToString(), Program.Blocker.GlobalChatterTimeLimit.ToString(), "[X]");
         }
     }
 }

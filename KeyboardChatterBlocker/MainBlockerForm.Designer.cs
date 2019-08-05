@@ -49,19 +49,25 @@
             this.StatsChatterColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatsRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KeysTabPage = new System.Windows.Forms.TabPage();
+            this.ConfigureKeysGrid = new System.Windows.Forms.DataGridView();
+            this.ConfigureKeyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ConfigureThresholdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RemoveColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AddKeyButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.ChatterLogTabPage.SuspendLayout();
             this.StatsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StatsGrid)).BeginInit();
+            this.KeysTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ConfigureKeysGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // ChatterLogGrid
             // 
             this.ChatterLogGrid.AllowUserToAddRows = false;
             this.ChatterLogGrid.AllowUserToDeleteRows = false;
-            this.ChatterLogGrid.AllowUserToResizeRows = false;
             this.ChatterLogGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -73,7 +79,7 @@
             this.ChatterLogGrid.Location = new System.Drawing.Point(6, 6);
             this.ChatterLogGrid.Name = "ChatterLogGrid";
             this.ChatterLogGrid.ReadOnly = true;
-            this.ChatterLogGrid.Size = new System.Drawing.Size(404, 298);
+            this.ChatterLogGrid.Size = new System.Drawing.Size(419, 262);
             this.ChatterLogGrid.TabIndex = 0;
             // 
             // Time
@@ -191,7 +197,7 @@
             this.ChatterLogTabPage.Location = new System.Drawing.Point(4, 22);
             this.ChatterLogTabPage.Name = "ChatterLogTabPage";
             this.ChatterLogTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ChatterLogTabPage.Size = new System.Drawing.Size(416, 310);
+            this.ChatterLogTabPage.Size = new System.Drawing.Size(431, 274);
             this.ChatterLogTabPage.TabIndex = 0;
             this.ChatterLogTabPage.Text = "Chatter Log";
             this.ChatterLogTabPage.UseVisualStyleBackColor = true;
@@ -256,13 +262,62 @@
             // 
             // KeysTabPage
             // 
+            this.KeysTabPage.Controls.Add(this.AddKeyButton);
+            this.KeysTabPage.Controls.Add(this.ConfigureKeysGrid);
             this.KeysTabPage.Location = new System.Drawing.Point(4, 22);
             this.KeysTabPage.Name = "KeysTabPage";
             this.KeysTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.KeysTabPage.Size = new System.Drawing.Size(416, 310);
+            this.KeysTabPage.Size = new System.Drawing.Size(431, 274);
             this.KeysTabPage.TabIndex = 2;
             this.KeysTabPage.Text = "Configure Keys";
             this.KeysTabPage.UseVisualStyleBackColor = true;
+            // 
+            // ConfigureKeysGrid
+            // 
+            this.ConfigureKeysGrid.AllowUserToAddRows = false;
+            this.ConfigureKeysGrid.AllowUserToDeleteRows = false;
+            this.ConfigureKeysGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ConfigureKeysGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ConfigureKeysGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ConfigureKeyColumn,
+            this.ConfigureThresholdColumn,
+            this.RemoveColumn});
+            this.ConfigureKeysGrid.Location = new System.Drawing.Point(7, 35);
+            this.ConfigureKeysGrid.Name = "ConfigureKeysGrid";
+            this.ConfigureKeysGrid.Size = new System.Drawing.Size(418, 233);
+            this.ConfigureKeysGrid.TabIndex = 0;
+            this.ConfigureKeysGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ConfigureKeysGrid_CellContentDoubleClick);
+            // 
+            // ConfigureKeyColumn
+            // 
+            this.ConfigureKeyColumn.HeaderText = "Key";
+            this.ConfigureKeyColumn.Name = "ConfigureKeyColumn";
+            this.ConfigureKeyColumn.ReadOnly = true;
+            // 
+            // ConfigureThresholdColumn
+            // 
+            this.ConfigureThresholdColumn.HeaderText = "Chatter Threshold";
+            this.ConfigureThresholdColumn.Name = "ConfigureThresholdColumn";
+            this.ConfigureThresholdColumn.ReadOnly = true;
+            this.ConfigureThresholdColumn.Width = 150;
+            // 
+            // RemoveColumn
+            // 
+            this.RemoveColumn.HeaderText = "Remove";
+            this.RemoveColumn.Name = "RemoveColumn";
+            this.RemoveColumn.ReadOnly = true;
+            // 
+            // AddKeyButton
+            // 
+            this.AddKeyButton.Location = new System.Drawing.Point(6, 6);
+            this.AddKeyButton.Name = "AddKeyButton";
+            this.AddKeyButton.Size = new System.Drawing.Size(419, 23);
+            this.AddKeyButton.TabIndex = 1;
+            this.AddKeyButton.Text = "Add Key";
+            this.AddKeyButton.UseVisualStyleBackColor = true;
+            this.AddKeyButton.Click += new System.EventHandler(this.AddKeyButton_Click);
             // 
             // MainBlockerForm
             // 
@@ -288,6 +343,8 @@
             this.ChatterLogTabPage.ResumeLayout(false);
             this.StatsTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.StatsGrid)).EndInit();
+            this.KeysTabPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ConfigureKeysGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,6 +371,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn StatsCountColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatsChatterColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatsRateColumn;
+        private System.Windows.Forms.DataGridView ConfigureKeysGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ConfigureKeyColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ConfigureThresholdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RemoveColumn;
+        private System.Windows.Forms.Button AddKeyButton;
     }
 }
 

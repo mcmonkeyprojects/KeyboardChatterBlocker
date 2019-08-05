@@ -42,6 +42,7 @@ I've taken a similar approach to the software solutions mentioned above, but wit
 2. Save the .exe in ... any folder anywhere really, just not one that requires admin access (the program must be able to save a config file into it's own folder). A sub-folder on your desktop or your documents is fine.
 3. Run the .exe
 4. Configure settings as preferred, test with care (check the "Enable" box to have the blocker active, uncheck it if it's in the way)
+    - To configure individual keys, switch to the "Configure Keys" tab, and press "Add Key" to add a key, then in the form that pops up, press the key you want to add. You can then edit it's value in the grid by double-clicking the number and typing whatever you please in place. To remove a key's explicit custom value, simply double-click the `[X]` for it under "Remove".
 5. Check the "Enable", "Start In Tray", and "Start With Windows" boxes so it'll be active and just always be there.
 6. Click the "X" to close the window (the program will hide in the system tray for so long as "Start In Tray" is checked), and type happily with the program protecting you from chatter! If you need to adjust configuration, just go open the program in the tray and adjust freely. To stop the program from being in the way if you decide you don't need it anymore, just uncheck "Start In Tray" and "Start With Windows" ... once you close it after that, it will be gone until you specifically open it back up again.
 

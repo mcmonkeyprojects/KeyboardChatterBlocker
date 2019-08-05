@@ -73,16 +73,34 @@
     <Compile Include="KeyBlockedEventArgs.cs" />
     <Compile Include="KeyBlocker.cs" />
     <Compile Include="KeyboardInterceptor.cs" />
+    <Compile Include="KeyConfigurationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KeyConfigurationForm.Designer.cs">
+      <DependentUpon>KeyConfigurationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainBlockerForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainBlockerForm.Designer.cs">
       <DependentUpon>MainBlockerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NeedInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NeedInputForm.Designer.cs">
+      <DependentUpon>NeedInputForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="KeyConfigurationForm.resx">
+      <DependentUpon>KeyConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainBlockerForm.resx">
       <DependentUpon>MainBlockerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NeedInputForm.resx">
+      <DependentUpon>NeedInputForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

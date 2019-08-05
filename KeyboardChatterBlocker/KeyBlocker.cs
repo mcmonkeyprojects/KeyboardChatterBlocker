@@ -70,7 +70,7 @@ namespace KeyboardChatterBlocker
             string settingValue = setting.Substring(colonIndex + 1).Trim();
             if (settingName.StartsWith("key."))
             {
-                if (!Enum.TryParse(settingName.Substring("key.".Length), out Keys key))
+                if (!Enum.TryParse(settingName.Substring("key.".Length), true, out Keys key))
                 {
                     MessageBox.Show("Config file contains setting '" + setting + "', which names an invalid key.", "KeyboardChatterBlocker Configuration Error", MessageBoxButtons.OK);
                     return;
