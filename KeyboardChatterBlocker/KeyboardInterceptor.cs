@@ -31,12 +31,18 @@ namespace KeyboardChatterBlocker
         public LowLevelKeyboardProc KeyboardProcCallback;
 
         /// <summary>
+        /// The relevant <see cref="KeyBlocker"/>.
+        /// </summary>
+        public KeyBlocker KeyBlockHandler;
+
+        /// <summary>
         /// The current hook ID.
         /// </summary>
         public IntPtr HookID = IntPtr.Zero;
 
-        public KeyboardInterceptor()
+        public KeyboardInterceptor(KeyBlocker blocker)
         {
+            KeyBlockHandler = blocker;
             KeyboardProcCallback = HookCallback;
             HookID = SetHook(KeyboardProcCallback);
         }
@@ -71,11 +77,25 @@ namespace KeyboardChatterBlocker
         {
             if (nCode >= 0)
             {
-                if (wParam == (IntPtr)WM_KEYDOWN || wParam == (IntPtr)WM_KEYUP ||
-                    wParam == (IntPtr)WM_SYSKEYDOWN || wParam == (IntPtr)WM_SYSKEYUP)
+                bool isDown = wParam == (IntPtr)WM_KEYDOWN || wParam == (IntPtr)WM_SYSKEYDOWN;
+                if (isDown || wParam == (IntPtr)WM_KEYUP || wParam == (IntPtr)WM_SYSKEYUP)
                 {
                     int vkCode = Marshal.ReadInt32(lParam);
                     Keys key = (Keys)vkCode;
+                    if (isDown)
+                    {
+                        if (!KeyBlockHandler.AllowKeyDown(key))
+                        {
+                            return (IntPtr)1;
+                        }
+                    }
+                    else
+                    {
+                        if (!KeyBlockHandler.AllowKeyUp(key))
+                        {
+                            return (IntPtr)1;
+                        }
+                    }
                 }
             }
             return CallNextHookEx(HookID, nCode, wParam, lParam);

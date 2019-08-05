@@ -46,7 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blocker.cs" />
+    <Compile Include="AcceleratedKeyMap.cs" />
+    <Compile Include="KeyBlocker.cs" />
     <Compile Include="KeyboardInterceptor.cs" />
     <Compile Include="MainBlockerForm.cs">
       <SubType>Form</SubType>
