@@ -50,5 +50,10 @@ namespace KeyboardChatterBlocker
             Program.Blocker.GlobalChatterTimeLimit = (uint)ChatterThresholdBox.Value;
             Program.Blocker.SaveConfig();
         }
+
+        private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+        }
     }
 }

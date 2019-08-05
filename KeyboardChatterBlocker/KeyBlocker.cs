@@ -46,6 +46,16 @@ namespace KeyboardChatterBlocker
         }
 
         /// <summary>
+        /// Gets the boolean value of a setting string.
+        /// </summary>
+        /// <param name="setting">The setting string.</param>
+        /// <returns>The boolean value result.</returns>
+        public static bool SettingAsBool(string setting)
+        {
+            return setting.ToLowerInvariant() == "true";
+        }
+
+        /// <summary>
         /// Applies a setting line from a config file.
         /// </summary>
         /// <param name="setting">The setting line.</param>
@@ -71,10 +81,13 @@ namespace KeyboardChatterBlocker
             switch (settingName)
             {
                 case "is_enabled":
-                    IsEnabled = settingValue.ToLowerInvariant() == "true";
+                    IsEnabled = SettingAsBool(settingValue);
                     break;
                 case "global_chatter":
                     GlobalChatterTimeLimit = uint.Parse(settingValue);
+                    break;
+                case "hide_in_system_tray":
+                    Program.HideInSystemTray = SettingAsBool(settingValue);
                     break;
             }
         }
@@ -99,6 +112,7 @@ namespace KeyboardChatterBlocker
             result.Append("\n");
             result.Append("is_enabled: ").Append(IsEnabled ? "true" : "false").Append("\n");
             result.Append("global_chatter: ").Append(GlobalChatterTimeLimit).Append("\n");
+            result.Append("hide_in_system_tray: ").Append(Program.HideInSystemTray).Append("\n");
             result.Append("\n");
             foreach (KeyValuePair<Keys, uint?> chatterTimes in KeysToChatterTime.MainDictionary)
             {

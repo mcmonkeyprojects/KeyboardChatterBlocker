@@ -16,7 +16,12 @@ namespace KeyboardChatterBlocker
         /// <summary>
         /// The Key Blocker instance.
         /// </summary>
-        public static KeyBlocker Blocker = new KeyBlocker();
+        public static KeyBlocker Blocker;
+
+        /// <summary>
+        /// Whether the program should hide in the system tray.
+        /// </summary>
+        public static bool HideInSystemTray = false;
 
         /// <summary>
         /// The main entry point for the application.
@@ -26,6 +31,7 @@ namespace KeyboardChatterBlocker
         {
             // This needs priority to prevent delaying input
             Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.AboveNormal;
+            Blocker = new KeyBlocker();
             using (KeyboardInterceptor intercept = new KeyboardInterceptor(Blocker))
             {
                 Application.EnableVisualStyles();

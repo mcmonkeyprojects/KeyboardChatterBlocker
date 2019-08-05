@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainBlockerForm));
             this.ChatterLogGrid = new System.Windows.Forms.DataGridView();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -35,6 +37,7 @@
             this.EnabledCheckbox = new System.Windows.Forms.CheckBox();
             this.ChatterThresholdBox = new System.Windows.Forms.NumericUpDown();
             this.ChatterThresholdLabel = new System.Windows.Forms.Label();
+            this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
             this.SuspendLayout();
@@ -121,6 +124,13 @@
             this.ChatterThresholdLabel.TabIndex = 3;
             this.ChatterThresholdLabel.Text = "Global Chatter Threshold:\r\n";
             // 
+            // TrayIcon
+            // 
+            this.TrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TrayIcon.Icon")));
+            this.TrayIcon.Text = "Keyboard Chatter Blocker";
+            this.TrayIcon.Visible = true;
+            this.TrayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
+            // 
             // MainBlockerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -130,6 +140,7 @@
             this.Controls.Add(this.ChatterThresholdBox);
             this.Controls.Add(this.EnabledCheckbox);
             this.Controls.Add(this.ChatterLogGrid);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainBlockerForm";
             this.Text = "Keyboard Chatter Blocker";
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).EndInit();
@@ -148,6 +159,7 @@
         private System.Windows.Forms.CheckBox EnabledCheckbox;
         private System.Windows.Forms.NumericUpDown ChatterThresholdBox;
         private System.Windows.Forms.Label ChatterThresholdLabel;
+        private System.Windows.Forms.NotifyIcon TrayIcon;
     }
 }
 
