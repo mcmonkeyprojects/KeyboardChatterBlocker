@@ -22,9 +22,14 @@ namespace KeyboardChatterBlocker
         public static extern ulong GetTickCount64();
 
         /// <summary>
+        /// Event for when a key is blocked.
+        /// </summary>
+        public Action<KeyBlockedEventArgs> KeyBlockedEvent;
+
+        /// <summary>
         /// Whether the blocker is currently enabled.
         /// </summary>
-        public bool IsEnabled = false;
+        public bool IsEnabled = true;
 
         /// <summary>
         /// A mapping of keys to the last press time.
@@ -34,7 +39,7 @@ namespace KeyboardChatterBlocker
         /// <summary>
         /// The global chatter time limit, in milliseconds.
         /// </summary>
-        public uint GlobalChatterTimeLimit = 50;
+        public uint GlobalChatterTimeLimit = 150;
 
         /// <summary>
         /// A mapping of keys to their allowed chatter time, in milliseconds. If HasValue is false, use global chatter time limit.
@@ -71,6 +76,7 @@ namespace KeyboardChatterBlocker
             }
             // All else = not enough time elapsed, deny it.
             KeysWereDownBlocked[key] = true;
+            KeyBlockedEvent?.Invoke(new KeyBlockedEventArgs() { Key = key, Time = (uint)(timeNow - timeLast) });
             return false;
         }
 

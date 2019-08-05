@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcceleratedKeyMap.cs" />
+    <Compile Include="KeyBlockedEventArgs.cs" />
     <Compile Include="KeyBlocker.cs" />
     <Compile Include="KeyboardInterceptor.cs" />
     <Compile Include="MainBlockerForm.cs">
@@ -57,6 +58,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MainBlockerForm.resx">
+      <DependentUpon>MainBlockerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

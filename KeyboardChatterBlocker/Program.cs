@@ -7,8 +7,16 @@ using System.Diagnostics;
 
 namespace KeyboardChatterBlocker
 {
-    static class Program
+    /// <summary>
+    /// Main entry point class.
+    /// </summary>
+    public static class Program
     {
+        /// <summary>
+        /// The Key Blocker instance.
+        /// </summary>
+        public static KeyBlocker Blocker = new KeyBlocker();
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -17,7 +25,7 @@ namespace KeyboardChatterBlocker
         {
             // This needs priority to prevent delaying input
             Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.AboveNormal;
-            using (KeyboardInterceptor intercept = new KeyboardInterceptor())
+            using (KeyboardInterceptor intercept = new KeyboardInterceptor(Blocker))
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);

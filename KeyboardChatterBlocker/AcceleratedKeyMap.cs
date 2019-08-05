@@ -35,7 +35,7 @@ namespace KeyboardChatterBlocker
                 {
                     return AccelerationArray[(int)key];
                 }
-                return MainDictionary.TryGetValue(key, out T result) ? result : default(T);
+                return MainDictionary.TryGetValue(key, out T result) ? result : default;
             }
             set
             {
