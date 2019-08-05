@@ -156,6 +156,21 @@ namespace KeyboardChatterBlocker
         public AcceleratedKeyMap<bool> KeysWereDownBlocked = new AcceleratedKeyMap<bool>();
 
         /// <summary>
+        /// A mapping of keys to total press count, for statistics tracking.
+        /// </summary>
+        public AcceleratedKeyMap<int> StatsKeyCount = new AcceleratedKeyMap<int>();
+
+        /// <summary>
+        /// A mapping of keys to total chatter count, for statistics tracking.
+        /// </summary>
+        public AcceleratedKeyMap<int> StatsKeyChatter = new AcceleratedKeyMap<int>();
+
+        /// <summary>
+        /// Whether any key presses have occurred (and thus stats have changed).
+        /// </summary>
+        public bool AnyKeyChange = false;
+
+        /// <summary>
         /// Called when a key-down event is detected, to decide whether to allow it through.
         /// </summary>
         /// <param name="key">The key being pressed.</param>
@@ -166,6 +181,8 @@ namespace KeyboardChatterBlocker
             {
                 return true;
             }
+            AnyKeyChange = true;
+            StatsKeyCount[key]++;
             ulong timeNow = GetTickCount64();
             ulong timeLast = KeysToLastPressTime[key];
             KeysToLastPressTime[key] = timeNow;
@@ -179,6 +196,7 @@ namespace KeyboardChatterBlocker
                 return true;
             }
             // All else = not enough time elapsed, deny it.
+            StatsKeyChatter[key]++;
             KeysWereDownBlocked[key] = true;
             KeyBlockedEvent?.Invoke(new KeyBlockedEventArgs() { Key = key, Time = (uint)(timeNow - timeLast) });
             return false;
