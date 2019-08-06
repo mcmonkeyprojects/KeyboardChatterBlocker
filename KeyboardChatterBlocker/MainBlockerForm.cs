@@ -200,6 +200,14 @@ namespace KeyboardChatterBlocker
         /// </summary>
         public void MainBlockerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (e.CloseReason != CloseReason.UserClosing) // Don't block windows shutdown, etc.
+            {
+                return;
+            }
+            if (IsHidden) // If already hidden, any close must be an actual full close, so close.
+            {
+                return;
+            }
             if (Program.HideInSystemTray)
             {
                 e.Cancel = true;
