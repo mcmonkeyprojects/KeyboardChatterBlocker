@@ -30,26 +30,23 @@ namespace KeyboardChatterBlocker
         /// <summary>
         /// Whether the form is currently hidden from view.
         /// </summary>
-        public bool IsHidden => !ShowInTaskbar;
+        public bool IsHidden => !Visible;
 
         /// <summary>
         /// Shows the form fully and properly.
-        /// There are some issues with how Windows Forms handles hidden forms, this is to compensate for those.
         /// </summary>
         public void ShowForm()
         {
-            WindowState = FormWindowState.Normal;
-            ShowInTaskbar = true;
+            Visible = true;
         }
 
         /// <summary>
         /// Hides the form fully and properly.
-        /// There are some issues with how Windows Forms handles hidden forms, this is to compensate for those.
         /// </summary>
         public void HideForm()
         {
-            WindowState = FormWindowState.Minimized;
-            ShowInTaskbar = false;
+            TrayIcon.Visible = true;
+            Visible = false;
         }
 
         /// <summary>
@@ -59,7 +56,8 @@ namespace KeyboardChatterBlocker
         {
             if (Program.HideInSystemTray)
             {
-                HideForm();
+                WindowState = FormWindowState.Minimized;
+                ShowInTaskbar = false;
             }
             Program.Blocker.KeyBlockedEvent += LogKeyBlocked;
             InitializeComponent();
@@ -162,7 +160,18 @@ namespace KeyboardChatterBlocker
             TrayIconCheckbox.Checked = Program.HideInSystemTray;
             if (Program.HideInSystemTray)
             {
+                WindowState = FormWindowState.Minimized;
+                ShowInTaskbar = false;
                 TrayIcon.Visible = true;
+                Timer hideProperlyTimer = new Timer() { Interval = 100 };
+                hideProperlyTimer.Tick += (tickSender, tickArgs) =>
+                {
+                    WindowState = FormWindowState.Normal;
+                    ShowInTaskbar = true;
+                    Visible = false;
+                    hideProperlyTimer.Stop();
+                };
+                hideProperlyTimer.Start();
             }
             ChatterThresholdBox.Value = Program.Blocker.GlobalChatterTimeLimit;
             EnabledCheckbox.Checked = Program.Blocker.IsEnabled;
