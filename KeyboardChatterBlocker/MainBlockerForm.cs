@@ -228,7 +228,7 @@ namespace KeyboardChatterBlocker
             {
                 int chatterTotal = Program.Blocker.StatsKeyChatter[keyData.Key];
                 string percentage = chatterTotal == 0 ? "" : ((chatterTotal * 100.0f / keyData.Value).ToString("00.00") + "%");
-                StatsGrid.Rows.Add(keyData.Key.ToString(), keyData.Value.ToString(), chatterTotal.ToString(), percentage);
+                StatsGrid.Rows.Add(keyData.Key.ToString(), keyData.Value, chatterTotal, percentage);
             }
             StatsGrid.ResumeLayout(true);
         }
@@ -248,7 +248,7 @@ namespace KeyboardChatterBlocker
                 {
                     continue;
                 }
-                ConfigureKeysGrid.Rows.Add(keyData.Key.ToString(), keyData.Value.Value.ToString(), "[X]");
+                ConfigureKeysGrid.Rows.Add(keyData.Key.ToString(), keyData.Value.Value, "[X]");
             }
             ConfigureKeysGrid.ResumeLayout(true);
         }
