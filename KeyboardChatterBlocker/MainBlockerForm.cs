@@ -362,6 +362,7 @@ namespace KeyboardChatterBlocker
                         ConfigureKeysGrid.Select();
                         ConfigureKeysGrid.ClearSelection();
                         row.Selected = true;
+                        ConfigureKeysGrid.FirstDisplayedScrollingRowIndex = row.Index;
                         break;
                     }
                 }
