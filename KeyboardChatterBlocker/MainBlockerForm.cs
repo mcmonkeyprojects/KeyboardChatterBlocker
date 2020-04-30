@@ -69,7 +69,7 @@ namespace KeyboardChatterBlocker
         /// <param name="e">The key blocked event details.</param>
         public void LogKeyBlocked(KeyBlockedEventArgs e)
         {
-            ChatterLogGrid.Rows.Add(DateTime.Now.ToString("HH:mm:ss"), e.Key.ToString(), e.Time.ToString());
+            ChatterLogGrid.Rows.Add(DateTime.Now.ToString("HH:mm:ss"), e.Key.ToString(), e.Time.ToString(), "[Edit]");
         }
 
         /// <summary>
@@ -333,6 +333,39 @@ namespace KeyboardChatterBlocker
         private void AboutLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://github.com/mcmonkeyprojects/KeyboardChatterBlocker");
+        }
+
+        /// <summary>
+        /// Event method auto-called when the "chatter log" box is double-clicked.
+        /// </summary>
+        private void ChatterLogGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!Enum.TryParse(ChatterLogGrid[1, e.RowIndex].Value.ToString(), true, out Keys key))
+            {
+                MessageBox.Show("Error: chatter log grid misconfigured, invalid key name!", "Keyboard Chatter Blocker", MessageBoxButtons.OK);
+                return;
+            }
+            else if (e.ColumnIndex == 3) // 'Configure' column
+            {
+                if (!Program.Blocker.KeysToChatterTime[key].HasValue)
+                {
+                    Program.Blocker.KeysToChatterTime[key] = Program.Blocker.GlobalChatterTimeLimit;
+                    Program.Blocker.SaveConfig();
+                    ConfigureKeysGrid.Rows.Add(key.ToString(), Program.Blocker.GlobalChatterTimeLimit.ToString(), "[X]");
+                }
+                string keyText = key.ToString();
+                tabControl1.SelectedTab = KeysTabPage;
+                foreach (DataGridViewRow row in ConfigureKeysGrid.Rows)
+                {
+                    if (row.Cells[0].Value.ToString() == keyText)
+                    {
+                        ConfigureKeysGrid.Select();
+                        ConfigureKeysGrid.ClearSelection();
+                        row.Selected = true;
+                        break;
+                    }
+                }
+            }
         }
     }
 }

@@ -31,9 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainBlockerForm));
             this.ChatterLogGrid = new System.Windows.Forms.DataGridView();
-            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ChatterDelay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EnabledCheckbox = new System.Windows.Forms.CheckBox();
             this.ChatterThresholdBox = new System.Windows.Forms.NumericUpDown();
             this.ChatterThresholdLabel = new System.Windows.Forms.Label();
@@ -55,12 +52,16 @@
             this.ConfigureThresholdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RemoveColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AboutTab = new System.Windows.Forms.TabPage();
-            this.AboutLabel1 = new System.Windows.Forms.Label();
-            this.AboutLabel2 = new System.Windows.Forms.Label();
-            this.AboutLabel3 = new System.Windows.Forms.Label();
-            this.AboutLavel4 = new System.Windows.Forms.Label();
-            this.AboutLabel5 = new System.Windows.Forms.Label();
             this.AboutLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.AboutLabel5 = new System.Windows.Forms.Label();
+            this.AboutLavel4 = new System.Windows.Forms.Label();
+            this.AboutLabel3 = new System.Windows.Forms.Label();
+            this.AboutLabel2 = new System.Windows.Forms.Label();
+            this.AboutLabel1 = new System.Windows.Forms.Label();
+            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ChatterDelay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ChatterConfigure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -83,34 +84,14 @@
             this.ChatterLogGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Time,
             this.Key,
-            this.ChatterDelay});
+            this.ChatterDelay,
+            this.ChatterConfigure});
             this.ChatterLogGrid.Location = new System.Drawing.Point(6, 6);
             this.ChatterLogGrid.Name = "ChatterLogGrid";
             this.ChatterLogGrid.ReadOnly = true;
             this.ChatterLogGrid.Size = new System.Drawing.Size(419, 262);
             this.ChatterLogGrid.TabIndex = 0;
-            // 
-            // Time
-            // 
-            this.Time.HeaderText = "Time";
-            this.Time.Name = "Time";
-            this.Time.ReadOnly = true;
-            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Key
-            // 
-            this.Key.HeaderText = "Key";
-            this.Key.Name = "Key";
-            this.Key.ReadOnly = true;
-            this.Key.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // ChatterDelay
-            // 
-            this.ChatterDelay.HeaderText = "Chatter Delay (ms)";
-            this.ChatterDelay.Name = "ChatterDelay";
-            this.ChatterDelay.ReadOnly = true;
-            this.ChatterDelay.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ChatterDelay.Width = 150;
+            this.ChatterLogGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ChatterLogGrid_CellContentDoubleClick);
             // 
             // EnabledCheckbox
             // 
@@ -344,52 +325,6 @@
             this.AboutTab.Text = "About";
             this.AboutTab.UseVisualStyleBackColor = true;
             // 
-            // AboutLabel1
-            // 
-            this.AboutLabel1.AutoSize = true;
-            this.AboutLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AboutLabel1.Location = new System.Drawing.Point(7, 7);
-            this.AboutLabel1.Name = "AboutLabel1";
-            this.AboutLabel1.Size = new System.Drawing.Size(214, 20);
-            this.AboutLabel1.TabIndex = 0;
-            this.AboutLabel1.Text = "Keyboard Chatter Blocker";
-            // 
-            // AboutLabel2
-            // 
-            this.AboutLabel2.AutoSize = true;
-            this.AboutLabel2.Location = new System.Drawing.Point(11, 42);
-            this.AboutLabel2.Name = "AboutLabel2";
-            this.AboutLabel2.Size = new System.Drawing.Size(190, 13);
-            this.AboutLabel2.TabIndex = 1;
-            this.AboutLabel2.Text = "Created by Alex \"mcmonkey\" Goodwin";
-            // 
-            // AboutLabel3
-            // 
-            this.AboutLabel3.AutoSize = true;
-            this.AboutLabel3.Location = new System.Drawing.Point(11, 71);
-            this.AboutLabel3.Name = "AboutLabel3";
-            this.AboutLabel3.Size = new System.Drawing.Size(196, 13);
-            this.AboutLabel3.TabIndex = 2;
-            this.AboutLabel3.Text = "Copyright (C) 2019, All Rights Reserved.";
-            // 
-            // AboutLavel4
-            // 
-            this.AboutLavel4.AutoSize = true;
-            this.AboutLavel4.Location = new System.Drawing.Point(11, 99);
-            this.AboutLavel4.Name = "AboutLavel4";
-            this.AboutLavel4.Size = new System.Drawing.Size(311, 13);
-            this.AboutLavel4.TabIndex = 3;
-            this.AboutLavel4.Text = "Made available to the public under the terms of the MIT License.";
-            // 
-            // AboutLabel5
-            // 
-            this.AboutLabel5.AutoSize = true;
-            this.AboutLabel5.Location = new System.Drawing.Point(11, 131);
-            this.AboutLabel5.Name = "AboutLabel5";
-            this.AboutLabel5.Size = new System.Drawing.Size(230, 13);
-            this.AboutLabel5.TabIndex = 4;
-            this.AboutLabel5.Text = "License, source code, and more info on GitHub";
-            // 
             // AboutLinkLabel
             // 
             this.AboutLinkLabel.AutoSize = true;
@@ -400,6 +335,83 @@
             this.AboutLinkLabel.TabStop = true;
             this.AboutLinkLabel.Text = "https://github.com/mcmonkeyprojects/KeyboardChatterBlocker";
             this.AboutLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.AboutLinkLabel_LinkClicked);
+            // 
+            // AboutLabel5
+            // 
+            this.AboutLabel5.AutoSize = true;
+            this.AboutLabel5.Location = new System.Drawing.Point(11, 131);
+            this.AboutLabel5.Name = "AboutLabel5";
+            this.AboutLabel5.Size = new System.Drawing.Size(230, 13);
+            this.AboutLabel5.TabIndex = 4;
+            this.AboutLabel5.Text = "License, source code, and more info on GitHub";
+            // 
+            // AboutLavel4
+            // 
+            this.AboutLavel4.AutoSize = true;
+            this.AboutLavel4.Location = new System.Drawing.Point(11, 99);
+            this.AboutLavel4.Name = "AboutLavel4";
+            this.AboutLavel4.Size = new System.Drawing.Size(311, 13);
+            this.AboutLavel4.TabIndex = 3;
+            this.AboutLavel4.Text = "Made available to the public under the terms of the MIT License.";
+            // 
+            // AboutLabel3
+            // 
+            this.AboutLabel3.AutoSize = true;
+            this.AboutLabel3.Location = new System.Drawing.Point(11, 71);
+            this.AboutLabel3.Name = "AboutLabel3";
+            this.AboutLabel3.Size = new System.Drawing.Size(196, 13);
+            this.AboutLabel3.TabIndex = 2;
+            this.AboutLabel3.Text = "Copyright (C) 2019, All Rights Reserved.";
+            // 
+            // AboutLabel2
+            // 
+            this.AboutLabel2.AutoSize = true;
+            this.AboutLabel2.Location = new System.Drawing.Point(11, 42);
+            this.AboutLabel2.Name = "AboutLabel2";
+            this.AboutLabel2.Size = new System.Drawing.Size(190, 13);
+            this.AboutLabel2.TabIndex = 1;
+            this.AboutLabel2.Text = "Created by Alex \"mcmonkey\" Goodwin";
+            // 
+            // AboutLabel1
+            // 
+            this.AboutLabel1.AutoSize = true;
+            this.AboutLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AboutLabel1.Location = new System.Drawing.Point(7, 7);
+            this.AboutLabel1.Name = "AboutLabel1";
+            this.AboutLabel1.Size = new System.Drawing.Size(214, 20);
+            this.AboutLabel1.TabIndex = 0;
+            this.AboutLabel1.Text = "Keyboard Chatter Blocker";
+            // 
+            // Time
+            // 
+            this.Time.HeaderText = "Time";
+            this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
+            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Time.Width = 90;
+            // 
+            // Key
+            // 
+            this.Key.HeaderText = "Key";
+            this.Key.Name = "Key";
+            this.Key.ReadOnly = true;
+            this.Key.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Key.Width = 75;
+            // 
+            // ChatterDelay
+            // 
+            this.ChatterDelay.HeaderText = "Chatter Delay (ms)";
+            this.ChatterDelay.Name = "ChatterDelay";
+            this.ChatterDelay.ReadOnly = true;
+            this.ChatterDelay.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ChatterDelay.Width = 135;
+            // 
+            // ChatterConfigure
+            // 
+            this.ChatterConfigure.HeaderText = "Configure";
+            this.ChatterConfigure.Name = "ChatterConfigure";
+            this.ChatterConfigure.ReadOnly = true;
+            this.ChatterConfigure.Width = 75;
             // 
             // MainBlockerForm
             // 
@@ -437,9 +449,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView ChatterLogGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Key;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ChatterDelay;
         private System.Windows.Forms.CheckBox EnabledCheckbox;
         private System.Windows.Forms.NumericUpDown ChatterThresholdBox;
         private System.Windows.Forms.Label ChatterThresholdLabel;
@@ -467,6 +476,10 @@
         private System.Windows.Forms.Label AboutLabel3;
         private System.Windows.Forms.Label AboutLabel2;
         private System.Windows.Forms.Label AboutLabel1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Key;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ChatterDelay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ChatterConfigure;
     }
 }
 
