@@ -205,7 +205,7 @@ namespace KeyboardChatterBlocker
                 return true;
             }
             uint maxTime = KeysToChatterTime[key] ?? GlobalChatterTimeLimit;
-            if (timeNow > timeLast + maxTime) // Time past the chatter limit = enough delay passed, allow it.
+            if (timeNow >= timeLast + maxTime) // Time past the chatter limit = enough delay passed, allow it.
             {
                 return true;
             }
