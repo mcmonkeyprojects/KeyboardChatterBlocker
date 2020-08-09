@@ -38,7 +38,7 @@ namespace KeyboardChatterBlocker
         /// </summary>
         public void KeyConfigurationForm_Load(object sender, EventArgs e)
         {
-            ConfigureKeyLabel.Text = "Configure Key: " + Key.ToString();
+            ConfigureKeyLabel.Text = "Configure Key: " + Key.Stringify();
             GlobalLabel.Text = "Global Default: " + Program.Blocker.GlobalChatterTimeLimit;
             uint curVal = Program.Blocker.KeysToChatterTime[Key] ?? Program.Blocker.GlobalChatterTimeLimit;
             WasLabel.Text = "Was: " + curVal;

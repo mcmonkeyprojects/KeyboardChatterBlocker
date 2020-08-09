@@ -74,7 +74,7 @@ namespace KeyboardChatterBlocker
             string settingValue = setting.Substring(colonIndex + 1).Trim();
             if (settingName.StartsWith("key."))
             {
-                if (!Enum.TryParse(settingName.Substring("key.".Length), true, out Keys key))
+                if (!KeysHelper.TryGetKey(settingName.Substring("key.".Length), out Keys key))
                 {
                     MessageBox.Show("Config file contains setting '" + setting + "', which names an invalid key.", "KeyboardChatterBlocker Configuration Error", MessageBoxButtons.OK);
                     return;
@@ -124,7 +124,7 @@ namespace KeyboardChatterBlocker
                 {
                     continue;
                 }
-                result.Append("key.").Append(chatterTimes.Key.ToString()).Append(": ").Append(chatterTimes.Value.Value).Append("\n");
+                result.Append("key.").Append(chatterTimes.Key.Stringify()).Append(": ").Append(chatterTimes.Value.Value).Append("\n");
             }
             return result.ToString();
         }

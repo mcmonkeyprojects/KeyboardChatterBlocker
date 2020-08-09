@@ -228,7 +228,7 @@ namespace KeyboardChatterBlocker
             {
                 int chatterTotal = Program.Blocker.StatsKeyChatter[keyData.Key];
                 string percentage = chatterTotal == 0 ? "" : ((chatterTotal * 100.0f / keyData.Value).ToString("00.00") + "%");
-                StatsGrid.Rows.Add(keyData.Key.ToString(), keyData.Value, chatterTotal, percentage);
+                StatsGrid.Rows.Add(keyData.Key.Stringify(), keyData.Value, chatterTotal, percentage);
             }
             StatsGrid.ResumeLayout(true);
         }
@@ -248,7 +248,7 @@ namespace KeyboardChatterBlocker
                 {
                     continue;
                 }
-                ConfigureKeysGrid.Rows.Add(keyData.Key.ToString(), keyData.Value.Value, "[X]");
+                ConfigureKeysGrid.Rows.Add(keyData.Key.Stringify(), keyData.Value.Value, "[X]");
             }
             ConfigureKeysGrid.ResumeLayout(true);
         }
@@ -270,7 +270,7 @@ namespace KeyboardChatterBlocker
         /// </summary>
         public void ConfigureKeysGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (!Enum.TryParse(ConfigureKeysGrid[0, e.RowIndex].Value.ToString(), true, out Keys key))
+            if (!KeysHelper.TryGetKey(ConfigureKeysGrid[0, e.RowIndex].Value.ToString(), out Keys key))
             {
                 MessageBox.Show("Error: configure keys grid misconfigured, invalid key name!", "Keyboard Chatter Blocker", MessageBoxButtons.OK);
                 return;
@@ -324,7 +324,7 @@ namespace KeyboardChatterBlocker
             }
             Program.Blocker.KeysToChatterTime[result.Value] = Program.Blocker.GlobalChatterTimeLimit;
             Program.Blocker.SaveConfig();
-            ConfigureKeysGrid.Rows.Add(result.Value.ToString(), Program.Blocker.GlobalChatterTimeLimit.ToString(), "[X]");
+            ConfigureKeysGrid.Rows.Add(result.Value.Stringify(), Program.Blocker.GlobalChatterTimeLimit.ToString(), "[X]");
         }
 
         /// <summary>
@@ -351,9 +351,9 @@ namespace KeyboardChatterBlocker
                 {
                     Program.Blocker.KeysToChatterTime[key] = Program.Blocker.GlobalChatterTimeLimit;
                     Program.Blocker.SaveConfig();
-                    ConfigureKeysGrid.Rows.Add(key.ToString(), Program.Blocker.GlobalChatterTimeLimit.ToString(), "[X]");
+                    ConfigureKeysGrid.Rows.Add(key.Stringify(), Program.Blocker.GlobalChatterTimeLimit.ToString(), "[X]");
                 }
-                string keyText = key.ToString();
+                string keyText = key.Stringify();
                 tabControl1.SelectedTab = KeysTabPage;
                 foreach (DataGridViewRow row in ConfigureKeysGrid.Rows)
                 {
