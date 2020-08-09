@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainBlockerForm));
             this.ChatterLogGrid = new System.Windows.Forms.DataGridView();
+            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ChatterDelay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ChatterConfigure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EnabledCheckbox = new System.Windows.Forms.CheckBox();
             this.ChatterThresholdBox = new System.Windows.Forms.NumericUpDown();
             this.ChatterThresholdLabel = new System.Windows.Forms.Label();
@@ -58,10 +62,6 @@
             this.AboutLabel3 = new System.Windows.Forms.Label();
             this.AboutLabel2 = new System.Windows.Forms.Label();
             this.AboutLabel1 = new System.Windows.Forms.Label();
-            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ChatterDelay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ChatterConfigure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -92,6 +92,37 @@
             this.ChatterLogGrid.Size = new System.Drawing.Size(419, 262);
             this.ChatterLogGrid.TabIndex = 0;
             this.ChatterLogGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ChatterLogGrid_CellContentDoubleClick);
+            // 
+            // Time
+            // 
+            this.Time.HeaderText = "Time";
+            this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
+            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Time.Width = 90;
+            // 
+            // Key
+            // 
+            this.Key.HeaderText = "Key";
+            this.Key.Name = "Key";
+            this.Key.ReadOnly = true;
+            this.Key.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Key.Width = 75;
+            // 
+            // ChatterDelay
+            // 
+            this.ChatterDelay.HeaderText = "Chatter Delay (ms)";
+            this.ChatterDelay.Name = "ChatterDelay";
+            this.ChatterDelay.ReadOnly = true;
+            this.ChatterDelay.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ChatterDelay.Width = 135;
+            // 
+            // ChatterConfigure
+            // 
+            this.ChatterConfigure.HeaderText = "Configure";
+            this.ChatterConfigure.Name = "ChatterConfigure";
+            this.ChatterConfigure.ReadOnly = true;
+            this.ChatterConfigure.Width = 75;
             // 
             // EnabledCheckbox
             // 
@@ -361,7 +392,7 @@
             this.AboutLabel3.Name = "AboutLabel3";
             this.AboutLabel3.Size = new System.Drawing.Size(196, 13);
             this.AboutLabel3.TabIndex = 2;
-            this.AboutLabel3.Text = "Copyright (C) 2019, All Rights Reserved.";
+            this.AboutLabel3.Text = "Copyright (C) 2019-2020, All Rights Reserved.";
             // 
             // AboutLabel2
             // 
@@ -381,37 +412,6 @@
             this.AboutLabel1.Size = new System.Drawing.Size(214, 20);
             this.AboutLabel1.TabIndex = 0;
             this.AboutLabel1.Text = "Keyboard Chatter Blocker";
-            // 
-            // Time
-            // 
-            this.Time.HeaderText = "Time";
-            this.Time.Name = "Time";
-            this.Time.ReadOnly = true;
-            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Time.Width = 90;
-            // 
-            // Key
-            // 
-            this.Key.HeaderText = "Key";
-            this.Key.Name = "Key";
-            this.Key.ReadOnly = true;
-            this.Key.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Key.Width = 75;
-            // 
-            // ChatterDelay
-            // 
-            this.ChatterDelay.HeaderText = "Chatter Delay (ms)";
-            this.ChatterDelay.Name = "ChatterDelay";
-            this.ChatterDelay.ReadOnly = true;
-            this.ChatterDelay.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ChatterDelay.Width = 135;
-            // 
-            // ChatterConfigure
-            // 
-            this.ChatterConfigure.HeaderText = "Configure";
-            this.ChatterConfigure.Name = "ChatterConfigure";
-            this.ChatterConfigure.ReadOnly = true;
-            this.ChatterConfigure.Width = 75;
             // 
             // MainBlockerForm
             // 
