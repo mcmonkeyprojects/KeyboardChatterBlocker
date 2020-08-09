@@ -192,7 +192,7 @@ namespace KeyboardChatterBlocker
                     }
                     else if (wParamInt == WM_MBUTTONDOWN || wParamInt == WM_MBUTTONUP)
                     {
-                        key = KeysHelper.KEY_MOUSE_RIGHT;
+                        key = KeysHelper.KEY_MOUSE_MIDDLE;
                     }
                     else
                     {
