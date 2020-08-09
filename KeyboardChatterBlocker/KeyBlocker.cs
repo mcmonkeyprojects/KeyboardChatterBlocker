@@ -233,6 +233,10 @@ namespace KeyboardChatterBlocker
             {
                 return true;
             }
+            if (timeNow <= timeLast + maxTime - 9000) // If more than 9 seconds behind, something's gone wrong, so let through anyway.
+            {
+                return true;
+            }
             // All else = not enough time elapsed, deny it.
             StatsKeyChatter[key]++;
             KeysWereDownBlocked[key] = true;
