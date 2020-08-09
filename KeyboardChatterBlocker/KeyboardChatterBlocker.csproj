@@ -79,6 +79,7 @@
     <Compile Include="KeyConfigurationForm.Designer.cs">
       <DependentUpon>KeyConfigurationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="KeysHelper.cs" />
     <Compile Include="MainBlockerForm.cs">
       <SubType>Form</SubType>
     </Compile>
