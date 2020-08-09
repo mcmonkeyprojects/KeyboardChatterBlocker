@@ -28,6 +28,11 @@ namespace KeyboardChatterBlocker
         public static extern ulong GetTickCount64();
 
         /// <summary>
+        /// The relevant <see cref="KeyboardInterceptor"/> instance.
+        /// </summary>
+        public KeyboardInterceptor Interceptor;
+
+        /// <summary>
         /// Load the <see cref="KeyBlocker"/> from config file settings.
         /// </summary>
         public KeyBlocker()
@@ -46,6 +51,23 @@ namespace KeyboardChatterBlocker
             if (!KeysToChatterTime[Keys.Enter].HasValue)
             {
                 KeysToChatterTime[Keys.Enter] = GlobalChatterTimeLimit;
+            }
+        }
+
+        /// <summary>
+        /// Enables the internal mouse hook if it's needed, and disables if it's not.
+        /// </summary>
+        public void AutoEnableMouse()
+        {
+            if (KeysToChatterTime[KeysHelper.KEY_MOUSE_LEFT].HasValue || KeysToChatterTime[KeysHelper.KEY_MOUSE_RIGHT].HasValue
+                || KeysToChatterTime[KeysHelper.KEY_MOUSE_MIDDLE].HasValue
+                || KeysToChatterTime[KeysHelper.KEY_MOUSE_FORWARD].HasValue || KeysToChatterTime[KeysHelper.KEY_MOUSE_BACKWARD].HasValue)
+            {
+                Interceptor.EnableMouseHook();
+            }
+            else
+            {
+                Interceptor.DisableMouseHook();
             }
         }
 
@@ -101,6 +123,7 @@ namespace KeyboardChatterBlocker
         /// </summary>
         public void SaveConfig()
         {
+            AutoEnableMouse();
             string saveStr = GetConfigurationString();
             File.WriteAllText(CONFIG_FILE, saveStr);
         }
@@ -183,8 +206,9 @@ namespace KeyboardChatterBlocker
         /// Called when a key-down event is detected, to decide whether to allow it through.
         /// </summary>
         /// <param name="key">The key being pressed.</param>
+        /// <param name="defaultZero">If true, defaults to zero instead of <see cref="GlobalChatterTimeLimit"/>.</param>
         /// <returns>True to allow the press, false to deny it.</returns>
-        public bool AllowKeyDown(Keys key)
+        public bool AllowKeyDown(Keys key, bool defaultZero)
         {
             if (!IsEnabled) // Not enabled = allow everything through.
             {
@@ -204,7 +228,7 @@ namespace KeyboardChatterBlocker
             {
                 return true;
             }
-            uint maxTime = KeysToChatterTime[key] ?? GlobalChatterTimeLimit;
+            uint maxTime = KeysToChatterTime[key] ?? (defaultZero ? 0 : GlobalChatterTimeLimit);
             if (timeNow >= timeLast + maxTime) // Time past the chatter limit = enough delay passed, allow it.
             {
                 return true;

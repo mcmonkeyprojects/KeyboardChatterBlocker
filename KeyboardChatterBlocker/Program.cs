@@ -39,6 +39,7 @@ namespace KeyboardChatterBlocker
             Blocker = new KeyBlocker();
             using (KeyboardInterceptor intercept = new KeyboardInterceptor(Blocker))
             {
+                Blocker.AutoEnableMouse();
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 MainForm = new MainBlockerForm();

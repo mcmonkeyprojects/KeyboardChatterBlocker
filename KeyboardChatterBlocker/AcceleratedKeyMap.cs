@@ -21,7 +21,7 @@ namespace KeyboardChatterBlocker
         /// <summary>
         /// Full dictionary mapping.
         /// </summary>
-        public Dictionary<Keys, T> MainDictionary = new Dictionary<Keys, T>(2048);
+        public Dictionary<Keys, T> MainDictionary = new Dictionary<Keys, T>(1024);
 
         /// <summary>
         /// Get or set a key-to-T mapping.

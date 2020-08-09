@@ -81,11 +81,11 @@ namespace KeyboardChatterBlocker
 
         public KeyboardInterceptor(KeyBlocker blocker)
         {
+            blocker.Interceptor = this;
             KeyBlockHandler = blocker;
             KeyboardProcCallback = KeyboardHookCallback;
             MouseProcCallback = MouseHookCallback;
             KeyboardHookID = SetKeyboardHook(KeyboardProcCallback);
-            EnableMouseHook();
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace KeyboardChatterBlocker
                     Keys key = (Keys)vkCode;
                     if (isDown)
                     {
-                        if (!KeyBlockHandler.AllowKeyDown(key))
+                        if (!KeyBlockHandler.AllowKeyDown(key, false))
                         {
                             return (IntPtr)1;
                         }
@@ -208,7 +208,7 @@ namespace KeyboardChatterBlocker
                     }
                     if (isDown)
                     {
-                        if (!KeyBlockHandler.AllowKeyDown(key))
+                        if (!KeyBlockHandler.AllowKeyDown(key, true))
                         {
                             return (IntPtr)1;
                         }
