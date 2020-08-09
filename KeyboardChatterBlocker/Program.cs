@@ -24,6 +24,11 @@ namespace KeyboardChatterBlocker
         public static bool HideInSystemTray = false;
 
         /// <summary>
+        /// The main form, <see cref="MainBlockerForm"/>.
+        /// </summary>
+        public static MainBlockerForm MainForm;
+
+        /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
@@ -36,7 +41,8 @@ namespace KeyboardChatterBlocker
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainBlockerForm());
+                MainForm = new MainBlockerForm();
+                Application.Run(MainForm);
             }
         }
     }

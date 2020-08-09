@@ -48,5 +48,37 @@ namespace KeyboardChatterBlocker
             SetResultKey(e.KeyCode);
             Close();
         }
+
+        /// <summary>
+        /// Event method auto-called when any mouse button is pressed within the form.
+        /// </summary>
+        private void NeedInputForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (GUICancelButton.Bounds.Contains(e.Location))
+            {
+                return;
+            }
+            if (e.Button == MouseButtons.Left)
+            {
+                SetResultKey(KeysHelper.KEY_MOUSE_LEFT);
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                SetResultKey(KeysHelper.KEY_MOUSE_RIGHT);
+            }
+            else if (e.Button == MouseButtons.Middle)
+            {
+                SetResultKey(KeysHelper.KEY_MOUSE_MIDDLE);
+            }
+            else if (e.Button == MouseButtons.XButton1)
+            {
+                SetResultKey(KeysHelper.KEY_MOUSE_BACKWARD);
+            }
+            else if (e.Button == MouseButtons.XButton2)
+            {
+                SetResultKey(KeysHelper.KEY_MOUSE_FORWARD);
+            }
+            Close();
+        }
     }
 }
