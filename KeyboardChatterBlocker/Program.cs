@@ -32,8 +32,14 @@ namespace KeyboardChatterBlocker
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            // If triggered by the installer, close this and relaunch, to avoid hanging up the installer.
+            if (args.Length == 1 && args[0] == "_INSTALLER_AUTOBOUNCE")
+            {
+                Process.Start(Application.ExecutablePath);
+                return;
+            }
             // This needs priority to prevent delaying input
             Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.AboveNormal;
             Blocker = new KeyBlocker();
