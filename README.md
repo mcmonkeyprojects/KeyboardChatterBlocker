@@ -41,9 +41,14 @@ I've taken a similar approach to the software solutions mentioned above, but wit
 
 ### Setup
 
-1. Download the [release file](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker/releases) (Or build from source)
-2. Save the .exe in ... any folder anywhere really, just not one that requires admin access (the program must be able to save a config file into it's own folder). A sub-folder on your desktop or your documents is fine.
-3. Run the .exe
+- A:
+    1. Download the [release file](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker/releases) (Or build from source)
+    2. Save the .exe in ... any folder anywhere really. A sub-folder on your desktop or your documents is fine. A folder under program files will also work, though note that will redirect the config file to LocalAppData.
+    3. Run the .exe
+- Or B:
+    1. Download the [Installer Wizard (.msi)](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker/releases)
+    2. Run the wizard, and configure it however you prefer.
+    3. At the end of the wizard, the program will automatically launch.
 4. Configure settings as preferred, test with care (check the "Enable" box to have the blocker active, uncheck it if it's in the way)
     - To configure individual keys, switch to the "Configure Keys" tab, and press "Add Key" to add a key, then in the form that pops up, press the key you want to add. You can then edit it's value in the grid by double-clicking the number and typing whatever you please in place. To remove a key's explicit custom value, simply double-click the `[X]` for it under "Remove".
 5. Check the "Enable", "Start In Tray", and "Start With Windows" boxes so it'll be active and just always be there.
@@ -53,11 +58,11 @@ I've taken a similar approach to the software solutions mentioned above, but wit
 
 - You can theoretically block any key on a keyboard that registers as a standard keypress. This includes weird special keys like a volume wheel. You might want to set volume wheels to threshold of zero if you have one. Extremely specialized keys (such as G Keys) might not be standard keypresses and thus not be blockable. If in doubt: try it and see!
 - You can block mouse buttons if you want (Left/Right/Middle/Forward/Backward). Be careful if you block left mouse button chatter: if you set the limit too high, you might become unable to double-click. If you get stuck, you can either uncheck the `Enabled` box to regain control and fix that, or, if needed, use Task Manager to kill the blocker program, and then edit the config file (see config notes below).
-- This only works in user-space. That is, the Windows login screen and other sensitive Windows protected input areas will not have chatter blocked. You might want to use a PIN or other login method to avoid chatter problems that affect a password login (see also issue #7).
+- This only works in user-space. That is, the Windows login screen and other sensitive Windows protected input areas will not have chatter blocked. You might want to use a PIN or other login method to avoid chatter problems that affect a password login (see also [issue #7](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker/issues/7)).
 
 ### Config File Notes
 
-**If you're the type of person to care about the config file and want to edit it manually,** The config file is literally just a `config.txt` file in the same folder as the executable. Each line is one setting to apply. Prefix a line with `#` to make it a comment. All uncommented (and non-blank) lines are settings, of the form `name: value`. The following settings are available:
+**If you're the type of person to care about the config file and want to edit it manually,** The config file is literally just a `config.txt` file in the same folder as the executable (unless you installed into Program Files, in which case the config file is at `%localappdata%/KeyboardChatterBlocker`). Each line is one setting to apply. Prefix a line with `#` to make it a comment. All uncommented (and non-blank) lines are settings, of the form `name: value`. The following settings are available:
 - `is_enabled`: Set to `true` to be activated as normal, or `false` to turn the chatter protection off.
 - `global_chatter`: Set to the time (in ms) for the default global keyboard chatter threshold.
 - `hide_in_system_tray`: Set to `true` to make the program hide in the system tray at start, or `false` to load as a visible GUI app.

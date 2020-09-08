@@ -16,9 +16,14 @@ namespace KeyboardChatterBlocker
     public class KeyBlocker
     {
         /// <summary>
+        /// Path of the local app data config file IF used.
+        /// </summary>
+        private static readonly string LOCAL_APP_DATA_PATH = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/KeyboardChatterBlocker/config.txt";
+
+        /// <summary>
         /// Location of the config file.
         /// </summary>
-        public const string CONFIG_FILE = "./config.txt";
+        public static readonly string CONFIG_FILE = Application.ExecutablePath.Contains("Program Files") ? LOCAL_APP_DATA_PATH : "./config.txt";
 
         /// <summary>
         /// External Windows API call. Gets the current tick count as a 64-bit (ulong) value.
@@ -125,6 +130,7 @@ namespace KeyboardChatterBlocker
         {
             AutoEnableMouse();
             string saveStr = GetConfigurationString();
+            Directory.CreateDirectory(Path.GetDirectoryName(CONFIG_FILE));
             File.WriteAllText(CONFIG_FILE, saveStr);
         }
 
