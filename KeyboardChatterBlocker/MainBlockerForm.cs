@@ -152,6 +152,48 @@ namespace KeyboardChatterBlocker
             }
         }
 
+        public void SetAutoDisable(bool disable)
+        {
+            if (Program.Blocker.IsAutoDisabled == disable)
+            {
+                return;
+            }
+            Program.Blocker.IsAutoDisabled = disable;
+        }
+
+        /// <summary>
+        /// Check whether to auto-disable, and apply the correct value.
+        /// </summary>
+        public void CheckAutoDisable()
+        {
+            HashSet<string> programsToCheck = new HashSet<string>(Program.Blocker.AutoDisablePrograms);
+            if (programsToCheck.Count == 0)
+            {
+                SetAutoDisable(false);
+                return;
+            }
+            bool any = false;
+            foreach (string proc in Process.GetProcesses().Select(p => p.ProcessName.ToLowerInvariant()))
+            {
+                if (programsToCheck.Contains(proc))
+                {
+                    programsToCheck.Remove(proc);
+                    SetAutoDisable(true);
+                    any = true;
+                }
+            }
+            if (!any)
+            {
+                SetAutoDisable(false);
+            }
+            else
+            {
+                foreach (string notBlocking in programsToCheck)
+                {
+                }
+            }
+        }
+
         /// <summary>
         /// Event method auto-called when the form loads.
         /// </summary>
@@ -173,6 +215,10 @@ namespace KeyboardChatterBlocker
                 };
                 hideProperlyTimer.Start();
             }
+            Timer AutoDisableTimer = new Timer() { Interval = 2000 };
+            AutoDisableTimer.Tick += (tickSender, tickArgs) => CheckAutoDisable();
+            AutoDisableTimer.Start();
+            AutoDisableProgramsList.Items.AddRange(Program.Blocker.AutoDisablePrograms.Select(s => s).ToArray());
             ChatterThresholdBox.Value = Program.Blocker.GlobalChatterTimeLimit;
             EnabledCheckbox.Checked = Program.Blocker.IsEnabled;
             StartWithWindowsCheckbox.Checked = File.Exists(StartupLinkPath);
@@ -181,6 +227,7 @@ namespace KeyboardChatterBlocker
             StatsUpdateTimer.Start();
             PushKeysToGrid();
             Loading = false;
+            CheckAutoDisable();
         }
 
         /// <summary>
