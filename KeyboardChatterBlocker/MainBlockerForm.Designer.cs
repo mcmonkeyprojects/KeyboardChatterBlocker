@@ -97,7 +97,7 @@
             this.ChatterLogGrid.Location = new System.Drawing.Point(6, 6);
             this.ChatterLogGrid.Name = "ChatterLogGrid";
             this.ChatterLogGrid.ReadOnly = true;
-            this.ChatterLogGrid.Size = new System.Drawing.Size(419, 275);
+            this.ChatterLogGrid.Size = new System.Drawing.Size(419, 278);
             this.ChatterLogGrid.TabIndex = 0;
             this.ChatterLogGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ChatterLogGrid_CellContentDoubleClick);
             // 
@@ -217,7 +217,7 @@
             this.tabControl1.Location = new System.Drawing.Point(13, 89);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(439, 313);
+            this.tabControl1.Size = new System.Drawing.Size(439, 316);
             this.tabControl1.TabIndex = 7;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControl1_Selected);
             // 
@@ -227,7 +227,7 @@
             this.ChatterLogTabPage.Location = new System.Drawing.Point(4, 22);
             this.ChatterLogTabPage.Name = "ChatterLogTabPage";
             this.ChatterLogTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ChatterLogTabPage.Size = new System.Drawing.Size(431, 287);
+            this.ChatterLogTabPage.Size = new System.Drawing.Size(431, 290);
             this.ChatterLogTabPage.TabIndex = 0;
             this.ChatterLogTabPage.Text = "Chatter Log";
             this.ChatterLogTabPage.UseVisualStyleBackColor = true;
@@ -238,7 +238,7 @@
             this.StatsTabPage.Location = new System.Drawing.Point(4, 22);
             this.StatsTabPage.Name = "StatsTabPage";
             this.StatsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.StatsTabPage.Size = new System.Drawing.Size(431, 293);
+            this.StatsTabPage.Size = new System.Drawing.Size(431, 290);
             this.StatsTabPage.TabIndex = 1;
             this.StatsTabPage.Text = "Stats";
             this.StatsTabPage.UseVisualStyleBackColor = true;
@@ -259,7 +259,7 @@
             this.StatsGrid.Location = new System.Drawing.Point(3, 6);
             this.StatsGrid.Name = "StatsGrid";
             this.StatsGrid.ReadOnly = true;
-            this.StatsGrid.Size = new System.Drawing.Size(422, 280);
+            this.StatsGrid.Size = new System.Drawing.Size(422, 277);
             this.StatsGrid.TabIndex = 0;
             // 
             // StatsKeyColumn
@@ -297,7 +297,7 @@
             this.KeysTabPage.Location = new System.Drawing.Point(4, 22);
             this.KeysTabPage.Name = "KeysTabPage";
             this.KeysTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.KeysTabPage.Size = new System.Drawing.Size(431, 293);
+            this.KeysTabPage.Size = new System.Drawing.Size(431, 290);
             this.KeysTabPage.TabIndex = 2;
             this.KeysTabPage.Text = "Configure Keys";
             this.KeysTabPage.UseVisualStyleBackColor = true;
@@ -326,7 +326,7 @@
             this.RemoveColumn});
             this.ConfigureKeysGrid.Location = new System.Drawing.Point(7, 35);
             this.ConfigureKeysGrid.Name = "ConfigureKeysGrid";
-            this.ConfigureKeysGrid.Size = new System.Drawing.Size(418, 252);
+            this.ConfigureKeysGrid.Size = new System.Drawing.Size(418, 249);
             this.ConfigureKeysGrid.TabIndex = 0;
             this.ConfigureKeysGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ConfigureKeysGrid_CellContentDoubleClick);
             // 
@@ -358,17 +358,20 @@
             this.AutoDisableProgramsTabPage.Controls.Add(this.AddProgramTextBox);
             this.AutoDisableProgramsTabPage.Location = new System.Drawing.Point(4, 22);
             this.AutoDisableProgramsTabPage.Name = "AutoDisableProgramsTabPage";
-            this.AutoDisableProgramsTabPage.Size = new System.Drawing.Size(431, 287);
+            this.AutoDisableProgramsTabPage.Size = new System.Drawing.Size(431, 290);
             this.AutoDisableProgramsTabPage.TabIndex = 4;
             this.AutoDisableProgramsTabPage.Text = "Auto Disable Programs";
             this.AutoDisableProgramsTabPage.UseVisualStyleBackColor = true;
             // 
             // AutoDisableProgramsList
             // 
+            this.AutoDisableProgramsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AutoDisableProgramsList.HideSelection = false;
             this.AutoDisableProgramsList.Location = new System.Drawing.Point(8, 59);
             this.AutoDisableProgramsList.Name = "AutoDisableProgramsList";
-            this.AutoDisableProgramsList.Size = new System.Drawing.Size(417, 231);
+            this.AutoDisableProgramsList.Size = new System.Drawing.Size(417, 225);
             this.AutoDisableProgramsList.TabIndex = 5;
             this.AutoDisableProgramsList.UseCompatibleStateImageBehavior = false;
             this.AutoDisableProgramsList.View = System.Windows.Forms.View.List;
@@ -492,7 +495,6 @@
             // 
             // EnableNoteLabel
             // 
-            this.EnableNoteLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.EnableNoteLabel.AutoSize = true;
             this.EnableNoteLabel.BackColor = System.Drawing.SystemColors.Control;
             this.EnableNoteLabel.Location = new System.Drawing.Point(2, 50);
