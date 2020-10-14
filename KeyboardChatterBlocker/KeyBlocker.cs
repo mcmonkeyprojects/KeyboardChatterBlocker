@@ -120,6 +120,9 @@ namespace KeyboardChatterBlocker
                 case "hide_in_system_tray":
                     Program.HideInSystemTray = SettingAsBool(settingValue);
                     break;
+                case "auto_disable_programs":
+                    AutoDisablePrograms.AddRange(settingValue.ToLowerInvariant().Split('/'));
+                    break;
             }
         }
 
@@ -155,6 +158,10 @@ namespace KeyboardChatterBlocker
                 }
                 result.Append("key.").Append(chatterTimes.Key.Stringify()).Append(": ").Append(chatterTimes.Value.Value).Append("\n");
             }
+            if (AutoDisablePrograms.Count > 0)
+            {
+                result.Append("auto_disable_programs: ").Append(string.Join("/", AutoDisablePrograms));
+            }
             return result.ToString();
         }
 
@@ -164,9 +171,19 @@ namespace KeyboardChatterBlocker
         public Action<KeyBlockedEventArgs> KeyBlockedEvent;
 
         /// <summary>
+        /// If this is true, some feature (such as an open program in the auto-disable-programs list) is causing the blocker to automatically disable.
+        /// </summary>
+        public bool IsAutoDisabled = false;
+
+        /// <summary>
         /// Whether the blocker is currently enabled.
         /// </summary>
         public bool IsEnabled = false;
+
+        /// <summary>
+        /// A set of program executable names that will cause the blocker to automatically disable if they are open.
+        /// </summary>
+        public List<string> AutoDisablePrograms = new List<string>();
 
         /// <summary>
         /// A mapping of keys to the last press time.
@@ -216,7 +233,7 @@ namespace KeyboardChatterBlocker
         /// <returns>True to allow the press, false to deny it.</returns>
         public bool AllowKeyDown(Keys key, bool defaultZero)
         {
-            if (!IsEnabled) // Not enabled = allow everything through.
+            if (!IsEnabled || IsAutoDisabled) // Not enabled = allow everything through.
             {
                 return true;
             }
@@ -259,7 +276,7 @@ namespace KeyboardChatterBlocker
         /// <returns>True to allow the key-up, false to deny it.</returns>
         public bool AllowKeyUp(Keys key)
         {
-            if (!IsEnabled) // Not enabled = allow everything through.
+            if (!IsEnabled || IsAutoDisabled) // Not enabled = allow everything through.
             {
                 return true;
             }
