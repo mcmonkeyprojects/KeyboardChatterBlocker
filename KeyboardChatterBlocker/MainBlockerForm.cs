@@ -159,6 +159,16 @@ namespace KeyboardChatterBlocker
                 return;
             }
             Program.Blocker.IsAutoDisabled = disable;
+            if (disable)
+            {
+                EnableNoteLabel.Text = "(Automatically disabled due to an open process)";
+                EnableNoteLabel.BackColor = Color.FromArgb(64, 255, 0, 0);
+            }
+            else
+            {
+                EnableNoteLabel.Text = "";
+                EnableNoteLabel.BackColor = Color.Transparent;
+            }
         }
 
         /// <summary>
@@ -199,6 +209,8 @@ namespace KeyboardChatterBlocker
         /// </summary>
         public void MainBlockerForm_Load(object sender, EventArgs e)
         {
+            EnableNoteLabel.Text = "";
+            EnableNoteLabel.BackColor = Color.Transparent;
             TrayIconCheckbox.Checked = Program.HideInSystemTray;
             if (Program.HideInSystemTray)
             {
@@ -413,6 +425,116 @@ namespace KeyboardChatterBlocker
                         break;
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Event method to keep a placeholder in the 'add program' text box.
+        /// </summary>
+        private void AddProgramTextBox_Enter(object sender, EventArgs e)
+        {
+            if (AddProgramTextBox.Text == "Program Name")
+            {
+                AddProgramTextBox.Text = "";
+            }
+        }
+
+
+        /// <summary>
+        /// Event method to keep a placeholder in the 'add program' text box.
+        /// </summary>
+        private void AddProgramTextBox_Leave(object sender, EventArgs e)
+        {
+            if (AddProgramTextBox.Text == "")
+            {
+                AddProgramTextBox.Text = "Program Name";
+            }
+        }
+
+        /// <summary>
+        /// A few common processes that are always running in Windows and thus don't need to be listed (for convenience).
+        /// </summary>
+        public static HashSet<string> StandardWindowsProcesses = new HashSet<string>()
+        {
+            "svchost", "smartscreen", "spoolsv", "explorer", "services", "registry", "taskhost", "taskhostw", "smss", "ctfmon", "idle", "csrss", "dwm", "fontdrvhost", "lsass", "sgrmbroker"
+        };
+
+        /// <summary>
+        /// Event method to show a list of current program names for the add program box.
+        /// </summary>
+        private void ShowProgramListButton_Click(object sender, EventArgs e)
+        {
+            // Get a hashset of exclusions by combining the list of already-disabled programs with the set of common windows programs
+            HashSet<string> excludeProcessNames = StandardWindowsProcesses.Union(Program.Blocker.AutoDisablePrograms).ToHashSet();
+            // Get a list of processes, and make them unique by process name - prioritize processes with a window title over those without
+            List<Process> processes = Process.GetProcesses().GroupBy(p => p.ProcessName).Select(g => g.FirstOrDefault(p => !string.IsNullOrEmpty(p.MainWindowTitle)) ?? g.First())
+                // then exclude the set of excludes
+                .Where(p => !excludeProcessNames.Contains(p.ProcessName.ToLowerInvariant()))
+                // Sort the list alphabetically, but pull those with main window titles to the top (and those without below)
+                .OrderBy(p => p.ProcessName).OrderBy(p => string.IsNullOrEmpty(p.MainWindowTitle)).ToList();
+            // Now turn it into a set of clickable menu items.
+            MenuItem[] items = processes.Select(p => new MenuItem(string.IsNullOrEmpty(p.MainWindowTitle) ? p.ProcessName : $"{p.ProcessName} ({p.MainWindowTitle})", (s, a) => AddProgramTextBox.Text = p.ProcessName.ToLowerInvariant())).ToArray();
+            // To feed into a context menu to be shown.
+            new ContextMenu(items).Show(ShowProgramListButton, Point.Empty);
+        }
+
+        /// <summary>
+        /// Event method to add an auto-disabled program.
+        /// </summary>
+        private void AddToListButton_Click(object sender, EventArgs e)
+        {
+            if (AddProgramTextBox.Text.Trim().Length == 0)
+            {
+                return;
+            }
+            string program = AddProgramTextBox.Text.ToLowerInvariant().Trim();
+            if (Program.Blocker.AutoDisablePrograms.Contains(program))
+            {
+                return;
+            }
+            Program.Blocker.AutoDisablePrograms.Add(program);
+            Program.Blocker.SaveConfig();
+            AutoDisableProgramsList.Items.Add(program);
+        }
+
+        /// <summary>
+        /// Event method to set whether the add-program button is clickable.
+        /// </summary>
+        private void AddProgramTextBox_TextChanged(object sender, EventArgs e)
+        {
+            bool eitherEnabled = AddProgramTextBox.Text.Trim().Length != 0 && AddProgramTextBox.Text != "Program Name";
+            bool isExistingProgram = Program.Blocker.AutoDisablePrograms.Contains(AddProgramTextBox.Text.ToLowerInvariant().Trim());
+            AddToListButton.Enabled = eitherEnabled && !isExistingProgram;
+            RemoveProgramButton.Enabled = eitherEnabled && isExistingProgram;
+        }
+
+        /// <summary>
+        /// Event method to remove an auto-disabled program.
+        /// </summary>
+        private void RemoveProgramButton_Click(object sender, EventArgs e)
+        {
+            if (AddProgramTextBox.Text.Trim().Length == 0)
+            {
+                return;
+            }
+            string program = AddProgramTextBox.Text.ToLowerInvariant().Trim();
+            if (!Program.Blocker.AutoDisablePrograms.Contains(program))
+            {
+                return;
+            }
+            Program.Blocker.AutoDisablePrograms.Remove(program);
+            Program.Blocker.SaveConfig();
+            AutoDisableProgramsList.Items.Remove(program);
+        }
+
+        /// <summary>
+        /// Event method to auto-alter the current program text box input to be an item selected from the list.
+        /// </summary>
+        private void AutoDisableProgramsList_Click(object sender, EventArgs e)
+        {
+            if (AutoDisableProgramsList.SelectedItem is string program)
+            {
+                AddProgramTextBox.Text = program;
             }
         }
     }
