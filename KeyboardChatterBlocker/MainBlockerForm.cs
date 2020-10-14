@@ -168,6 +168,21 @@ namespace KeyboardChatterBlocker
             {
                 EnableNoteLabel.Text = "";
                 EnableNoteLabel.BackColor = Color.Transparent;
+                foreach (string notBlocking in Program.Blocker.AutoDisablePrograms)
+                {
+                    SetAutoDisableProgramHighlight(notBlocking, false);
+                }
+            }
+        }
+
+        public void SetAutoDisableProgramHighlight(string program, bool isBlocking)
+        {
+            foreach (ListViewItem item in AutoDisableProgramsList.Items)
+            {
+                if (item.Text == program)
+                {
+                    item.BackColor = isBlocking ? Color.FromArgb(255, 128, 128) : Color.Transparent;
+                }
             }
         }
 
@@ -187,6 +202,7 @@ namespace KeyboardChatterBlocker
             {
                 if (programsToCheck.Contains(proc))
                 {
+                    SetAutoDisableProgramHighlight(proc, true);
                     programsToCheck.Remove(proc);
                     SetAutoDisable(true);
                     any = true;
@@ -200,6 +216,7 @@ namespace KeyboardChatterBlocker
             {
                 foreach (string notBlocking in programsToCheck)
                 {
+                    SetAutoDisableProgramHighlight(notBlocking, false);
                 }
             }
         }
@@ -230,7 +247,7 @@ namespace KeyboardChatterBlocker
             Timer AutoDisableTimer = new Timer() { Interval = 2000 };
             AutoDisableTimer.Tick += (tickSender, tickArgs) => CheckAutoDisable();
             AutoDisableTimer.Start();
-            AutoDisableProgramsList.Items.AddRange(Program.Blocker.AutoDisablePrograms.Select(s => s).ToArray());
+            AutoDisableProgramsList.Items.AddRange(Program.Blocker.AutoDisablePrograms.Select(s => new ListViewItem(s)).ToArray());
             ChatterThresholdBox.Value = Program.Blocker.GlobalChatterTimeLimit;
             EnabledCheckbox.Checked = Program.Blocker.IsEnabled;
             StartWithWindowsCheckbox.Checked = File.Exists(StartupLinkPath);
@@ -494,7 +511,7 @@ namespace KeyboardChatterBlocker
             }
             Program.Blocker.AutoDisablePrograms.Add(program);
             Program.Blocker.SaveConfig();
-            AutoDisableProgramsList.Items.Add(program);
+            AutoDisableProgramsList.Items.Add(new ListViewItem(program));
         }
 
         /// <summary>
@@ -524,7 +541,14 @@ namespace KeyboardChatterBlocker
             }
             Program.Blocker.AutoDisablePrograms.Remove(program);
             Program.Blocker.SaveConfig();
-            AutoDisableProgramsList.Items.Remove(program);
+            foreach (ListViewItem item in AutoDisableProgramsList.Items)
+            {
+                if (item.Text == program)
+                {
+                    AutoDisableProgramsList.Items.Remove(item);
+                    break;
+                }
+            }
         }
 
         /// <summary>
@@ -532,9 +556,10 @@ namespace KeyboardChatterBlocker
         /// </summary>
         private void AutoDisableProgramsList_Click(object sender, EventArgs e)
         {
-            if (AutoDisableProgramsList.SelectedItem is string program)
+            ListViewItem selected = AutoDisableProgramsList.SelectedItems.OfType<ListViewItem>().FirstOrDefault();
+            if (selected != null)
             {
-                AddProgramTextBox.Text = program;
+                AddProgramTextBox.Text = selected.Text;
             }
         }
     }

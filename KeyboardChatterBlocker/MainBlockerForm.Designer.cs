@@ -55,6 +55,12 @@
             this.ConfigureKeyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ConfigureThresholdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RemoveColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AutoDisableProgramsTabPage = new System.Windows.Forms.TabPage();
+            this.AutoDisableProgramsList = new System.Windows.Forms.ListView();
+            this.RemoveProgramButton = new System.Windows.Forms.Button();
+            this.ShowProgramListButton = new System.Windows.Forms.Button();
+            this.AddToListButton = new System.Windows.Forms.Button();
+            this.AddProgramTextBox = new System.Windows.Forms.TextBox();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.AboutLinkLabel = new System.Windows.Forms.LinkLabel();
             this.AboutLabel5 = new System.Windows.Forms.Label();
@@ -63,12 +69,6 @@
             this.AboutLabel2 = new System.Windows.Forms.Label();
             this.AboutLabel1 = new System.Windows.Forms.Label();
             this.EnableNoteLabel = new System.Windows.Forms.Label();
-            this.AutoDisableProgramsTabPage = new System.Windows.Forms.TabPage();
-            this.AddProgramTextBox = new System.Windows.Forms.TextBox();
-            this.AddToListButton = new System.Windows.Forms.Button();
-            this.ShowProgramListButton = new System.Windows.Forms.Button();
-            this.AutoDisableProgramsList = new System.Windows.Forms.ListBox();
-            this.RemoveProgramButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -77,8 +77,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.StatsGrid)).BeginInit();
             this.KeysTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureKeysGrid)).BeginInit();
-            this.AboutTab.SuspendLayout();
             this.AutoDisableProgramsTabPage.SuspendLayout();
+            this.AboutTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // ChatterLogGrid
@@ -97,7 +97,7 @@
             this.ChatterLogGrid.Location = new System.Drawing.Point(6, 6);
             this.ChatterLogGrid.Name = "ChatterLogGrid";
             this.ChatterLogGrid.ReadOnly = true;
-            this.ChatterLogGrid.Size = new System.Drawing.Size(419, 281);
+            this.ChatterLogGrid.Size = new System.Drawing.Size(419, 275);
             this.ChatterLogGrid.TabIndex = 0;
             this.ChatterLogGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ChatterLogGrid_CellContentDoubleClick);
             // 
@@ -214,10 +214,10 @@
             this.tabControl1.Controls.Add(this.KeysTabPage);
             this.tabControl1.Controls.Add(this.AutoDisableProgramsTabPage);
             this.tabControl1.Controls.Add(this.AboutTab);
-            this.tabControl1.Location = new System.Drawing.Point(13, 83);
+            this.tabControl1.Location = new System.Drawing.Point(13, 89);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(439, 319);
+            this.tabControl1.Size = new System.Drawing.Size(439, 313);
             this.tabControl1.TabIndex = 7;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControl1_Selected);
             // 
@@ -227,7 +227,7 @@
             this.ChatterLogTabPage.Location = new System.Drawing.Point(4, 22);
             this.ChatterLogTabPage.Name = "ChatterLogTabPage";
             this.ChatterLogTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ChatterLogTabPage.Size = new System.Drawing.Size(431, 293);
+            this.ChatterLogTabPage.Size = new System.Drawing.Size(431, 287);
             this.ChatterLogTabPage.TabIndex = 0;
             this.ChatterLogTabPage.Text = "Chatter Log";
             this.ChatterLogTabPage.UseVisualStyleBackColor = true;
@@ -349,6 +349,74 @@
             this.RemoveColumn.Name = "RemoveColumn";
             this.RemoveColumn.ReadOnly = true;
             // 
+            // AutoDisableProgramsTabPage
+            // 
+            this.AutoDisableProgramsTabPage.Controls.Add(this.AutoDisableProgramsList);
+            this.AutoDisableProgramsTabPage.Controls.Add(this.RemoveProgramButton);
+            this.AutoDisableProgramsTabPage.Controls.Add(this.ShowProgramListButton);
+            this.AutoDisableProgramsTabPage.Controls.Add(this.AddToListButton);
+            this.AutoDisableProgramsTabPage.Controls.Add(this.AddProgramTextBox);
+            this.AutoDisableProgramsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.AutoDisableProgramsTabPage.Name = "AutoDisableProgramsTabPage";
+            this.AutoDisableProgramsTabPage.Size = new System.Drawing.Size(431, 287);
+            this.AutoDisableProgramsTabPage.TabIndex = 4;
+            this.AutoDisableProgramsTabPage.Text = "Auto Disable Programs";
+            this.AutoDisableProgramsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // AutoDisableProgramsList
+            // 
+            this.AutoDisableProgramsList.HideSelection = false;
+            this.AutoDisableProgramsList.Location = new System.Drawing.Point(8, 59);
+            this.AutoDisableProgramsList.Name = "AutoDisableProgramsList";
+            this.AutoDisableProgramsList.Size = new System.Drawing.Size(417, 231);
+            this.AutoDisableProgramsList.TabIndex = 5;
+            this.AutoDisableProgramsList.UseCompatibleStateImageBehavior = false;
+            this.AutoDisableProgramsList.View = System.Windows.Forms.View.List;
+            this.AutoDisableProgramsList.Click += new System.EventHandler(this.AutoDisableProgramsList_Click);
+            // 
+            // RemoveProgramButton
+            // 
+            this.RemoveProgramButton.Enabled = false;
+            this.RemoveProgramButton.Location = new System.Drawing.Point(265, 30);
+            this.RemoveProgramButton.Name = "RemoveProgramButton";
+            this.RemoveProgramButton.Size = new System.Drawing.Size(160, 23);
+            this.RemoveProgramButton.TabIndex = 4;
+            this.RemoveProgramButton.Text = "Remove From List";
+            this.RemoveProgramButton.UseVisualStyleBackColor = true;
+            this.RemoveProgramButton.Click += new System.EventHandler(this.RemoveProgramButton_Click);
+            // 
+            // ShowProgramListButton
+            // 
+            this.ShowProgramListButton.Location = new System.Drawing.Point(371, 3);
+            this.ShowProgramListButton.Name = "ShowProgramListButton";
+            this.ShowProgramListButton.Size = new System.Drawing.Size(54, 23);
+            this.ShowProgramListButton.TabIndex = 2;
+            this.ShowProgramListButton.Text = "(...)";
+            this.ShowProgramListButton.UseVisualStyleBackColor = true;
+            this.ShowProgramListButton.Click += new System.EventHandler(this.ShowProgramListButton_Click);
+            // 
+            // AddToListButton
+            // 
+            this.AddToListButton.Enabled = false;
+            this.AddToListButton.Location = new System.Drawing.Point(8, 29);
+            this.AddToListButton.Name = "AddToListButton";
+            this.AddToListButton.Size = new System.Drawing.Size(250, 23);
+            this.AddToListButton.TabIndex = 1;
+            this.AddToListButton.Text = "Add Program To List";
+            this.AddToListButton.UseVisualStyleBackColor = true;
+            this.AddToListButton.Click += new System.EventHandler(this.AddToListButton_Click);
+            // 
+            // AddProgramTextBox
+            // 
+            this.AddProgramTextBox.Location = new System.Drawing.Point(8, 3);
+            this.AddProgramTextBox.Name = "AddProgramTextBox";
+            this.AddProgramTextBox.Size = new System.Drawing.Size(357, 20);
+            this.AddProgramTextBox.TabIndex = 0;
+            this.AddProgramTextBox.Text = "Program Name";
+            this.AddProgramTextBox.TextChanged += new System.EventHandler(this.AddProgramTextBox_TextChanged);
+            this.AddProgramTextBox.Enter += new System.EventHandler(this.AddProgramTextBox_Enter);
+            this.AddProgramTextBox.Leave += new System.EventHandler(this.AddProgramTextBox_Leave);
+            // 
             // AboutTab
             // 
             this.AboutTab.Controls.Add(this.AboutLinkLabel);
@@ -434,72 +502,6 @@
             this.EnableNoteLabel.Text = "EnableNote";
             this.EnableNoteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // AutoDisableProgramsTabPage
-            // 
-            this.AutoDisableProgramsTabPage.Controls.Add(this.RemoveProgramButton);
-            this.AutoDisableProgramsTabPage.Controls.Add(this.AutoDisableProgramsList);
-            this.AutoDisableProgramsTabPage.Controls.Add(this.ShowProgramListButton);
-            this.AutoDisableProgramsTabPage.Controls.Add(this.AddToListButton);
-            this.AutoDisableProgramsTabPage.Controls.Add(this.AddProgramTextBox);
-            this.AutoDisableProgramsTabPage.Location = new System.Drawing.Point(4, 22);
-            this.AutoDisableProgramsTabPage.Name = "AutoDisableProgramsTabPage";
-            this.AutoDisableProgramsTabPage.Size = new System.Drawing.Size(431, 293);
-            this.AutoDisableProgramsTabPage.TabIndex = 4;
-            this.AutoDisableProgramsTabPage.Text = "Auto Disable Programs";
-            this.AutoDisableProgramsTabPage.UseVisualStyleBackColor = true;
-            // 
-            // AddProgramTextBox
-            // 
-            this.AddProgramTextBox.Location = new System.Drawing.Point(8, 3);
-            this.AddProgramTextBox.Name = "AddProgramTextBox";
-            this.AddProgramTextBox.Size = new System.Drawing.Size(357, 20);
-            this.AddProgramTextBox.TabIndex = 0;
-            this.AddProgramTextBox.Text = "Program Name";
-            this.AddProgramTextBox.TextChanged += new System.EventHandler(this.AddProgramTextBox_TextChanged);
-            this.AddProgramTextBox.Enter += new System.EventHandler(this.AddProgramTextBox_Enter);
-            this.AddProgramTextBox.Leave += new System.EventHandler(this.AddProgramTextBox_Leave);
-            // 
-            // AddToListButton
-            // 
-            this.AddToListButton.Enabled = false;
-            this.AddToListButton.Location = new System.Drawing.Point(8, 29);
-            this.AddToListButton.Name = "AddToListButton";
-            this.AddToListButton.Size = new System.Drawing.Size(250, 23);
-            this.AddToListButton.TabIndex = 1;
-            this.AddToListButton.Text = "Add Program To List";
-            this.AddToListButton.UseVisualStyleBackColor = true;
-            this.AddToListButton.Click += new System.EventHandler(this.AddToListButton_Click);
-            // 
-            // ShowProgramListButton
-            // 
-            this.ShowProgramListButton.Location = new System.Drawing.Point(371, 3);
-            this.ShowProgramListButton.Name = "ShowProgramListButton";
-            this.ShowProgramListButton.Size = new System.Drawing.Size(54, 23);
-            this.ShowProgramListButton.TabIndex = 2;
-            this.ShowProgramListButton.Text = "(...)";
-            this.ShowProgramListButton.UseVisualStyleBackColor = true;
-            this.ShowProgramListButton.Click += new System.EventHandler(this.ShowProgramListButton_Click);
-            // 
-            // AutoDisableProgramsList
-            // 
-            this.AutoDisableProgramsList.FormattingEnabled = true;
-            this.AutoDisableProgramsList.Location = new System.Drawing.Point(8, 59);
-            this.AutoDisableProgramsList.Name = "AutoDisableProgramsList";
-            this.AutoDisableProgramsList.Size = new System.Drawing.Size(417, 225);
-            this.AutoDisableProgramsList.TabIndex = 3;
-            this.AutoDisableProgramsList.Click += new System.EventHandler(this.AutoDisableProgramsList_Click);
-            // 
-            // RemoveProgramButton
-            // 
-            this.RemoveProgramButton.Enabled = false;
-            this.RemoveProgramButton.Location = new System.Drawing.Point(265, 30);
-            this.RemoveProgramButton.Name = "RemoveProgramButton";
-            this.RemoveProgramButton.Size = new System.Drawing.Size(160, 23);
-            this.RemoveProgramButton.TabIndex = 4;
-            this.RemoveProgramButton.Text = "Remove From List";
-            this.RemoveProgramButton.UseVisualStyleBackColor = true;
-            this.RemoveProgramButton.Click += new System.EventHandler(this.RemoveProgramButton_Click);
-            // 
             // MainBlockerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -527,10 +529,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.StatsGrid)).EndInit();
             this.KeysTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureKeysGrid)).EndInit();
-            this.AboutTab.ResumeLayout(false);
-            this.AboutTab.PerformLayout();
             this.AutoDisableProgramsTabPage.ResumeLayout(false);
             this.AutoDisableProgramsTabPage.PerformLayout();
+            this.AboutTab.ResumeLayout(false);
+            this.AboutTab.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -575,8 +577,8 @@
         private System.Windows.Forms.Button ShowProgramListButton;
         private System.Windows.Forms.Button AddToListButton;
         private System.Windows.Forms.TextBox AddProgramTextBox;
-        private System.Windows.Forms.ListBox AutoDisableProgramsList;
         private System.Windows.Forms.Button RemoveProgramButton;
+        private System.Windows.Forms.ListView AutoDisableProgramsList;
     }
 }
 
