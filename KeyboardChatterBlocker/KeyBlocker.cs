@@ -229,18 +229,20 @@ namespace KeyboardChatterBlocker
             StatsKeyCount[key]++;
             ulong timeNow = GetTickCount64();
             ulong timeLast = KeysToLastPressTime[key];
-            KeysToLastPressTime[key] = timeNow;
             if (timeLast > timeNow) // In the future = number handling mixup, just allow it.
             {
+                KeysToLastPressTime[key] = timeNow;
                 return true;
             }
             uint maxTime = KeysToChatterTime[key] ?? (defaultZero ? 0 : GlobalChatterTimeLimit);
             if (timeNow >= timeLast + maxTime) // Time past the chatter limit = enough delay passed, allow it.
             {
+                KeysToLastPressTime[key] = timeNow;
                 return true;
             }
             if (timeNow <= timeLast + maxTime - 9000) // If more than 9 seconds behind, something's gone wrong, so let through anyway.
             {
+                KeysToLastPressTime[key] = timeNow;
                 return true;
             }
             // All else = not enough time elapsed, deny it.
