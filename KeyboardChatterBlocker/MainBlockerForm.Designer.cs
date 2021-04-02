@@ -472,7 +472,7 @@
             this.AboutLabel3.Name = "AboutLabel3";
             this.AboutLabel3.Size = new System.Drawing.Size(223, 13);
             this.AboutLabel3.TabIndex = 2;
-            this.AboutLabel3.Text = "Copyright (C) 2019-2020, All Rights Reserved.";
+            this.AboutLabel3.Text = "Copyright (C) 2019-2021, All Rights Reserved.";
             // 
             // AboutLabel2
             // 
