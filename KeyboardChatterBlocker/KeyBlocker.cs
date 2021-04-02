@@ -53,10 +53,6 @@ namespace KeyboardChatterBlocker
                     }
                 }
             }
-            if (!KeysToChatterTime[Keys.Enter].HasValue)
-            {
-                KeysToChatterTime[Keys.Enter] = GlobalChatterTimeLimit;
-            }
         }
 
         /// <summary>
