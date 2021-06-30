@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using System.Globalization;
 
 namespace KeyboardChatterBlocker
 {
@@ -69,7 +70,7 @@ namespace KeyboardChatterBlocker
         /// <param name="e">The key blocked event details.</param>
         public void LogKeyBlocked(KeyBlockedEventArgs e)
         {
-            ChatterLogGrid.Rows.Add(DateTime.Now.ToString("HH:mm:ss"), e.Key.ToString(), e.Time.ToString(), "[Edit]");
+            ChatterLogGrid.Rows.Add(DateTime.Now.ToString("MM/dd HH:mm:ss", CultureInfo.InvariantCulture), e.Key.ToString(), e.Time.ToString(), "[Edit]");
         }
 
         /// <summary>
