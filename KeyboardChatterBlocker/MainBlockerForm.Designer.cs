@@ -185,6 +185,7 @@
             // TrayIconCheckbox
             // 
             this.TrayIconCheckbox.AutoSize = true;
+            this.TrayIconCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TrayIconCheckbox.Location = new System.Drawing.Point(131, 66);
             this.TrayIconCheckbox.Name = "TrayIconCheckbox";
             this.TrayIconCheckbox.Size = new System.Drawing.Size(84, 17);
@@ -196,6 +197,7 @@
             // StartWithWindowsCheckbox
             // 
             this.StartWithWindowsCheckbox.AutoSize = true;
+            this.StartWithWindowsCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartWithWindowsCheckbox.Location = new System.Drawing.Point(5, 66);
             this.StartWithWindowsCheckbox.Name = "StartWithWindowsCheckbox";
             this.StartWithWindowsCheckbox.Size = new System.Drawing.Size(120, 17);
@@ -224,6 +226,7 @@
             // ChatterLogTabPage
             // 
             this.ChatterLogTabPage.Controls.Add(this.ChatterLogGrid);
+            this.ChatterLogTabPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChatterLogTabPage.Location = new System.Drawing.Point(4, 22);
             this.ChatterLogTabPage.Name = "ChatterLogTabPage";
             this.ChatterLogTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -294,6 +297,7 @@
             // 
             this.KeysTabPage.Controls.Add(this.AddKeyButton);
             this.KeysTabPage.Controls.Add(this.ConfigureKeysGrid);
+            this.KeysTabPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KeysTabPage.Location = new System.Drawing.Point(4, 22);
             this.KeysTabPage.Name = "KeysTabPage";
             this.KeysTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -304,6 +308,7 @@
             // 
             // AddKeyButton
             // 
+            this.AddKeyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddKeyButton.Location = new System.Drawing.Point(6, 6);
             this.AddKeyButton.Name = "AddKeyButton";
             this.AddKeyButton.Size = new System.Drawing.Size(419, 23);
@@ -356,6 +361,7 @@
             this.AutoDisableProgramsTabPage.Controls.Add(this.ShowProgramListButton);
             this.AutoDisableProgramsTabPage.Controls.Add(this.AddToListButton);
             this.AutoDisableProgramsTabPage.Controls.Add(this.AddProgramTextBox);
+            this.AutoDisableProgramsTabPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AutoDisableProgramsTabPage.Location = new System.Drawing.Point(4, 22);
             this.AutoDisableProgramsTabPage.Name = "AutoDisableProgramsTabPage";
             this.AutoDisableProgramsTabPage.Size = new System.Drawing.Size(431, 290);
@@ -380,6 +386,7 @@
             // RemoveProgramButton
             // 
             this.RemoveProgramButton.Enabled = false;
+            this.RemoveProgramButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RemoveProgramButton.Location = new System.Drawing.Point(265, 30);
             this.RemoveProgramButton.Name = "RemoveProgramButton";
             this.RemoveProgramButton.Size = new System.Drawing.Size(160, 23);
@@ -390,6 +397,7 @@
             // 
             // ShowProgramListButton
             // 
+            this.ShowProgramListButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ShowProgramListButton.Location = new System.Drawing.Point(371, 3);
             this.ShowProgramListButton.Name = "ShowProgramListButton";
             this.ShowProgramListButton.Size = new System.Drawing.Size(54, 23);
@@ -401,6 +409,7 @@
             // AddToListButton
             // 
             this.AddToListButton.Enabled = false;
+            this.AddToListButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddToListButton.Location = new System.Drawing.Point(8, 29);
             this.AddToListButton.Name = "AddToListButton";
             this.AddToListButton.Size = new System.Drawing.Size(250, 23);
@@ -411,6 +420,7 @@
             // 
             // AddProgramTextBox
             // 
+            this.AddProgramTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddProgramTextBox.Location = new System.Drawing.Point(8, 3);
             this.AddProgramTextBox.Name = "AddProgramTextBox";
             this.AddProgramTextBox.Size = new System.Drawing.Size(357, 20);
@@ -428,6 +438,7 @@
             this.AboutTab.Controls.Add(this.AboutLabel3);
             this.AboutTab.Controls.Add(this.AboutLabel2);
             this.AboutTab.Controls.Add(this.AboutLabel1);
+            this.AboutTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AboutTab.Location = new System.Drawing.Point(4, 22);
             this.AboutTab.Name = "AboutTab";
             this.AboutTab.Padding = new System.Windows.Forms.Padding(3);
@@ -450,6 +461,7 @@
             // AboutLabel5
             // 
             this.AboutLabel5.AutoSize = true;
+            this.AboutLabel5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AboutLabel5.Location = new System.Drawing.Point(11, 131);
             this.AboutLabel5.Name = "AboutLabel5";
             this.AboutLabel5.Size = new System.Drawing.Size(230, 13);
@@ -459,6 +471,7 @@
             // AboutLavel4
             // 
             this.AboutLavel4.AutoSize = true;
+            this.AboutLavel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AboutLavel4.Location = new System.Drawing.Point(11, 99);
             this.AboutLavel4.Name = "AboutLavel4";
             this.AboutLavel4.Size = new System.Drawing.Size(311, 13);
@@ -468,6 +481,7 @@
             // AboutLabel3
             // 
             this.AboutLabel3.AutoSize = true;
+            this.AboutLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AboutLabel3.Location = new System.Drawing.Point(11, 71);
             this.AboutLabel3.Name = "AboutLabel3";
             this.AboutLabel3.Size = new System.Drawing.Size(223, 13);
@@ -477,6 +491,7 @@
             // AboutLabel2
             // 
             this.AboutLabel2.AutoSize = true;
+            this.AboutLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AboutLabel2.Location = new System.Drawing.Point(11, 42);
             this.AboutLabel2.Name = "AboutLabel2";
             this.AboutLabel2.Size = new System.Drawing.Size(190, 13);
