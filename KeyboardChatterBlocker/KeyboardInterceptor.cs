@@ -36,7 +36,8 @@ namespace KeyboardChatterBlocker
         public const int WM_LBUTTONDOWN = 0x0201, WM_LBUTTONUP = 0x0202,
             WM_RBUTTONDOWN = 0x0204, WM_RBUTTONUP = 0x0205,
             WM_MBUTTONDOWN = 0x0207, WM_MBUTTONUP = 0x0208,
-            WM_XBUTTONDOWN = 0x020B, WM_XBUTTONUP = 0x020C;
+            WM_XBUTTONDOWN = 0x020B, WM_XBUTTONUP = 0x020C,
+            WM_MOUSEWHEEL = 0x020A;
 
         /// <summary>
         /// An array of falses, except for the WParam values that are handled by this program.
@@ -167,6 +168,12 @@ namespace KeyboardChatterBlocker
         }
 
         /// <summary>
+        /// The direction of last mouse wheel delta (positive or negative, as 1 or -1),
+        /// used to trigger "wheel_change" detection.
+        /// </summary>
+        public int LastWheelDirection = 0;
+
+        /// <summary>
         /// The primary mouse hook callback.
         /// </summary>
         /// <param name="nCode">The 'n' code (unused).</param>
@@ -176,10 +183,26 @@ namespace KeyboardChatterBlocker
         public IntPtr MouseHookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
             int wParamInt = (int)wParam;
-            if (nCode >= 0 && wParamInt < 1024 && HANDLED_WPARAMS[wParamInt])
+            if (wParamInt == WM_MOUSEWHEEL)
+            {
+                MSLLHOOKSTRUCT hookStruct = (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT));
+                short wheelDelta = (short)((hookStruct.mouseData) >> 16);
+                int wheelDirection = Math.Sign(wheelDelta);
+                if (LastWheelDirection != wheelDirection)
+                {
+                    bool allow = KeyBlockHandler.AllowKeyDown(KeysHelper.KEY_WHEEL_CHANGE, true);
+                    KeyBlockHandler.AllowKeyUp(KeysHelper.KEY_WHEEL_CHANGE);
+                    if (!allow)
+                    {
+                        return (IntPtr)1;
+                    }
+                    LastWheelDirection = wheelDirection;
+                }
+            }
+            else if (nCode >= 0 && wParamInt < 1024 && HANDLED_WPARAMS[wParamInt])
             {
                 bool isDown = wParamInt == WM_LBUTTONDOWN || wParamInt == WM_RBUTTONDOWN || wParamInt == WM_MBUTTONDOWN || wParamInt == WM_XBUTTONDOWN;
-                if (isDown || wParamInt == WM_LBUTTONUP || wParamInt == WM_RBUTTONUP || wParamInt == WM_MBUTTONUP || wParamInt == WM_XBUTTONUP)
+                if (isDown || wParamInt == WM_LBUTTONUP || wParamInt == WM_RBUTTONUP || wParamInt == WM_MBUTTONUP || wParamInt == WM_XBUTTONUP || wParamInt == WM_MOUSEWHEEL)
                 {
                     Keys key;
                     if (wParamInt == WM_LBUTTONDOWN || wParamInt == WM_LBUTTONUP)

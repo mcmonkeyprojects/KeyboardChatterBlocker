@@ -16,7 +16,8 @@ namespace KeyboardChatterBlocker
         /// 'Keys' enum values offset from the main enum option, as stand-ins for mouse keys.
         /// </summary>
         public static Keys KEY_MOUSE_LEFT = (Keys)513, KEY_MOUSE_RIGHT = (Keys)514, KEY_MOUSE_MIDDLE = (Keys)515,
-            KEY_MOUSE_FORWARD = (Keys)516, KEY_MOUSE_BACKWARD = (Keys)517;
+            KEY_MOUSE_FORWARD = (Keys)516, KEY_MOUSE_BACKWARD = (Keys)517,
+            KEY_WHEEL_CHANGE = (Keys)518;
 
         /// <summary>
         /// Tries to get the key for the given name.
@@ -56,6 +57,11 @@ namespace KeyboardChatterBlocker
                 key = KEY_MOUSE_BACKWARD;
                 return true;
             }
+            else if (lowered == "wheel_change")
+            {
+                key = KEY_WHEEL_CHANGE;
+                return true;
+            }
             key = default;
             return false;
         }
@@ -66,7 +72,7 @@ namespace KeyboardChatterBlocker
         /// <param name="key">The key to stringify.</param>
         public static string Stringify(this Keys key)
         {
-            if ((int)key >= 513 && (int)key <= 517)
+            if ((int)key >= 513 && (int)key <= 518)
             {
                 switch ((int)key)
                 {
@@ -75,6 +81,7 @@ namespace KeyboardChatterBlocker
                     case 515: return "mouse_middle";
                     case 516: return "mouse_forward";
                     case 517: return "mouse_backward";
+                    case 518: return "wheel_change";
                 }
             }
             return key.ToString();

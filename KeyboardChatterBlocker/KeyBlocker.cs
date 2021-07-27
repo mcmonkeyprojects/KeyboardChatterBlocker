@@ -62,7 +62,8 @@ namespace KeyboardChatterBlocker
         {
             if (KeysToChatterTime[KeysHelper.KEY_MOUSE_LEFT].HasValue || KeysToChatterTime[KeysHelper.KEY_MOUSE_RIGHT].HasValue
                 || KeysToChatterTime[KeysHelper.KEY_MOUSE_MIDDLE].HasValue
-                || KeysToChatterTime[KeysHelper.KEY_MOUSE_FORWARD].HasValue || KeysToChatterTime[KeysHelper.KEY_MOUSE_BACKWARD].HasValue)
+                || KeysToChatterTime[KeysHelper.KEY_MOUSE_FORWARD].HasValue || KeysToChatterTime[KeysHelper.KEY_MOUSE_BACKWARD].HasValue
+                || KeysToChatterTime[KeysHelper.KEY_WHEEL_CHANGE].HasValue)
             {
                 Interceptor.EnableMouseHook();
             }
@@ -277,7 +278,7 @@ namespace KeyboardChatterBlocker
                 return true;
             }
             KeyIsDown[key] = false;
-            if (!KeysWereDownBlocked[key]) // Down wan't blocked = allow it.
+            if (!KeysWereDownBlocked[key]) // Down wasn't blocked = allow it.
             {
                 return true;
             }
