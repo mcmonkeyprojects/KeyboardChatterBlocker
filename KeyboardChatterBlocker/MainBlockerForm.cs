@@ -265,7 +265,7 @@ namespace KeyboardChatterBlocker
         /// </summary>
         public void StatsUpdateTimer_Tick(object sender, EventArgs e)
         {
-            if (Program.Blocker.AnyKeyChange && !IsHidden && tabControl1.SelectedTab == StatsTabPage)
+            if (Program.Blocker.AnyKeyChange && !IsHidden && TabControl1.SelectedTab == StatsTabPage)
             {
                 Program.Blocker.AnyKeyChange = false;
                 PushStatsToGrid();
@@ -273,10 +273,19 @@ namespace KeyboardChatterBlocker
         }
 
         /// <summary>
+        /// If enabled, any close should fully close the form and exit the program.
+        /// </summary>
+        public bool ShouldForceClose = false;
+
+        /// <summary>
         /// Event method auto-called when the form close button is pressed.
         /// </summary>
         public void MainBlockerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (ShouldForceClose)
+            {
+                return;
+            }
             if (e.CloseReason != CloseReason.UserClosing) // Don't block windows shutdown, etc.
             {
                 return;
@@ -431,7 +440,7 @@ namespace KeyboardChatterBlocker
                     ConfigureKeysGrid.Rows.Add(key.Stringify(), Program.Blocker.GlobalChatterTimeLimit.ToString(), "[X]");
                 }
                 string keyText = key.Stringify();
-                tabControl1.SelectedTab = KeysTabPage;
+                TabControl1.SelectedTab = KeysTabPage;
                 foreach (DataGridViewRow row in ConfigureKeysGrid.Rows)
                 {
                     if (row.Cells[0].Value.ToString() == keyText)
@@ -561,6 +570,22 @@ namespace KeyboardChatterBlocker
             if (selected != null)
             {
                 AddProgramTextBox.Text = selected.Text;
+            }
+        }
+
+        /// <summary>
+        /// Event method to handle clicks of the tray icon.
+        /// </summary>
+        private void TrayIconContextMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem == ContextMenuShowButton)
+            {
+                ShowForm();
+            }
+            else if (e.ClickedItem == ContextMenuExitButton)
+            {
+                ShouldForceClose = true;
+                Close();
             }
         }
     }

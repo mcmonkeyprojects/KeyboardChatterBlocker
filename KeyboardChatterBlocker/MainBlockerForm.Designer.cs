@@ -41,7 +41,7 @@
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.TrayIconCheckbox = new System.Windows.Forms.CheckBox();
             this.StartWithWindowsCheckbox = new System.Windows.Forms.CheckBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.TabControl1 = new System.Windows.Forms.TabControl();
             this.ChatterLogTabPage = new System.Windows.Forms.TabPage();
             this.StatsTabPage = new System.Windows.Forms.TabPage();
             this.StatsGrid = new System.Windows.Forms.DataGridView();
@@ -69,9 +69,13 @@
             this.AboutLabel2 = new System.Windows.Forms.Label();
             this.AboutLabel1 = new System.Windows.Forms.Label();
             this.EnableNoteLabel = new System.Windows.Forms.Label();
+            this.TrayIconContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ContextMenuShowButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuExitButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
-            this.tabControl1.SuspendLayout();
+            this.TabControl1.SuspendLayout();
             this.ChatterLogTabPage.SuspendLayout();
             this.StatsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StatsGrid)).BeginInit();
@@ -79,6 +83,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureKeysGrid)).BeginInit();
             this.AutoDisableProgramsTabPage.SuspendLayout();
             this.AboutTab.SuspendLayout();
+            this.TrayIconContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // ChatterLogGrid
@@ -178,6 +183,7 @@
             // 
             // TrayIcon
             // 
+            this.TrayIcon.ContextMenuStrip = this.TrayIconContextMenu;
             this.TrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TrayIcon.Icon")));
             this.TrayIcon.Text = "Keyboard Chatter Blocker";
             this.TrayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
@@ -208,20 +214,20 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.TabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.ChatterLogTabPage);
-            this.tabControl1.Controls.Add(this.StatsTabPage);
-            this.tabControl1.Controls.Add(this.KeysTabPage);
-            this.tabControl1.Controls.Add(this.AutoDisableProgramsTabPage);
-            this.tabControl1.Controls.Add(this.AboutTab);
-            this.tabControl1.Location = new System.Drawing.Point(13, 89);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(439, 316);
-            this.tabControl1.TabIndex = 7;
-            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControl1_Selected);
+            this.TabControl1.Controls.Add(this.ChatterLogTabPage);
+            this.TabControl1.Controls.Add(this.StatsTabPage);
+            this.TabControl1.Controls.Add(this.KeysTabPage);
+            this.TabControl1.Controls.Add(this.AutoDisableProgramsTabPage);
+            this.TabControl1.Controls.Add(this.AboutTab);
+            this.TabControl1.Location = new System.Drawing.Point(13, 89);
+            this.TabControl1.Name = "tabControl1";
+            this.TabControl1.SelectedIndex = 0;
+            this.TabControl1.Size = new System.Drawing.Size(439, 316);
+            this.TabControl1.TabIndex = 7;
+            this.TabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControl1_Selected);
             // 
             // ChatterLogTabPage
             // 
@@ -442,7 +448,7 @@
             this.AboutTab.Location = new System.Drawing.Point(4, 22);
             this.AboutTab.Name = "AboutTab";
             this.AboutTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AboutTab.Size = new System.Drawing.Size(431, 293);
+            this.AboutTab.Size = new System.Drawing.Size(431, 290);
             this.AboutTab.TabIndex = 3;
             this.AboutTab.Text = "About";
             this.AboutTab.UseVisualStyleBackColor = true;
@@ -519,13 +525,40 @@
             this.EnableNoteLabel.Text = "EnableNote";
             this.EnableNoteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // trayIconContextMenu
+            // 
+            this.TrayIconContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ContextMenuShowButton,
+            this.ToolStripSeparator1,
+            this.ContextMenuExitButton});
+            this.TrayIconContextMenu.Name = "trayIconContextMenu";
+            this.TrayIconContextMenu.Size = new System.Drawing.Size(153, 54);
+            this.TrayIconContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.TrayIconContextMenu_ItemClicked);
+            // 
+            // contextMenuShowButton
+            // 
+            this.ContextMenuShowButton.Name = "contextMenuShowButton";
+            this.ContextMenuShowButton.Size = new System.Drawing.Size(152, 22);
+            this.ContextMenuShowButton.Text = "Show Interface";
+            // 
+            // contextMenuExitButton
+            // 
+            this.ContextMenuExitButton.Name = "contextMenuExitButton";
+            this.ContextMenuExitButton.Size = new System.Drawing.Size(152, 22);
+            this.ContextMenuExitButton.Text = "Force Exit";
+            // 
+            // toolStripSeparator1
+            // 
+            this.ToolStripSeparator1.Name = "toolStripSeparator1";
+            this.ToolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
             // MainBlockerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 407);
             this.Controls.Add(this.EnableNoteLabel);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.TabControl1);
             this.Controls.Add(this.StartWithWindowsCheckbox);
             this.Controls.Add(this.TrayIconCheckbox);
             this.Controls.Add(this.ChatterThresholdLabel);
@@ -540,7 +573,7 @@
             this.Load += new System.EventHandler(this.MainBlockerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).EndInit();
-            this.tabControl1.ResumeLayout(false);
+            this.TabControl1.ResumeLayout(false);
             this.ChatterLogTabPage.ResumeLayout(false);
             this.StatsTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.StatsGrid)).EndInit();
@@ -550,6 +583,7 @@
             this.AutoDisableProgramsTabPage.PerformLayout();
             this.AboutTab.ResumeLayout(false);
             this.AboutTab.PerformLayout();
+            this.TrayIconContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -564,7 +598,7 @@
         private System.Windows.Forms.NotifyIcon TrayIcon;
         private System.Windows.Forms.CheckBox TrayIconCheckbox;
         private System.Windows.Forms.CheckBox StartWithWindowsCheckbox;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl TabControl1;
         private System.Windows.Forms.TabPage ChatterLogTabPage;
         private System.Windows.Forms.TabPage StatsTabPage;
         private System.Windows.Forms.TabPage KeysTabPage;
@@ -596,6 +630,10 @@
         private System.Windows.Forms.TextBox AddProgramTextBox;
         private System.Windows.Forms.Button RemoveProgramButton;
         private System.Windows.Forms.ListView AutoDisableProgramsList;
+        private System.Windows.Forms.ContextMenuStrip TrayIconContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuShowButton;
+        private System.Windows.Forms.ToolStripSeparator ToolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuExitButton;
     }
 }
 
