@@ -522,6 +522,7 @@ namespace KeyboardChatterBlocker
             Program.Blocker.AutoDisablePrograms.Add(program);
             Program.Blocker.SaveConfig();
             AutoDisableProgramsList.Items.Add(new ListViewItem(program));
+            AddProgramTextBox_TextChanged(null, null);
         }
 
         /// <summary>
@@ -559,6 +560,7 @@ namespace KeyboardChatterBlocker
                     break;
                 }
             }
+            AddProgramTextBox_TextChanged(null, null);
         }
 
         /// <summary>
