@@ -86,7 +86,18 @@ namespace KeyboardChatterBlocker
             KeyBlockHandler = blocker;
             KeyboardProcCallback = KeyboardHookCallback;
             MouseProcCallback = MouseHookCallback;
-            KeyboardHookID = SetKeyboardHook(KeyboardProcCallback);
+            EnableKeyboardHook();
+        }
+
+        /// <summary>
+        /// Enables the keyboard hook (if not already enabled).
+        /// </summary>
+        public void EnableKeyboardHook()
+        {
+            if (KeyboardHookID == IntPtr.Zero)
+            {
+                KeyboardHookID = SetKeyboardHook(KeyboardProcCallback);
+            }
         }
 
         /// <summary>
@@ -300,15 +311,23 @@ namespace KeyboardChatterBlocker
         }
 
         /// <summary>
-        /// Dispose the object, removing the hook.
+        /// Disables the keyboard hook (to fully disable when Auto-Disable Programs are used).
         /// </summary>
-        protected virtual void Dispose(bool disposing)
+        public void DisableKeyboardHook()
         {
             if (KeyboardHookID != IntPtr.Zero)
             {
                 UnhookWindowsHookEx(KeyboardHookID);
                 KeyboardHookID = IntPtr.Zero;
             }
+        }
+
+        /// <summary>
+        /// Dispose the object, removing the hook.
+        /// </summary>
+        protected virtual void Dispose(bool disposing)
+        {
+            DisableKeyboardHook();
             DisableMouseHook();
         }
 

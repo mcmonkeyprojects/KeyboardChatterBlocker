@@ -162,11 +162,15 @@ namespace KeyboardChatterBlocker
             Program.Blocker.IsAutoDisabled = disable;
             if (disable)
             {
+                Program.Blocker.Interceptor.DisableKeyboardHook();
+                Program.Blocker.Interceptor.DisableMouseHook();
                 EnableNoteLabel.Text = "(Automatically disabled due to an open process)";
                 EnableNoteLabel.BackColor = Color.FromArgb(64, 255, 0, 0);
             }
             else
             {
+                Program.Blocker.Interceptor.EnableKeyboardHook();
+                Program.Blocker.AutoEnableMouse();
                 EnableNoteLabel.Text = "";
                 EnableNoteLabel.BackColor = Color.Transparent;
                 foreach (string notBlocking in Program.Blocker.AutoDisablePrograms)
