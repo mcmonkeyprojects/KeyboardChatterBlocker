@@ -36,7 +36,7 @@ I've taken a similar approach to the software solutions mentioned above, but wit
 
 ### Requirements
 
-- A standard Windows PC (not likely to be Mac/Linux compatible) (tested on Windows 10 x64)
+- A standard Windows PC (not likely to be Mac/Linux compatible) (tested on Windows 10 Home x64 and Windows 11 Pro)
 - .NET Framework 4.7.2 or newer
 
 ### Setup

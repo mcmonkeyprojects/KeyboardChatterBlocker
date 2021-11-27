@@ -39,6 +39,10 @@
             this.ChatterThresholdBox = new System.Windows.Forms.NumericUpDown();
             this.ChatterThresholdLabel = new System.Windows.Forms.Label();
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.TrayIconContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ContextMenuShowButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ContextMenuExitButton = new System.Windows.Forms.ToolStripMenuItem();
             this.TrayIconCheckbox = new System.Windows.Forms.CheckBox();
             this.StartWithWindowsCheckbox = new System.Windows.Forms.CheckBox();
             this.TabControl1 = new System.Windows.Forms.TabControl();
@@ -69,12 +73,9 @@
             this.AboutLabel2 = new System.Windows.Forms.Label();
             this.AboutLabel1 = new System.Windows.Forms.Label();
             this.EnableNoteLabel = new System.Windows.Forms.Label();
-            this.TrayIconContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ContextMenuShowButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuExitButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
+            this.TrayIconContextMenu.SuspendLayout();
             this.TabControl1.SuspendLayout();
             this.ChatterLogTabPage.SuspendLayout();
             this.StatsTabPage.SuspendLayout();
@@ -83,7 +84,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureKeysGrid)).BeginInit();
             this.AutoDisableProgramsTabPage.SuspendLayout();
             this.AboutTab.SuspendLayout();
-            this.TrayIconContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // ChatterLogGrid
@@ -175,7 +175,7 @@
             // ChatterThresholdLabel
             // 
             this.ChatterThresholdLabel.AutoSize = true;
-            this.ChatterThresholdLabel.Location = new System.Drawing.Point(221, 67);
+            this.ChatterThresholdLabel.Location = new System.Drawing.Point(214, 67);
             this.ChatterThresholdLabel.Name = "ChatterThresholdLabel";
             this.ChatterThresholdLabel.Size = new System.Drawing.Size(127, 13);
             this.ChatterThresholdLabel.TabIndex = 3;
@@ -187,6 +187,33 @@
             this.TrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TrayIcon.Icon")));
             this.TrayIcon.Text = "Keyboard Chatter Blocker";
             this.TrayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
+            // 
+            // TrayIconContextMenu
+            // 
+            this.TrayIconContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ContextMenuShowButton,
+            this.ToolStripSeparator1,
+            this.ContextMenuExitButton});
+            this.TrayIconContextMenu.Name = "trayIconContextMenu";
+            this.TrayIconContextMenu.Size = new System.Drawing.Size(153, 54);
+            this.TrayIconContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.TrayIconContextMenu_ItemClicked);
+            // 
+            // ContextMenuShowButton
+            // 
+            this.ContextMenuShowButton.Name = "ContextMenuShowButton";
+            this.ContextMenuShowButton.Size = new System.Drawing.Size(152, 22);
+            this.ContextMenuShowButton.Text = "Show Interface";
+            // 
+            // ToolStripSeparator1
+            // 
+            this.ToolStripSeparator1.Name = "ToolStripSeparator1";
+            this.ToolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // ContextMenuExitButton
+            // 
+            this.ContextMenuExitButton.Name = "ContextMenuExitButton";
+            this.ContextMenuExitButton.Size = new System.Drawing.Size(152, 22);
+            this.ContextMenuExitButton.Text = "Force Exit";
             // 
             // TrayIconCheckbox
             // 
@@ -212,7 +239,7 @@
             this.StartWithWindowsCheckbox.UseVisualStyleBackColor = true;
             this.StartWithWindowsCheckbox.CheckedChanged += new System.EventHandler(this.StartWithWindowsCheckbox_CheckedChanged);
             // 
-            // tabControl1
+            // TabControl1
             // 
             this.TabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -223,7 +250,7 @@
             this.TabControl1.Controls.Add(this.AutoDisableProgramsTabPage);
             this.TabControl1.Controls.Add(this.AboutTab);
             this.TabControl1.Location = new System.Drawing.Point(13, 89);
-            this.TabControl1.Name = "tabControl1";
+            this.TabControl1.Name = "TabControl1";
             this.TabControl1.SelectedIndex = 0;
             this.TabControl1.Size = new System.Drawing.Size(439, 316);
             this.TabControl1.TabIndex = 7;
@@ -525,33 +552,6 @@
             this.EnableNoteLabel.Text = "EnableNote";
             this.EnableNoteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // trayIconContextMenu
-            // 
-            this.TrayIconContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ContextMenuShowButton,
-            this.ToolStripSeparator1,
-            this.ContextMenuExitButton});
-            this.TrayIconContextMenu.Name = "trayIconContextMenu";
-            this.TrayIconContextMenu.Size = new System.Drawing.Size(153, 54);
-            this.TrayIconContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.TrayIconContextMenu_ItemClicked);
-            // 
-            // contextMenuShowButton
-            // 
-            this.ContextMenuShowButton.Name = "contextMenuShowButton";
-            this.ContextMenuShowButton.Size = new System.Drawing.Size(152, 22);
-            this.ContextMenuShowButton.Text = "Show Interface";
-            // 
-            // contextMenuExitButton
-            // 
-            this.ContextMenuExitButton.Name = "contextMenuExitButton";
-            this.ContextMenuExitButton.Size = new System.Drawing.Size(152, 22);
-            this.ContextMenuExitButton.Text = "Force Exit";
-            // 
-            // toolStripSeparator1
-            // 
-            this.ToolStripSeparator1.Name = "toolStripSeparator1";
-            this.ToolStripSeparator1.Size = new System.Drawing.Size(149, 6);
-            // 
             // MainBlockerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -573,6 +573,7 @@
             this.Load += new System.EventHandler(this.MainBlockerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).EndInit();
+            this.TrayIconContextMenu.ResumeLayout(false);
             this.TabControl1.ResumeLayout(false);
             this.ChatterLogTabPage.ResumeLayout(false);
             this.StatsTabPage.ResumeLayout(false);
@@ -583,7 +584,6 @@
             this.AutoDisableProgramsTabPage.PerformLayout();
             this.AboutTab.ResumeLayout(false);
             this.AboutTab.PerformLayout();
-            this.TrayIconContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
