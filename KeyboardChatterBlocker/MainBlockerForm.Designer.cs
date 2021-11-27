@@ -175,6 +175,7 @@
             // ChatterThresholdLabel
             // 
             this.ChatterThresholdLabel.AutoSize = true;
+            this.ChatterThresholdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChatterThresholdLabel.Location = new System.Drawing.Point(214, 67);
             this.ChatterThresholdLabel.Name = "ChatterThresholdLabel";
             this.ChatterThresholdLabel.Size = new System.Drawing.Size(127, 13);
@@ -190,6 +191,7 @@
             // 
             // TrayIconContextMenu
             // 
+            this.TrayIconContextMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.TrayIconContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ContextMenuShowButton,
             this.ToolStripSeparator1,
@@ -271,6 +273,7 @@
             // StatsTabPage
             // 
             this.StatsTabPage.Controls.Add(this.StatsGrid);
+            this.StatsTabPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StatsTabPage.Location = new System.Drawing.Point(4, 22);
             this.StatsTabPage.Name = "StatsTabPage";
             this.StatsTabPage.Padding = new System.Windows.Forms.Padding(3);
