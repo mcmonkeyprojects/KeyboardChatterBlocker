@@ -488,7 +488,13 @@ namespace KeyboardChatterBlocker
         /// </summary>
         public static HashSet<string> StandardWindowsProcesses = new HashSet<string>()
         {
-            "svchost", "smartscreen", "spoolsv", "explorer", "services", "registry", "taskhost", "taskhostw", "smss", "ctfmon", "idle", "csrss", "dwm", "fontdrvhost", "lsass", "sgrmbroker"
+            "svchost", "smartscreen", "spoolsv", "explorer", "services", "registry", "taskhost", "taskhostw", "smss", "ctfmon", "idle", "csrss", "dwm", "fontdrvhost", "lsass", "sgrmbroker",
+            "onedrive", "searchhost", "searchindexer", "shellexperiencehost", "startmenuexperiencehost", "system", "systemsettings", "systemsettingsbroker", "wininit", "winlogin", "winlogon", "wmiprvse",
+            "applicationframehost", "textinputhost", "aggregatorhost", "audiodg", "gamebar", "gamebarftserver", "gamingservices", "gamingservicesnet", "microsoft.photos",
+            "minisearchhost", "memory compression", "msmpeng", "msmpengcp", "nissrv", "runtimebroker", "sihost", "uhssvc", "unsecapp", "wudfhost", "yourphone",
+            "rtkauduservice64", // realtek audio
+            "nvcontainer", "nvidia share", "nvsphelper64", "nvbroadcast.container", "nvidia broadcast", "nvidia broadcast ui", "nvdisplay.container", "nvidia web helper", // nvidia
+             "jhi_service", "lms", // intel
         };
 
         /// <summary>
