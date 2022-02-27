@@ -62,6 +62,7 @@ namespace KeyboardChatterBlocker
             }
             Program.Blocker.KeyBlockedEvent += LogKeyBlocked;
             InitializeComponent();
+            versionAboutLabel.Text = "Version: " + Application.ProductVersion;
         }
 
         /// <summary>

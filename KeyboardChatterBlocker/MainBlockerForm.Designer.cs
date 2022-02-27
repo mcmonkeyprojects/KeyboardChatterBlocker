@@ -73,6 +73,7 @@
             this.AboutLabel2 = new System.Windows.Forms.Label();
             this.AboutLabel1 = new System.Windows.Forms.Label();
             this.EnableNoteLabel = new System.Windows.Forms.Label();
+            this.versionAboutLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
             this.TrayIconContextMenu.SuspendLayout();
@@ -468,6 +469,7 @@
             // 
             // AboutTab
             // 
+            this.AboutTab.Controls.Add(this.versionAboutLabel);
             this.AboutTab.Controls.Add(this.AboutLinkLabel);
             this.AboutTab.Controls.Add(this.AboutLabel5);
             this.AboutTab.Controls.Add(this.AboutLavel4);
@@ -555,6 +557,15 @@
             this.EnableNoteLabel.Text = "EnableNote";
             this.EnableNoteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // versionAboutLabel
+            // 
+            this.versionAboutLabel.AutoSize = true;
+            this.versionAboutLabel.Location = new System.Drawing.Point(288, 13);
+            this.versionAboutLabel.Name = "versionAboutLabel";
+            this.versionAboutLabel.Size = new System.Drawing.Size(101, 13);
+            this.versionAboutLabel.TabIndex = 6;
+            this.versionAboutLabel.Text = "Version Placeholder";
+            // 
             // MainBlockerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -637,6 +648,7 @@
         private System.Windows.Forms.ToolStripMenuItem ContextMenuShowButton;
         private System.Windows.Forms.ToolStripSeparator ToolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuExitButton;
+        private System.Windows.Forms.Label versionAboutLabel;
     }
 }
 
