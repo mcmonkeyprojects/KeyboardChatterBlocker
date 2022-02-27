@@ -74,6 +74,7 @@
             this.AboutLabel1 = new System.Windows.Forms.Label();
             this.EnableNoteLabel = new System.Windows.Forms.Label();
             this.versionAboutLabel = new System.Windows.Forms.Label();
+            this.AutoDisableOnFullscreenCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
             this.TrayIconContextMenu.SuspendLayout();
@@ -393,6 +394,7 @@
             // 
             // AutoDisableProgramsTabPage
             // 
+            this.AutoDisableProgramsTabPage.Controls.Add(this.AutoDisableOnFullscreenCheckbox);
             this.AutoDisableProgramsTabPage.Controls.Add(this.AutoDisableProgramsList);
             this.AutoDisableProgramsTabPage.Controls.Add(this.RemoveProgramButton);
             this.AutoDisableProgramsTabPage.Controls.Add(this.ShowProgramListButton);
@@ -412,9 +414,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AutoDisableProgramsList.HideSelection = false;
-            this.AutoDisableProgramsList.Location = new System.Drawing.Point(8, 59);
+            this.AutoDisableProgramsList.Location = new System.Drawing.Point(8, 83);
             this.AutoDisableProgramsList.Name = "AutoDisableProgramsList";
-            this.AutoDisableProgramsList.Size = new System.Drawing.Size(417, 225);
+            this.AutoDisableProgramsList.Size = new System.Drawing.Size(417, 201);
             this.AutoDisableProgramsList.TabIndex = 5;
             this.AutoDisableProgramsList.UseCompatibleStateImageBehavior = false;
             this.AutoDisableProgramsList.View = System.Windows.Forms.View.List;
@@ -424,7 +426,7 @@
             // 
             this.RemoveProgramButton.Enabled = false;
             this.RemoveProgramButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RemoveProgramButton.Location = new System.Drawing.Point(265, 30);
+            this.RemoveProgramButton.Location = new System.Drawing.Point(265, 54);
             this.RemoveProgramButton.Name = "RemoveProgramButton";
             this.RemoveProgramButton.Size = new System.Drawing.Size(160, 23);
             this.RemoveProgramButton.TabIndex = 4;
@@ -435,7 +437,7 @@
             // ShowProgramListButton
             // 
             this.ShowProgramListButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ShowProgramListButton.Location = new System.Drawing.Point(371, 3);
+            this.ShowProgramListButton.Location = new System.Drawing.Point(371, 25);
             this.ShowProgramListButton.Name = "ShowProgramListButton";
             this.ShowProgramListButton.Size = new System.Drawing.Size(54, 23);
             this.ShowProgramListButton.TabIndex = 2;
@@ -447,7 +449,7 @@
             // 
             this.AddToListButton.Enabled = false;
             this.AddToListButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddToListButton.Location = new System.Drawing.Point(8, 29);
+            this.AddToListButton.Location = new System.Drawing.Point(8, 54);
             this.AddToListButton.Name = "AddToListButton";
             this.AddToListButton.Size = new System.Drawing.Size(250, 23);
             this.AddToListButton.TabIndex = 1;
@@ -458,7 +460,7 @@
             // AddProgramTextBox
             // 
             this.AddProgramTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddProgramTextBox.Location = new System.Drawing.Point(8, 3);
+            this.AddProgramTextBox.Location = new System.Drawing.Point(8, 28);
             this.AddProgramTextBox.Name = "AddProgramTextBox";
             this.AddProgramTextBox.Size = new System.Drawing.Size(357, 20);
             this.AddProgramTextBox.TabIndex = 0;
@@ -566,6 +568,17 @@
             this.versionAboutLabel.TabIndex = 6;
             this.versionAboutLabel.Text = "Version Placeholder";
             // 
+            // autoDisableOnFullscreenCheckbox
+            // 
+            this.AutoDisableOnFullscreenCheckbox.AutoSize = true;
+            this.AutoDisableOnFullscreenCheckbox.Location = new System.Drawing.Point(258, 5);
+            this.AutoDisableOnFullscreenCheckbox.Name = "autoDisableOnFullscreenCheckbox";
+            this.AutoDisableOnFullscreenCheckbox.Size = new System.Drawing.Size(167, 17);
+            this.AutoDisableOnFullscreenCheckbox.TabIndex = 6;
+            this.AutoDisableOnFullscreenCheckbox.Text = "Auto Disable If Any Fullscreen";
+            this.AutoDisableOnFullscreenCheckbox.UseVisualStyleBackColor = true;
+            this.AutoDisableOnFullscreenCheckbox.CheckedChanged += new System.EventHandler(this.AutoDisableOnFullscreenCheckbox_CheckedChanged);
+            // 
             // MainBlockerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -649,6 +662,7 @@
         private System.Windows.Forms.ToolStripSeparator ToolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuExitButton;
         private System.Windows.Forms.Label versionAboutLabel;
+        private System.Windows.Forms.CheckBox AutoDisableOnFullscreenCheckbox;
     }
 }
 

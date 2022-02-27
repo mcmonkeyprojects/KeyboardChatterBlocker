@@ -120,6 +120,9 @@ namespace KeyboardChatterBlocker
                 case "auto_disable_programs":
                     AutoDisablePrograms.AddRange(settingValue.ToLowerInvariant().Split('/'));
                     break;
+                case "auto_disable_on_fullscreen":
+                    AutoDisableOnFullscreen = SettingAsBool(settingValue);
+                    break;
             }
         }
 
@@ -157,8 +160,9 @@ namespace KeyboardChatterBlocker
             }
             if (AutoDisablePrograms.Count > 0)
             {
-                result.Append("auto_disable_programs: ").Append(string.Join("/", AutoDisablePrograms));
+                result.Append("auto_disable_programs: ").Append(string.Join("/", AutoDisablePrograms)).Append("\n");
             }
+            result.Append("auto_disable_on_fullscreen: ").Append(AutoDisableOnFullscreen ? "true" : "false").Append("\n");
             return result.ToString();
         }
 
@@ -216,6 +220,11 @@ namespace KeyboardChatterBlocker
         /// A mapping of keys to a bool indicating if they are thought to be down (to catch holding down a key and not bork it).
         /// </summary>
         public AcceleratedKeyMap<bool> KeyIsDown = new AcceleratedKeyMap<bool>();
+
+        /// <summary>
+        /// Whether to automatically disable the blocker when any program is full screen.
+        /// </summary>
+        public bool AutoDisableOnFullscreen = false;
 
         /// <summary>
         /// Whether any key presses have occurred (and thus stats have changed).

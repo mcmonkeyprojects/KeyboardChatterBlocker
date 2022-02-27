@@ -154,10 +154,18 @@ namespace KeyboardChatterBlocker
             }
         }
 
-        public void SetAutoDisable(bool disable)
+        public void SetAutoDisable(bool disable, string reason)
         {
             if (Program.Blocker.IsAutoDisabled == disable)
             {
+                if (disable)
+                {
+                    string disableText = $"(Automatically disabled due to {reason})";
+                    if (EnableNoteLabel.Text != disableText) // Redundant check to discourage redraw
+                    {
+                        EnableNoteLabel.Text = disableText;
+                    }
+                }
                 return;
             }
             Program.Blocker.IsAutoDisabled = disable;
@@ -165,7 +173,7 @@ namespace KeyboardChatterBlocker
             {
                 Program.Blocker.Interceptor.DisableKeyboardHook();
                 Program.Blocker.Interceptor.DisableMouseHook();
-                EnableNoteLabel.Text = "(Automatically disabled due to an open process)";
+                EnableNoteLabel.Text = $"(Automatically disabled due to {reason})";
                 EnableNoteLabel.BackColor = Color.FromArgb(64, 255, 0, 0);
             }
             else
@@ -197,10 +205,22 @@ namespace KeyboardChatterBlocker
         /// </summary>
         public void CheckAutoDisable()
         {
+            if (Program.Blocker.AutoDisableOnFullscreen)
+            {
+                if (FullScreenDetectHelper.IsFullscreen())
+                {
+                    SetAutoDisable(true, "fullscreen application");
+                    foreach (ListViewItem item in AutoDisableProgramsList.Items)
+                    {
+                        item.BackColor = Color.Transparent;
+                    }
+                    return;
+                }
+            }
             HashSet<string> programsToCheck = new HashSet<string>(Program.Blocker.AutoDisablePrograms);
             if (programsToCheck.Count == 0)
             {
-                SetAutoDisable(false);
+                SetAutoDisable(false, "none");
                 return;
             }
             bool any = false;
@@ -210,13 +230,13 @@ namespace KeyboardChatterBlocker
                 {
                     SetAutoDisableProgramHighlight(proc, true);
                     programsToCheck.Remove(proc);
-                    SetAutoDisable(true);
+                    SetAutoDisable(true, $"open process ({proc})");
                     any = true;
                 }
             }
             if (!any)
             {
-                SetAutoDisable(false);
+                SetAutoDisable(false, "none");
             }
             else
             {
@@ -254,6 +274,7 @@ namespace KeyboardChatterBlocker
             AutoDisableTimer.Tick += (tickSender, tickArgs) => CheckAutoDisable();
             AutoDisableTimer.Start();
             AutoDisableProgramsList.Items.AddRange(Program.Blocker.AutoDisablePrograms.Select(s => new ListViewItem(s)).ToArray());
+            AutoDisableOnFullscreenCheckbox.Checked = Program.Blocker.AutoDisableOnFullscreen;
             ChatterThresholdBox.Value = Program.Blocker.GlobalChatterTimeLimit;
             EnabledCheckbox.Checked = Program.Blocker.IsEnabled;
             StartWithWindowsCheckbox.Checked = File.Exists(StartupLinkPath);
@@ -600,6 +621,19 @@ namespace KeyboardChatterBlocker
                 ShouldForceClose = true;
                 Close();
             }
+        }
+
+        /// <summary>
+        /// Event method to handle the 'auto disable on fullscreen' checkbox state changing.
+        /// </summary>
+        private void AutoDisableOnFullscreenCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Loading)
+            {
+                return;
+            }
+            Program.Blocker.AutoDisableOnFullscreen = AutoDisableOnFullscreenCheckbox.Checked;
+            Program.Blocker.SaveConfig();
         }
     }
 }
