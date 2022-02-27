@@ -71,6 +71,7 @@ I've taken a similar approach to the software solutions mentioned above, but wit
 - `hide_in_system_tray`: Set to `true` to make the program hide in the system tray at start, or `false` to load as a visible GUI app.
 - `keys.<KEY>`: (for example, `keys.H`) set to the time (in ms) for that specific key's keyboard chatter threshold.
 - `auto_disable_programs`: Set to a list of executable names (case insensitive, without the `.exe`) separated by slashes (like `some_video_game/other_game`) that will cause the chatter block to automatically disable whenever that program is open.
+- `auto_disable_on_fullscreen`: set to `true` to auto-disable the chatter block when any application is open in fullscreen - see also [#26](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker/issues/26).
 
 ---
 
