@@ -88,7 +88,7 @@ You can do basically whatever you want (as long as you give credit), except you 
 
 The MIT License (MIT)
 
-Copyright (c) 2019-2021 Alex "mcmonkey" Goodwin
+Copyright (c) 2019-2022 Alex "mcmonkey" Goodwin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
