@@ -60,12 +60,14 @@
             this.ConfigureThresholdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RemoveColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AutoDisableProgramsTabPage = new System.Windows.Forms.TabPage();
+            this.AutoDisableOnFullscreenCheckbox = new System.Windows.Forms.CheckBox();
             this.AutoDisableProgramsList = new System.Windows.Forms.ListView();
             this.RemoveProgramButton = new System.Windows.Forms.Button();
             this.ShowProgramListButton = new System.Windows.Forms.Button();
             this.AddToListButton = new System.Windows.Forms.Button();
             this.AddProgramTextBox = new System.Windows.Forms.TextBox();
             this.AboutTab = new System.Windows.Forms.TabPage();
+            this.versionAboutLabel = new System.Windows.Forms.Label();
             this.AboutLinkLabel = new System.Windows.Forms.LinkLabel();
             this.AboutLabel5 = new System.Windows.Forms.Label();
             this.AboutLavel4 = new System.Windows.Forms.Label();
@@ -73,8 +75,6 @@
             this.AboutLabel2 = new System.Windows.Forms.Label();
             this.AboutLabel1 = new System.Windows.Forms.Label();
             this.EnableNoteLabel = new System.Windows.Forms.Label();
-            this.versionAboutLabel = new System.Windows.Forms.Label();
-            this.AutoDisableOnFullscreenCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
             this.TrayIconContextMenu.SuspendLayout();
@@ -106,7 +106,7 @@
             this.ChatterLogGrid.ReadOnly = true;
             this.ChatterLogGrid.Size = new System.Drawing.Size(419, 278);
             this.ChatterLogGrid.TabIndex = 0;
-            this.ChatterLogGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ChatterLogGrid_CellContentDoubleClick);
+            this.ChatterLogGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ChatterLogGrid_CellContentDoubleClick);
             // 
             // Time
             // 
@@ -371,7 +371,8 @@
             this.ConfigureKeysGrid.Name = "ConfigureKeysGrid";
             this.ConfigureKeysGrid.Size = new System.Drawing.Size(418, 249);
             this.ConfigureKeysGrid.TabIndex = 0;
-            this.ConfigureKeysGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ConfigureKeysGrid_CellContentDoubleClick);
+            this.ConfigureKeysGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ConfigureKeysGrid_CellContentDoubleClick);
+            this.ConfigureKeysGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConfigureKeysGrid_KeyDown);
             // 
             // ConfigureKeyColumn
             // 
@@ -407,6 +408,17 @@
             this.AutoDisableProgramsTabPage.TabIndex = 4;
             this.AutoDisableProgramsTabPage.Text = "Auto Disable Programs";
             this.AutoDisableProgramsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // AutoDisableOnFullscreenCheckbox
+            // 
+            this.AutoDisableOnFullscreenCheckbox.AutoSize = true;
+            this.AutoDisableOnFullscreenCheckbox.Location = new System.Drawing.Point(258, 5);
+            this.AutoDisableOnFullscreenCheckbox.Name = "AutoDisableOnFullscreenCheckbox";
+            this.AutoDisableOnFullscreenCheckbox.Size = new System.Drawing.Size(167, 17);
+            this.AutoDisableOnFullscreenCheckbox.TabIndex = 6;
+            this.AutoDisableOnFullscreenCheckbox.Text = "Auto Disable If Any Fullscreen";
+            this.AutoDisableOnFullscreenCheckbox.UseVisualStyleBackColor = true;
+            this.AutoDisableOnFullscreenCheckbox.CheckedChanged += new System.EventHandler(this.AutoDisableOnFullscreenCheckbox_CheckedChanged);
             // 
             // AutoDisableProgramsList
             // 
@@ -487,6 +499,15 @@
             this.AboutTab.Text = "About";
             this.AboutTab.UseVisualStyleBackColor = true;
             // 
+            // versionAboutLabel
+            // 
+            this.versionAboutLabel.AutoSize = true;
+            this.versionAboutLabel.Location = new System.Drawing.Point(288, 13);
+            this.versionAboutLabel.Name = "versionAboutLabel";
+            this.versionAboutLabel.Size = new System.Drawing.Size(101, 13);
+            this.versionAboutLabel.TabIndex = 6;
+            this.versionAboutLabel.Text = "Version Placeholder";
+            // 
             // AboutLinkLabel
             // 
             this.AboutLinkLabel.AutoSize = true;
@@ -558,26 +579,6 @@
             this.EnableNoteLabel.TabIndex = 8;
             this.EnableNoteLabel.Text = "EnableNote";
             this.EnableNoteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // versionAboutLabel
-            // 
-            this.versionAboutLabel.AutoSize = true;
-            this.versionAboutLabel.Location = new System.Drawing.Point(288, 13);
-            this.versionAboutLabel.Name = "versionAboutLabel";
-            this.versionAboutLabel.Size = new System.Drawing.Size(101, 13);
-            this.versionAboutLabel.TabIndex = 6;
-            this.versionAboutLabel.Text = "Version Placeholder";
-            // 
-            // autoDisableOnFullscreenCheckbox
-            // 
-            this.AutoDisableOnFullscreenCheckbox.AutoSize = true;
-            this.AutoDisableOnFullscreenCheckbox.Location = new System.Drawing.Point(258, 5);
-            this.AutoDisableOnFullscreenCheckbox.Name = "autoDisableOnFullscreenCheckbox";
-            this.AutoDisableOnFullscreenCheckbox.Size = new System.Drawing.Size(167, 17);
-            this.AutoDisableOnFullscreenCheckbox.TabIndex = 6;
-            this.AutoDisableOnFullscreenCheckbox.Text = "Auto Disable If Any Fullscreen";
-            this.AutoDisableOnFullscreenCheckbox.UseVisualStyleBackColor = true;
-            this.AutoDisableOnFullscreenCheckbox.CheckedChanged += new System.EventHandler(this.AutoDisableOnFullscreenCheckbox_CheckedChanged);
             // 
             // MainBlockerForm
             // 

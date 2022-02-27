@@ -412,6 +412,23 @@ namespace KeyboardChatterBlocker
         }
 
         /// <summary>
+        /// Event method auto-called when the "chatter log" box has a key pressed.
+        /// </summary>
+        private void ConfigureKeysGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && ConfigureKeysGrid.SelectedCells.Count == 1)
+            {
+                e.Handled = true;
+                ConfigureKeysGrid_CellContentDoubleClick(null, new DataGridViewCellEventArgs(1, ConfigureKeysGrid.SelectedCells[0].RowIndex));
+            }
+            else if (e.KeyCode == Keys.Delete)
+            {
+                e.Handled = true;
+                ConfigureKeysGrid_CellContentDoubleClick(null, new DataGridViewCellEventArgs(2, ConfigureKeysGrid.SelectedCells[0].RowIndex));
+            }
+        }
+
+        /// <summary>
         /// Event method auto-called when the "Add Key" button is pressed.
         /// </summary>
         public void AddKeyButton_Click(object sender, EventArgs e)
