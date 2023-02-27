@@ -60,6 +60,46 @@ namespace KeyboardChatterBlocker
                 WindowState = FormWindowState.Minimized;
                 ShowInTaskbar = false;
             }
+            Process currentProcess = Process.GetCurrentProcess();
+            Process[] priorProcesses = Process.GetProcesses().Where(p => p.ProcessName == currentProcess.ProcessName && p.Id != currentProcess.Id).ToArray();
+            if (priorProcesses.Any())
+            {
+                DialogResult result = MessageBox.Show($"Process '{priorProcesses[0].ProcessName}' (PID={priorProcesses[0].Id}) is already running."
+                    + " Would you like to close it?\nYes = Close other process\nNo = allow the duplicate\nCancel = close this window.", "Duplicate Process Detected", MessageBoxButtons.YesNoCancel);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        foreach (Process proc in priorProcesses)
+                        {
+                            if (!proc.HasExited)
+                            {
+                                try
+                                {
+                                    proc.Kill();
+                                }
+                                catch (Exception _)
+                                {
+                                    // Ignore for now
+                                }
+                            }
+                        }
+                        if (priorProcesses.Any(p => !p.HasExited))
+                        {
+                            DialogResult secondary = MessageBox.Show($"Failed to close other processes. Continue anyway?\nYes = run duplicate\nNo = Close", "Failed", MessageBoxButtons.YesNo);
+                            if (secondary != DialogResult.Yes)
+                            {
+                                Close();
+                                return;
+                            }
+                        }
+                        break;
+                    case DialogResult.No:
+                        break;
+                    default:
+                        Close();
+                        return;
+                }
+            }
             Program.Blocker.KeyBlockedEvent += LogKeyBlocked;
             InitializeComponent();
             versionAboutLabel.Text = "Version: " + Application.ProductVersion;
