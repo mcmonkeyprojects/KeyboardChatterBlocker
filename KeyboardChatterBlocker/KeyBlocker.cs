@@ -43,6 +43,19 @@ namespace KeyboardChatterBlocker
         public Dictionary<string, string> Hotkeys = new Dictionary<string, string>();
 
         /// <summary>
+        /// Enum to represent when to measure the time delay from.
+        /// </summary>
+        public enum MeasureFrom
+        {
+            Press, Release
+        }
+
+        /// <summary>
+        /// When to measure the time delay from.
+        /// </summary>
+        public MeasureFrom MeasureMode = MeasureFrom.Press;
+
+        /// <summary>
         /// Load the <see cref="KeyBlocker"/> from config file settings.
         /// </summary>
         public KeyBlocker()
@@ -149,6 +162,9 @@ namespace KeyboardChatterBlocker
                     Hotkeys["disable"] = settingValue;
                     HotKeys.Register(settingValue, () => Program.MainForm.SetEnabled(false));
                     break;
+                case "measure_from":
+                    MeasureMode = (MeasureFrom)Enum.Parse(typeof(MeasureFrom), settingValue, true);
+                    break;
             }
         }
 
@@ -175,6 +191,7 @@ namespace KeyboardChatterBlocker
             result.Append("is_enabled: ").Append(IsEnabled ? "true" : "false").Append("\n");
             result.Append("global_chatter: ").Append(GlobalChatterTimeLimit).Append("\n");
             result.Append("hide_in_system_tray: ").Append(Program.HideInSystemTray ? "true" : "false").Append("\n");
+            result.Append($"measure_from: {MeasureMode}\n");
             result.Append("\n");
             foreach (KeyValuePair<Keys, uint?> chatterTimes in KeysToChatterTime.MainDictionary)
             {
@@ -221,6 +238,11 @@ namespace KeyboardChatterBlocker
         /// A mapping of keys to the last press time.
         /// </summary>
         public AcceleratedKeyMap<ulong> KeysToLastPressTime = new AcceleratedKeyMap<ulong>();
+
+        /// <summary>
+        /// A mapping of keys to the last release time.
+        /// </summary>
+        public AcceleratedKeyMap<ulong> KeysToLastReleaseTime = new AcceleratedKeyMap<ulong>();
 
         /// <summary>
         /// The global chatter time limit, in milliseconds.
@@ -287,7 +309,7 @@ namespace KeyboardChatterBlocker
             KeyIsDown[key] = true;
             StatsKeyCount[key]++;
             ulong timeNow = GetTickCount64();
-            ulong timeLast = KeysToLastPressTime[key];
+            ulong timeLast = MeasureMode == MeasureFrom.Release ? KeysToLastReleaseTime[key] : KeysToLastPressTime[key];
             if (timeLast > timeNow) // In the future = number handling mixup, just allow it.
             {
                 KeysToLastPressTime[key] = timeNow;
@@ -319,13 +341,16 @@ namespace KeyboardChatterBlocker
         /// <returns>True to allow the key-up, false to deny it.</returns>
         public bool AllowKeyUp(Keys key)
         {
+            ulong timeNow = GetTickCount64();
             if (!IsEnabled || IsAutoDisabled) // Not enabled = allow everything through.
             {
+                KeysToLastReleaseTime[key] = timeNow;
                 return true;
             }
             KeyIsDown[key] = false;
             if (!KeysWereDownBlocked[key]) // Down wasn't blocked = allow it.
             {
+                KeysToLastReleaseTime[key] = timeNow;
                 return true;
             }
             KeysWereDownBlocked[key] = false;
