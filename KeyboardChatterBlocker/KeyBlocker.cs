@@ -56,6 +56,11 @@ namespace KeyboardChatterBlocker
         public MeasureFrom MeasureMode = MeasureFrom.Press;
 
         /// <summary>
+        /// If marked, the blocker is disabled, temporarily.
+        /// </summary>
+        public bool TempDisable = false;
+
+        /// <summary>
         /// Load the <see cref="KeyBlocker"/> from config file settings.
         /// </summary>
         public KeyBlocker()
@@ -161,6 +166,14 @@ namespace KeyboardChatterBlocker
                 case "hotkey_disable":
                     Hotkeys["disable"] = settingValue;
                     HotKeys.Register(settingValue, () => Program.MainForm.SetEnabled(false));
+                    break;
+                case "hotkey_tempenable":
+                    Hotkeys["tempenable"] = settingValue;
+                    HotKeys.Register(settingValue, () => TempDisable = false);
+                    break;
+                case "hotkey_tempdisable":
+                    Hotkeys["tempdisable"] = settingValue;
+                    HotKeys.Register(settingValue, () => TempDisable = true);
                     break;
                 case "measure_from":
                     MeasureMode = (MeasureFrom)Enum.Parse(typeof(MeasureFrom), settingValue, true);
@@ -314,7 +327,7 @@ namespace KeyboardChatterBlocker
         /// <returns>True to allow the press, false to deny it.</returns>
         public bool AllowKeyDown(Keys key, bool defaultZero)
         {
-            if (!IsEnabled || IsAutoDisabled) // Not enabled = allow everything through.
+            if (!IsEnabled || IsAutoDisabled || TempDisable) // Not enabled = allow everything through.
             {
                 return true;
             }
@@ -363,7 +376,7 @@ namespace KeyboardChatterBlocker
         public bool AllowKeyUp(Keys key)
         {
             ulong timeNow = GetTickCount64();
-            if (!IsEnabled || IsAutoDisabled) // Not enabled = allow everything through.
+            if (!IsEnabled || IsAutoDisabled || TempDisable) // Not enabled = allow everything through.
             {
                 KeysToLastReleaseTime[key] = timeNow;
                 return true;
