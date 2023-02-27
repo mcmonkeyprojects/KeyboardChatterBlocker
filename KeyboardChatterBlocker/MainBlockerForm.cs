@@ -139,6 +139,11 @@ namespace KeyboardChatterBlocker
             }
             if (StartWithWindowsCheckbox.Checked)
             {
+                string folder = Environment.GetEnvironmentVariable("appdata") + STARTUP_FOLDER;
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
                 IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)new IWshRuntimeLibrary.WshShell().CreateShortcut(StartupLinkPath);
                 shortcut.Description = "Auto-Start Keyboard Chatter Blocker.";
                 shortcut.TargetPath = Application.ExecutablePath;
