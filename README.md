@@ -75,7 +75,7 @@ I've taken a similar approach to the software solutions mentioned above, but wit
 
 ### Other Features
 
-- You can add any `chatter.wav` file next to the `.exe`, and it will be automatically played when chatter is detected. This feature was requested by [#32](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker/issues/32). You can download sound files for example [here](https://bigsoundbank.com/search?q=notification). The only requirement is that it be in `.wav` format.
+- You can add any `chatter.wav` file next to the `.exe`, and it will be automatically played when chatter is detected. This feature was requested by [#32](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker/issues/32). You can download sound files for example [here](https://bigsoundbank.com/search?q=notification). The only requirement is that it be in `.wav` format. (If you do not place such a file, no audio player capabilities will be loaded at all. This is detected at startup, if you want to add one while you have the program open you must close it and reopen it).
 
 ---
 
