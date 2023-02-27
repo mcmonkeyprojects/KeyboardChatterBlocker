@@ -31,6 +31,11 @@ namespace KeyboardChatterBlocker
         public static MainBlockerForm MainForm;
 
         /// <summary>
+        /// The interceptor instance.
+        /// </summary>
+        public static KeyboardInterceptor Interceptor;
+
+        /// <summary>
         /// Forces the system to use standard Invariant culture to avoid bugs induced by Microsoft's broken auto-localization.
         /// See also https://github.com/FreneticLLC/FreneticUtilities/blob/master/FreneticUtilities/FreneticToolkit/SpecialTools.cs#L19
         /// </summary>
@@ -39,6 +44,16 @@ namespace KeyboardChatterBlocker
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+        }
+
+        /// <summary>
+        /// Force-close the process.
+        /// </summary>
+        public static void Close()
+        {
+            Program.MainForm.Close();
+            Application.Exit();
+            Process.GetCurrentProcess().Kill();
         }
 
         /// <summary>
@@ -56,15 +71,10 @@ namespace KeyboardChatterBlocker
             }
             // This needs priority to prevent delaying input
             Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.AboveNormal;
-            Blocker = new KeyBlocker();
-            using (KeyboardInterceptor intercept = new KeyboardInterceptor(Blocker))
-            {
-                Blocker.AutoEnableMouse();
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                MainForm = new MainBlockerForm();
-                Application.Run(MainForm);
-            }
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            MainForm = new MainBlockerForm();
+            Application.Run(MainForm);
         }
     }
 }

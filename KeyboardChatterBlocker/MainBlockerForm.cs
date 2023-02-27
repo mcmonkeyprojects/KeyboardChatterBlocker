@@ -55,6 +55,11 @@ namespace KeyboardChatterBlocker
         /// </summary>
         public MainBlockerForm()
         {
+            Program.MainForm = this;
+            Program.Blocker = new KeyBlocker();
+            Program.Interceptor = new KeyboardInterceptor(Program.Blocker);
+            Program.Blocker.AutoEnableMouse();
+            Application.AddMessageFilter(new HotKeys.Internal.MessageFilter());
             if (Program.HideInSystemTray)
             {
                 WindowState = FormWindowState.Minimized;
@@ -77,7 +82,7 @@ namespace KeyboardChatterBlocker
                                 {
                                     proc.Kill();
                                 }
-                                catch (Exception _)
+                                catch (Exception)
                                 {
                                     // Ignore for now
                                 }
@@ -329,6 +334,14 @@ namespace KeyboardChatterBlocker
             PushKeysToGrid();
             Loading = false;
             CheckAutoDisable();
+        }
+
+        /// <summary>
+        /// Properly toggles whether the program is enabled.
+        /// </summary>
+        public void SetEnabled(bool enabled)
+        {
+            EnabledCheckbox.Checked = enabled;
         }
 
         /// <summary>

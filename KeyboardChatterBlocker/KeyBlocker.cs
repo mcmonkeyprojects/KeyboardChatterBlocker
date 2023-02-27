@@ -38,6 +38,11 @@ namespace KeyboardChatterBlocker
         public KeyboardInterceptor Interceptor;
 
         /// <summary>
+        /// Map of hotkey ID to keymapping.
+        /// </summary>
+        public Dictionary<string, string> Hotkeys = new Dictionary<string, string>();
+
+        /// <summary>
         /// Load the <see cref="KeyBlocker"/> from config file settings.
         /// </summary>
         public KeyBlocker()
@@ -49,7 +54,16 @@ namespace KeyboardChatterBlocker
                 {
                     if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("#"))
                     {
-                        ApplyConfigSetting(line);
+                        try
+                        {
+                            ApplyConfigSetting(line);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Could not apply setting: {line}:\n{ex}", "Failed to load config", MessageBoxButtons.OK);
+                            Program.Close();
+                            return;
+                        }
                     }
                 }
             }
@@ -123,6 +137,18 @@ namespace KeyboardChatterBlocker
                 case "auto_disable_on_fullscreen":
                     AutoDisableOnFullscreen = SettingAsBool(settingValue);
                     break;
+                case "hotkey_toggle":
+                    Hotkeys["toggle"] = settingValue;
+                    HotKeys.Register(settingValue, () => Program.MainForm.SetEnabled(!IsEnabled));
+                    break;
+                case "hotkey_enable":
+                    Hotkeys["enable"] = settingValue;
+                    HotKeys.Register(settingValue, () => Program.MainForm.SetEnabled(true));
+                    break;
+                case "hotkey_disable":
+                    Hotkeys["disable"] = settingValue;
+                    HotKeys.Register(settingValue, () => Program.MainForm.SetEnabled(false));
+                    break;
             }
         }
 
@@ -163,6 +189,11 @@ namespace KeyboardChatterBlocker
                 result.Append("auto_disable_programs: ").Append(string.Join("/", AutoDisablePrograms)).Append("\n");
             }
             result.Append("auto_disable_on_fullscreen: ").Append(AutoDisableOnFullscreen ? "true" : "false").Append("\n");
+            result.Append("\n");
+            foreach (KeyValuePair<string, string> pair in Hotkeys)
+            {
+                result.Append($"hotkey_{pair.Key}: {pair.Value}\n");
+            }
             return result.ToString();
         }
 

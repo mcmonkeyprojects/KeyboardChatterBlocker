@@ -72,6 +72,7 @@ I've taken a similar approach to the software solutions mentioned above, but wit
 - `keys.<KEY>`: (for example, `keys.H`) set to the time (in ms) for that specific key's keyboard chatter threshold.
 - `auto_disable_programs`: Set to a list of executable names (case insensitive, without the `.exe`) separated by slashes (like `some_video_game/other_game`) that will cause the chatter block to automatically disable whenever that program is open.
 - `auto_disable_on_fullscreen`: set to `true` to auto-disable the chatter block when any application is open in fullscreen - see also [#26](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker/issues/26).
+- `hotkey_<type>`: (where type is `toggle`, `enable`, `disable`) set to a key combo. Must be a combination of any of `control`, `alt`, `win`, `shift`, and any valid key separated by `+`. For example `control + a`, `win + alt + b`, `shift + d1`. Note that using `control` often won't work as it gets reserved by other applications (or Windows itself) often. This line will register a global hotkey that performs the applicable action (eg `hotkey_disable: win + shift + pause` will allow you to hold those three keys together at any time to immediately disable the chatter blocker).
 
 ### Other Features
 
