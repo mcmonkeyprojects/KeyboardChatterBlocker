@@ -165,6 +165,9 @@ namespace KeyboardChatterBlocker
                 case "measure_from":
                     MeasureMode = (MeasureFrom)Enum.Parse(typeof(MeasureFrom), settingValue, true);
                     break;
+                case "hotkey_tempblock":
+                    BlockAllInputsKeySet = settingValue.Split('+').Select(s => s.Trim().ToLowerInvariant()).Where(s => !string.IsNullOrWhiteSpace(s)).Select(s => (Keys)Enum.Parse(typeof(Keys), s, true)).ToArray();
+                    break;
             }
         }
 
@@ -211,8 +214,22 @@ namespace KeyboardChatterBlocker
             {
                 result.Append($"hotkey_{pair.Key}: {pair.Value}\n");
             }
+            if (BlockAllInputsKeySet != null)
+            {
+                result.Append($"hotkey_tempblock: {string.Join(" + ", BlockAllInputsKeySet)}\n");
+            }
             return result.ToString();
         }
+
+        /// <summary>
+        /// A special set of keys that when pressed together will block all other key or mouse inputs until released.
+        /// </summary>
+        public Keys[] BlockAllInputsKeySet = null;
+
+        /// <summary>
+        /// Whether ALL key inputs should be temporarily blocked.
+        /// </summary>
+        public bool ShouldBlockAll => BlockAllInputsKeySet != null && BlockAllInputsKeySet.Length > 0 && BlockAllInputsKeySet.All(k => KeyIsDown[k]);
 
         /// <summary>
         /// Event for when a key is blocked.
@@ -310,6 +327,10 @@ namespace KeyboardChatterBlocker
             StatsKeyCount[key]++;
             ulong timeNow = GetTickCount64();
             ulong timeLast = MeasureMode == MeasureFrom.Release ? KeysToLastReleaseTime[key] : KeysToLastPressTime[key];
+            if (ShouldBlockAll)
+            {
+                return false;
+            }
             if (timeLast > timeNow) // In the future = number handling mixup, just allow it.
             {
                 KeysToLastPressTime[key] = timeNow;
@@ -348,6 +369,10 @@ namespace KeyboardChatterBlocker
                 return true;
             }
             KeyIsDown[key] = false;
+            if (ShouldBlockAll)
+            {
+                return false;
+            }
             if (!KeysWereDownBlocked[key]) // Down wasn't blocked = allow it.
             {
                 KeysToLastReleaseTime[key] = timeNow;

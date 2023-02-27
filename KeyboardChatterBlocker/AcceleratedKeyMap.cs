@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace KeyboardChatterBlocker
 {
     /// <summary>
-    /// Represents essentially a Dictionary[Key, T] with a special case for low range keys.
+    /// Represents essentially a Dictionary[<see cref="Keys"/>, <typeparamref name="T"/>] with a special case for low range keys.
     /// </summary>
     /// <typeparam name="T">The type of value in the Dictionary.</typeparam>
     public class AcceleratedKeyMap<T>
@@ -24,7 +24,7 @@ namespace KeyboardChatterBlocker
         public Dictionary<Keys, T> MainDictionary = new Dictionary<Keys, T>(1024);
 
         /// <summary>
-        /// Get or set a key-to-T mapping.
+        /// Get or set a key-to-<typeparamref name="T"/> mapping.
         /// </summary>
         /// <param name="key">The key index.</param>
         public T this[Keys key]
