@@ -232,6 +232,11 @@ namespace KeyboardChatterBlocker
         public bool AnyKeyChange = false;
 
         /// <summary>
+        /// Action to play a sound when chatter is detected.
+        /// </summary>
+        public static Action PlayNotification = KBCUtils.GetSoundPlayer("chatter.wav");
+
+        /// <summary>
         /// Called when a key-down event is detected, to decide whether to allow it through.
         /// </summary>
         /// <param name="key">The key being pressed.</param>
@@ -272,6 +277,7 @@ namespace KeyboardChatterBlocker
             StatsKeyChatter[key]++;
             KeysWereDownBlocked[key] = true;
             KeyBlockedEvent?.Invoke(new KeyBlockedEventArgs() { Key = key, Time = (uint)(timeNow - timeLast) });
+            PlayNotification();
             return false;
         }
 

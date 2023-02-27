@@ -73,6 +73,10 @@ I've taken a similar approach to the software solutions mentioned above, but wit
 - `auto_disable_programs`: Set to a list of executable names (case insensitive, without the `.exe`) separated by slashes (like `some_video_game/other_game`) that will cause the chatter block to automatically disable whenever that program is open.
 - `auto_disable_on_fullscreen`: set to `true` to auto-disable the chatter block when any application is open in fullscreen - see also [#26](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker/issues/26).
 
+### Other Features
+
+- You can add any `chatter.wav` file next to the `.exe`, and it will be automatically played when chatter is detected. This feature was requested by [#32](https://github.com/mcmonkeyprojects/KeyboardChatterBlocker/issues/32). You can download sound files for example [here](https://bigsoundbank.com/search?q=notification). The only requirement is that it be in `.wav` format.
+
 ---
 
 ### Licensing pre-note:

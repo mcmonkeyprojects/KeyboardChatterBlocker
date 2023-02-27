@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="AcceleratedKeyMap.cs" />
     <Compile Include="FullScreenDetectHelper.cs" />
+    <Compile Include="KBCUtils.cs" />
     <Compile Include="KeyBlockedEventArgs.cs" />
     <Compile Include="KeyBlocker.cs" />
     <Compile Include="KeyboardInterceptor.cs" />
