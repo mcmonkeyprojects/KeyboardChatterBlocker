@@ -392,6 +392,11 @@ namespace KeyboardChatterBlocker
                 return true;
             }
             KeysWereDownBlocked[key] = false;
+            if (key == KeysHelper.KEY_MOUSE_FORWARD || key == KeysHelper.KEY_MOUSE_BACKWARD) // Forward/Backward listeners listen to the Up, not the Down, so must be blocked
+            {
+                return false;
+            }
+            // In most cases, it's better to just let the duplicate 'up' through anyway.
             return true;
         }
     }

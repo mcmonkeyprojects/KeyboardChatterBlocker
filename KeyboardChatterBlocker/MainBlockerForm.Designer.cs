@@ -619,7 +619,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView ChatterLogGrid;
+        public System.Windows.Forms.DataGridView ChatterLogGrid;
         private System.Windows.Forms.CheckBox EnabledCheckbox;
         private System.Windows.Forms.NumericUpDown ChatterThresholdBox;
         private System.Windows.Forms.Label ChatterThresholdLabel;
