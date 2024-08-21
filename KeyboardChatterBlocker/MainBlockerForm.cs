@@ -440,6 +440,10 @@ namespace KeyboardChatterBlocker
         /// </summary>
         public void ConfigureKeysGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
             if (!KeysHelper.TryGetKey(ConfigureKeysGrid[0, e.RowIndex].Value.ToString(), out Keys key))
             {
                 MessageBox.Show("Error: configure keys grid misconfigured, invalid key name!", "Keyboard Chatter Blocker", MessageBoxButtons.OK);
@@ -527,6 +531,10 @@ namespace KeyboardChatterBlocker
         /// </summary>
         private void ChatterLogGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
             if (!Enum.TryParse(ChatterLogGrid[1, e.RowIndex].Value.ToString(), true, out Keys key))
             {
                 MessageBox.Show("Error: chatter log grid misconfigured, invalid key name!", "Keyboard Chatter Blocker", MessageBoxButtons.OK);
