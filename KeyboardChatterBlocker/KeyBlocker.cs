@@ -466,6 +466,41 @@ namespace KeyboardChatterBlocker
         }
 
         /// <summary>
+        /// Returns true when <paramref name="key"/> is a modifier key (Ctrl/Shift/Alt variants).
+        /// </summary>
+        /// <param name="key">The key to evaluate.</param>
+        /// <returns>True for modifier keys, false otherwise.</returns>
+        private static bool IsModifierKey(Keys key)
+        {
+            return key == Keys.ControlKey
+                || key == Keys.LControlKey
+                || key == Keys.RControlKey
+                || key == Keys.ShiftKey
+                || key == Keys.LShiftKey
+                || key == Keys.RShiftKey
+                || key == Keys.Menu
+                || key == Keys.LMenu
+                || key == Keys.RMenu;
+        }
+
+        /// <summary>
+        /// Returns true if any modifier key is currently held down.
+        /// </summary>
+        /// <returns>true when any Ctrl/Shift/Alt key is pressed, false otherwise.</returns>
+        private bool IsAnyModifierDown()
+        {
+            return KeyIsDown[Keys.ControlKey]
+                || KeyIsDown[Keys.LControlKey]
+                || KeyIsDown[Keys.RControlKey]
+                || KeyIsDown[Keys.ShiftKey]
+                || KeyIsDown[Keys.LShiftKey]
+                || KeyIsDown[Keys.RShiftKey]
+                || KeyIsDown[Keys.Menu]
+                || KeyIsDown[Keys.LMenu]
+                || KeyIsDown[Keys.RMenu];
+        }
+
+        /// <summary>
         /// Called when a key-down event is detected, to decide whether to allow it through.
         /// </summary>
         /// <param name="key">The key being pressed.</param>
@@ -473,6 +508,16 @@ namespace KeyboardChatterBlocker
         /// <returns>True to allow the press, false to deny it.</returns>
         public bool AllowKeyDown(Keys key, bool defaultZero)
         {
+            if (IsModifierKey(key))
+            {
+                KeyIsDown[key] = true;
+                return true;
+            }
+            if (IsAnyModifierDown())
+            {
+                KeyIsDown[key] = true;
+                return true;
+            }
             if (!IsEnabled || IsAutoDisabled || TempDisable) // Not enabled = allow everything through.
             {
                 return true;
@@ -537,6 +582,12 @@ namespace KeyboardChatterBlocker
         public bool AllowKeyUp(Keys key)
         {
             ulong timeNow = GetTickCount64();
+            if (IsModifierKey(key))
+            {
+                KeyIsDown[key] = false;
+                KeysToLastReleaseTime[key] = timeNow;
+                return true;
+            }
             if (!IsEnabled || IsAutoDisabled || TempDisable) // Not enabled = allow everything through.
             {
                 KeysToLastReleaseTime[key] = timeNow;
