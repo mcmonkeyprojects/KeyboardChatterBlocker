@@ -169,6 +169,9 @@ namespace KeyboardChatterBlocker
                 case "auto_disable_on_fullscreen":
                     AutoDisableOnFullscreen = SettingAsBool(settingValue);
                     break;
+                case "disable_only_on_focus":
+                    DisableOnlyIfFocus = SettingAsBool(settingValue);
+                    break;
                 case "other_key_resets_timeout":
                     OtherKeyResetsTimeout = SettingAsBool(settingValue);
                     break;
@@ -273,6 +276,7 @@ namespace KeyboardChatterBlocker
                 result.Append("auto_disable_programs: ").Append(string.Join("/", AutoDisablePrograms)).Append("\n");
             }
             result.Append("auto_disable_on_fullscreen: ").Append(AutoDisableOnFullscreen ? "true" : "false").Append("\n");
+            result.Append("disable_only_on_focus: ").Append(DisableOnlyIfFocus ? "true" : "false").Append("\n");
             result.Append("other_key_resets_timeout: ").Append(OtherKeyResetsTimeout ? "true" : "false").Append("\n");
             result.Append("\n");
             foreach (KeyValuePair<string, string> pair in Hotkeys)
@@ -365,6 +369,11 @@ namespace KeyboardChatterBlocker
         /// Whether to automatically disable the blocker when any program is full screen.
         /// </summary>
         public bool AutoDisableOnFullscreen = false;
+
+        /// <summary>
+        /// Whether to automatically disable the blocker only if one of listed programs are focused.
+        /// </summary>
+        public bool DisableOnlyIfFocus = false;
 
         /// <summary>
         /// If true, reset timeouts for keys when another key is pressed.
