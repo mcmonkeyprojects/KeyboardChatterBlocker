@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 namespace KeyboardChatterBlocker
 {
@@ -18,6 +19,7 @@ namespace KeyboardChatterBlocker
     /// </summary>
     public partial class MainBlockerForm : Form
     {
+       
         /// <summary>
         /// Whether the form is still loading.
         /// </summary>
@@ -107,6 +109,12 @@ namespace KeyboardChatterBlocker
             InitializeComponent();
             versionAboutLabel.Text = "Version: " + Application.ProductVersion;
         }
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
         /// <summary>
         /// Method auto-called (by event) for when a key is blocked.
@@ -272,7 +280,21 @@ namespace KeyboardChatterBlocker
                 return;
             }
             bool any = false;
-            foreach (string proc in Process.GetProcesses().Select(p => p.ProcessName.ToLowerInvariant()))
+
+            List<string> processes = new List<string>();
+
+            if (Program.Blocker.DisableOnlyIfFocus)
+            {
+                processes.Add(GetActiveProcessName().ToLowerInvariant());
+            }
+            else
+            {
+                foreach (string proc in Process.GetProcesses().Select(p => p.ProcessName.ToLowerInvariant())){
+                    processes.Add((string)proc);
+                }
+            }
+
+            foreach (string proc in processes)
             {
                 if (programsToCheck.Contains(proc))
                 {
@@ -324,6 +346,7 @@ namespace KeyboardChatterBlocker
             AutoDisableTimer.Start();
             AutoDisableProgramsList.Items.AddRange(Program.Blocker.AutoDisablePrograms.Select(s => new ListViewItem(s)).ToArray());
             AutoDisableOnFullscreenCheckbox.Checked = Program.Blocker.AutoDisableOnFullscreen;
+            DisableOnFocusCheckbox.Checked = Program.Blocker.DisableOnlyIfFocus;
             ChatterThresholdBox.Value = Program.Blocker.GlobalChatterTimeLimit;
             MeasureFromComboBox.Text = Program.Blocker.MeasureMode.ToString();
             EnabledCheckbox.Checked = Program.Blocker.IsEnabled;
@@ -365,6 +388,31 @@ namespace KeyboardChatterBlocker
                 }
             }
         }
+
+        public static string GetActiveProcessName()
+            {
+                // 2. Get the handle of the focused window
+                IntPtr hwnd = GetForegroundWindow();
+                if (hwnd == IntPtr.Zero) return "unknown";
+
+                // 3. Get the Process ID (PID) from that window handle
+                GetWindowThreadProcessId(hwnd, out uint pid);
+
+                try
+                {
+                    // 4. Get the process object and return its lowercased name
+                    using (Process p = Process.GetProcessById((int)pid))
+                    {
+                        return p.ProcessName.ToLowerInvariant();
+                    }
+                }
+                catch (Exception)
+                {
+                    // Handles cases where the process closes abruptly 
+                    // or your app lacks permissions to access it
+                    return "unknown"; 
+                }
+            }
 
         /// <summary>
         /// If enabled, any close should fully close the form and exit the program.
@@ -722,6 +770,19 @@ namespace KeyboardChatterBlocker
                 return;
             }
             Program.Blocker.AutoDisableOnFullscreen = AutoDisableOnFullscreenCheckbox.Checked;
+            Program.Blocker.SaveConfig();
+        }
+
+        /// <summary>
+        /// Event method to handle the 'auto disable on fullscreen' checkbox state changing.
+        /// </summary>
+        private void DisableOnFocusCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Loading)
+            {
+                return;
+            }
+            Program.Blocker.DisableOnlyIfFocus = DisableOnFocusCheckbox.Checked;
             Program.Blocker.SaveConfig();
         }
 

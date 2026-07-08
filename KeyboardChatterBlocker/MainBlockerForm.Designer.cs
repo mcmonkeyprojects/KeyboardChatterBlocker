@@ -80,6 +80,7 @@
             this.AboutLabel2 = new System.Windows.Forms.Label();
             this.AboutLabel1 = new System.Windows.Forms.Label();
             this.EnableNoteLabel = new System.Windows.Forms.Label();
+            this.DisableOnFocusCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
             this.TrayIconContextMenu.SuspendLayout();
@@ -402,6 +403,7 @@
             // 
             // AutoDisableProgramsTabPage
             // 
+            this.AutoDisableProgramsTabPage.Controls.Add(this.DisableOnFocusCheckbox);
             this.AutoDisableProgramsTabPage.Controls.Add(this.AutoDisableOnFullscreenCheckbox);
             this.AutoDisableProgramsTabPage.Controls.Add(this.AutoDisableProgramsList);
             this.AutoDisableProgramsTabPage.Controls.Add(this.RemoveProgramButton);
@@ -646,6 +648,18 @@
             this.EnableNoteLabel.Text = "EnableNote";
             this.EnableNoteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // DisableOnFocusCheckbox
+            // 
+            this.DisableOnFocusCheckbox.AutoSize = true;
+            this.DisableOnFocusCheckbox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.DisableOnFocusCheckbox.Location = new System.Drawing.Point(8, 5);
+            this.DisableOnFocusCheckbox.Name = "DisableOnFocusCheckbox";
+            this.DisableOnFocusCheckbox.Size = new System.Drawing.Size(132, 17);
+            this.DisableOnFocusCheckbox.TabIndex = 7;
+            this.DisableOnFocusCheckbox.Text = "Disable only if focused";
+            this.DisableOnFocusCheckbox.UseVisualStyleBackColor = true;
+            this.DisableOnFocusCheckbox.CheckedChanged += new System.EventHandler(this.DisableOnFocusCheckbox_CheckedChanged);
+            // 
             // MainBlockerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -737,6 +751,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox MeasureFromComboBox;
         private System.Windows.Forms.CheckBox SaveStatsCheckbox;
+        private System.Windows.Forms.CheckBox DisableOnFocusCheckbox;
     }
 }
 
