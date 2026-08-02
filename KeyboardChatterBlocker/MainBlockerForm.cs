@@ -114,7 +114,12 @@ namespace KeyboardChatterBlocker
         /// <param name="e">The key blocked event details.</param>
         public void LogKeyBlocked(KeyBlockedEventArgs e)
         {
+            bool wasScrolledToBottom = ChatterLogGrid.FirstDisplayedScrollingRowIndex + ChatterLogGrid.DisplayedRowCount(true) >= ChatterLogGrid.RowCount;
             ChatterLogGrid.Rows.Add(DateTime.Now.ToString("MM/dd HH:mm:ss", CultureInfo.InvariantCulture), KeysHelper.Stringify(e.Key), e.Time, "[Edit]");
+            if (wasScrolledToBottom)
+            {
+                ChatterLogGrid.FirstDisplayedScrollingRowIndex = ChatterLogGrid.RowCount - 1;
+            }
         }
 
         /// <summary>
