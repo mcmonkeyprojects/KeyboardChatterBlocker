@@ -330,6 +330,7 @@ namespace KeyboardChatterBlocker
             SaveStatsCheckbox.Checked = Program.Blocker.SaveStats;
             StartWithWindowsCheckbox.Checked = File.Exists(StartupLinkPath);
             OtherKeyResetsCheckbox.Checked = Program.Blocker.OtherKeyResetsTimeout;
+            ExcludeInjectedCheckbox.Checked = Program.Blocker.ExcludeInjected;
             StatsUpdateTimer = new Timer { Interval = 1000 };
             StatsUpdateTimer.Tick += StatsUpdateTimer_Tick;
             StatsUpdateTimer.Start();
@@ -752,6 +753,15 @@ namespace KeyboardChatterBlocker
         private void SaveStatsCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Program.Blocker.SaveStats = SaveStatsCheckbox.Checked;
+        }
+
+        /// <summary>
+        /// Event method to handle the 'exclude injected' checkbox state changing.
+        /// </summary>
+        private void ExcludeInjectedCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Blocker.ExcludeInjected = ExcludeInjectedCheckbox.Checked;
+            Program.Blocker.SaveConfig();
         }
     }
 }

@@ -157,8 +157,13 @@ namespace KeyboardChatterBlocker
                 bool isDown = wParamInt == WM_KEYDOWN || wParamInt == WM_SYSKEYDOWN;
                 if (isDown || wParamInt == WM_KEYUP || wParamInt == WM_SYSKEYUP)
                 {
-                    int vkCode = Marshal.ReadInt32(lParam);
-                    Keys key = (Keys)vkCode;
+                    KBDLLHOOKSTRUCT hookStruct = Marshal.PtrToStructure<KBDLLHOOKSTRUCT>(lParam);
+                    KBDLLHOOKSTRUCTFlags flags = (KBDLLHOOKSTRUCTFlags)hookStruct.flags;
+                    if (KeyBlockHandler.ExcludeInjected && (flags.HasFlag(KBDLLHOOKSTRUCTFlags.LLKHF_INJECTED) || flags.HasFlag(KBDLLHOOKSTRUCTFlags.LLKHF_LOWER_IL_INJECTED)))
+                    {
+                        return CallNextHookEx(KeyboardHookID, nCode, wParam, lParam);
+                    }
+                    Keys key = (Keys)hookStruct.vkCode;
                     if (isDown)
                     {
                         if (!KeyBlockHandler.AllowKeyDown(key, false))
@@ -271,6 +276,32 @@ namespace KeyboardChatterBlocker
             public uint flags;
             public uint time;
             public IntPtr dwExtraInfo;
+        }
+
+        /// <summary>
+        /// Helper struct for keyboard event data.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        private struct KBDLLHOOKSTRUCT
+        {
+            public uint vkCode;
+            public uint scanCode;
+            public uint flags;
+            public uint time;
+            public IntPtr dwExtraInfo;
+        }
+        
+        /// <summary>
+        /// Flags for <see cref="KBDLLHOOKSTRUCT"/>
+        /// </summary>
+        [Flags]
+        private enum KBDLLHOOKSTRUCTFlags : uint
+        {
+            LLKHF_EXTENDED = 0x01,
+            LLKHF_LOWER_IL_INJECTED = 0x02,
+            LLKHF_INJECTED = 0x10,
+            LLKHF_ALTDOWN = 0x20,
+            LLKHF_UP = 0x80
         }
 
         /// <summary>

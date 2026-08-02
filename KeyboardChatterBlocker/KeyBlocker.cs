@@ -59,6 +59,11 @@ namespace KeyboardChatterBlocker
         public bool TempDisable = false;
 
         /// <summary>
+        /// Whether to exclude keyboard events that look like they were injected.
+        /// </summary>
+        public bool ExcludeInjected = false;
+
+        /// <summary>
         /// Load the <see cref="KeyBlocker"/> from config file settings.
         /// </summary>
         public KeyBlocker()
@@ -218,6 +223,9 @@ namespace KeyboardChatterBlocker
                 case "save_stats":
                     SaveStats = SettingAsBool(settingValue);
                     break;
+                case "exclude_injected":
+                    ExcludeInjected = SettingAsBool(settingValue);
+                    break;
             }
         }
 
@@ -274,6 +282,7 @@ namespace KeyboardChatterBlocker
             }
             result.Append("auto_disable_on_fullscreen: ").Append(AutoDisableOnFullscreen ? "true" : "false").Append("\n");
             result.Append("other_key_resets_timeout: ").Append(OtherKeyResetsTimeout ? "true" : "false").Append("\n");
+            result.Append("exclude_injected: ").Append(ExcludeInjected ? "true" : "false").Append("\n");
             result.Append("\n");
             foreach (KeyValuePair<string, string> pair in Hotkeys)
             {

@@ -115,6 +115,7 @@ After following the above step by step, your blocking will exactly only cover yo
 - `measure_from` set to `Press` or `Release` (defaults to `Press`) to choose when to measure chatter delay from - the last key press, or last key release.
 - `disable_tray_icon`: set to `true` to prevent the tray icon from appearing, even when "hidden to tray". The only way to bring the form up will be enabling `hotkey_showform` and pressing that key.
 - `save_stats`: set to `true` to save a persistent stats file to retain stat data over longer periods.
+- `exclude_injected`: set to `true` to automatically ignore keyboard events that look like they were injected (based on KBDLLHOOKSTRUCT's LLKHF flags).
 
 ## Other Features
 

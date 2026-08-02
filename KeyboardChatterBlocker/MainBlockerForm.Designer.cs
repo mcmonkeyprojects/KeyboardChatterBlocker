@@ -80,6 +80,7 @@
             this.AboutLabel2 = new System.Windows.Forms.Label();
             this.AboutLabel1 = new System.Windows.Forms.Label();
             this.EnableNoteLabel = new System.Windows.Forms.Label();
+            this.ExcludeInjectedCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterLogGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChatterThresholdBox)).BeginInit();
             this.TrayIconContextMenu.SuspendLayout();
@@ -491,6 +492,7 @@
             // 
             // otherSettingsTabPage
             // 
+            this.otherSettingsTabPage.Controls.Add(this.ExcludeInjectedCheckbox);
             this.otherSettingsTabPage.Controls.Add(this.SaveStatsCheckbox);
             this.otherSettingsTabPage.Controls.Add(this.label1);
             this.otherSettingsTabPage.Controls.Add(this.MeasureFromComboBox);
@@ -646,6 +648,18 @@
             this.EnableNoteLabel.Text = "EnableNote";
             this.EnableNoteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // ExcludeInjectedCheckbox
+            // 
+            this.ExcludeInjectedCheckbox.AutoSize = true;
+            this.ExcludeInjectedCheckbox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ExcludeInjectedCheckbox.Location = new System.Drawing.Point(103, 74);
+            this.ExcludeInjectedCheckbox.Name = "ExcludeInjectedCheckbox";
+            this.ExcludeInjectedCheckbox.Size = new System.Drawing.Size(105, 17);
+            this.ExcludeInjectedCheckbox.TabIndex = 4;
+            this.ExcludeInjectedCheckbox.Text = "Exclude Injected";
+            this.ExcludeInjectedCheckbox.UseVisualStyleBackColor = true;
+            this.ExcludeInjectedCheckbox.CheckedChanged += new System.EventHandler(this.ExcludeInjectedCheckbox_CheckedChanged);
+            // 
             // MainBlockerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -737,6 +751,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox MeasureFromComboBox;
         private System.Windows.Forms.CheckBox SaveStatsCheckbox;
+        private System.Windows.Forms.CheckBox ExcludeInjectedCheckbox;
     }
 }
 
