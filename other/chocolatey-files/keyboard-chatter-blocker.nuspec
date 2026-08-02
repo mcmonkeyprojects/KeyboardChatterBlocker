@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>keyboard-chatter-blocker</id>
-    <version>1.20</version>
+    <version>1.21</version>
     <title>KeyboardChatterBlocker (Install)</title>
     <authors>mcmonkey</authors>
     <owners>mcmonkey</owners>
